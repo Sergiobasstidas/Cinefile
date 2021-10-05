@@ -1,41 +1,43 @@
 <template>
-  <div>
-    <div class="card">
-      <div class="img">
-        <img
-          src="http://image.tmdb.org/t/p/w220_and_h330_face//rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg"
-          alt=""
-        />
-      </div>
-      <div class="details"></div>
-    </div>
-  </div>
+  <v-container class="contenedor mx-auto" fluid>
+    <v-row dense>
+      <v-col v-for="(movie, i) in movieList" :key="i" cols="12" md="6" lg="4">
+        <MovieCard :movie="movie" />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script>
-  //   import movieCard from "@/components/MovieCard.vue";
+  import MovieCard from "@/components/MovieCard.vue";
   export default {
     components: {
-      //   movieCard,
+      MovieCard,
+    },
+    props: {
+      movieList: Array,
     },
   };
 </script>
 <style scoped>
-  .card {
-    max-width: 500px;
-    height: 350px;
-    background-color: #151f30;
-    margin: 60px;
-    border-radius: 30px;
-    display: flex;
+  .contenedor {
+    max-width: 85%;
   }
-  .img {
-    height: 100%;
-    width: 50%;
+  @media (min-width: 600px) {
+    .card {
+      max-width: 200px;
+      max-height: 300px;
+    }
+    .contenedor {
+      max-width: 85%;
+    }
   }
-  .img img {
-    width: 100%;
-    height: 100%;
-    overflow-y: hidden;
-    border-radius: 10px 0 0 10px;
+  @media (min-width: 960px) {
+    .card {
+      max-width: 380px;
+      max-height: 270px;
+    }
+    .contenedor {
+      max-width: 85%;
+    }
   }
 </style>

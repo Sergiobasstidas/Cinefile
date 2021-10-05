@@ -2,6 +2,8 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 
+// import Movie from "./movieClass";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -29,16 +31,23 @@ export default new Vuex.Store({
           type: "tv",
         },
       ],
-      homeMovies: [],
+      homeMovies: [], // Array que se llena con los arrays de peliculas que se piden al abrir el home.
     },
-    listedMovies: [],
-    listedSeries: [],
+    listedMovies: [], // Peliculas que seran mostradas en la seccion peliculas
+    listedSeries: [], // Series que seran mostradas en la seccion Series
+    detailed: {},
 
     API_KEY: "21b858443ab2bbdbb90fa7c26e40b421",
     BASE_URL: "https://api.themoviedb.org/3",
     POSTER_URL: "https://www.themoviedb.org/t/p/w220_and_h330_face",
+    GENRES: [],
   },
+  getters: {},
+
   mutations: {
+    SET_GENRES_LIST(state, genres) {
+      state.GENRES = genres;
+    },
     SET_LISTED_MOVIES(state, movies) {
       state.listedMovies = movies;
     },
@@ -49,65 +58,81 @@ export default new Vuex.Store({
       state.home.homeMovies.push(list);
     },
   },
+
   actions: {
-    async getMovieByCategory({ state, commit }, { category, page = 1 }) {
+    async getByCategory({ state, commit }, { category, type, page = 1 }) {
       try {
         const {
           data: { results },
-        } = await axios.get(`${state.BASE_URL}/movie/${category}`, {
+        } = await axios.get(`${state.BASE_URL}/${type}/${category}`, {
           params: {
             api_key: state.API_KEY,
             page: page,
           },
         });
-        console.log(`${category}:`, results);
-        commit("SET_LISTED_MOVIES", results);
-        return results;
-      } catch (e) {
-        console.log(e);
-      }
-    },
-
-    async getSeriesByCategory({ state, commit }, { category, page = 1 }) {
-      try {
-        const {
-          data: { results },
-        } = await axios.get(`${state.BASE_URL}/tv/${category}`, {
-          params: {
-            api_key: state.API_KEY,
-            page: page,
-          },
+        const resultsWithType = [];
+        // Agregando la key type para poder diferenciar entre pelicula o serie.
+        results.forEach((result) => {
+          result.type = type;
+          resultsWithType.push(result);
         });
-        console.log(`${category}:`, results);
-
-        commit("SET_LISTED_SERIES", results);
-        return results;
+        //////////////////////////////////////////
+        console.log(`${category}, ${type}:`, resultsWithType);
+        type == "movie"
+          ? commit("SET_LISTED_MOVIES", resultsWithType)
+          : commit("SET_LISTED_SERIES", resultsWithType);
+        return resultsWithType;
       } catch (e) {
         console.log(e);
       }
     },
 
-    async setUpHomeCategories({ commit, dispatch }, { type, category }) {
-      if (type == "movie") {
-        try {
-          const movies = await dispatch("getMovieByCategory", {
-            category: category,
-            page: 1,
-          });
-          commit("SETUP_HOME", movies);
-        } catch (e) {
-          console.log(e);
-        }
-      } else {
-        try {
-          const series = await dispatch("getSeriesByCategory", {
-            category: category,
-            page: 1,
-          });
-          commit("SETUP_HOME", series);
-        } catch (e) {
-          console.log(e);
-        }
+    async initializeHome({ commit, dispatch }, { type, category }) {
+      try {
+        const movieArray = await dispatch("getByCategory", {
+          category: category,
+          page: 1,
+          type: type,
+        });
+        commit("SETUP_HOME", movieArray);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async getGenreLists({ commit }) {
+      const {
+        data: { genres: movieGenres },
+      } = await axios.get("https://api.themoviedb.org/3/genre/movie/list", {
+        params: { api_key: "21b858443ab2bbdbb90fa7c26e40b421" },
+      });
+      const {
+        data: { genres: tvGenres },
+      } = await axios.get("https://api.themoviedb.org/3/genre/tv/list", {
+        params: { api_key: "21b858443ab2bbdbb90fa7c26e40b421" },
+      });
+      const genres = [movieGenres, tvGenres];
+      commit("SET_GENRES_LIST", genres);
+    },
+
+    async getMovieDetails({ state }, id) {
+      const params = {
+        params: {
+          api_key: state.API_KEY,
+        },
+      };
+      try {
+        const { data: movie } = await axios.get(
+          `${state.BASE_URL}/movie/${id}`,
+          params
+        );
+        console.log(movie);
+        // const {data: cast} = await axios.get(
+        //   `${state.BASE_URL}/movie/${id}`,
+        //   params
+        // );
+      } catch (e) {
+        console.log(e);
       }
     },
   },

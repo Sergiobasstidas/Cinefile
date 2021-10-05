@@ -16,7 +16,7 @@
       class="carousel"
     >
       <slide class="slide" v-for="movie in movieList" :key="movie.id">
-        <movieCard class="movieCard" :movie="movie" />
+        <CarouselCard class="movieCard" :movie="movie" />
       </slide>
     </carousel>
   </div>
@@ -24,7 +24,7 @@
 
 <script>
   import { Carousel, Slide } from "vue-carousel";
-  import movieCard from "@/components/MovieCard.vue";
+  import CarouselCard from "@/components/CarouselCard.vue";
 
   export default {
     name: "HelloWorld",
@@ -45,7 +45,7 @@
     components: {
       Carousel,
       Slide,
-      movieCard,
+      CarouselCard,
     },
     props: {
       movieList: Array,
