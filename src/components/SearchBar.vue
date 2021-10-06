@@ -7,13 +7,22 @@
         class="bar_container"
         col="5"
       >
-        <div class="search-container">
-          <input type="text" class="search-input" placeholder="Buscar..." />
+        <v-col class="search-container" cols="12" sm="5">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Buscar..."
+            v-model="searchText"
+          />
           <v-icon class="search-icon">mdi-magnify</v-icon>
-        </div>
+        </v-col>
 
-        <v-col class="categories" cols="3">
-          <CategoriesToggle />
+        <v-col class="categories" cols="12" sm="1">
+          <CategoriesToggle
+            :categories="categories"
+            :activeCategory="activeCategory"
+            @categoryChange="changeCategory"
+          />
         </v-col>
       </v-row>
     </v-container>
@@ -27,6 +36,58 @@
     components: {
       CategoriesToggle,
     },
+    props: {
+      type: {
+        required: true,
+        type: String,
+      },
+    },
+    data() {
+      return {
+        categories: [
+          {
+            name: "Popular",
+            path: "popular",
+          },
+          {
+            name: "Top-rated",
+            path: "top_rated",
+          },
+          {
+            name: "Upcoming",
+            path: "upcoming",
+          },
+        ],
+        activeCategory: "popular",
+        searchText: "",
+      };
+    },
+    watch: {
+      searchText: async function () {
+        const searchText = this.searchText;
+        if (searchText !== "") {
+          this.searchByText(searchText);
+        } else {
+          this.changeCategory(this.activeCategory);
+        }
+      },
+    },
+    methods: {
+      changeCategory(categoryPath) {
+        this.activeCategory = categoryPath;
+        this.$store.dispatch("getByCategory", {
+          category: categoryPath,
+          type: this.type,
+        });
+      },
+
+      searchByText(text) {
+        this.$store.dispatch("searchByText", {
+          text: text,
+          type: this.type,
+        });
+      },
+    },
   };
 </script>
 <style>
@@ -37,14 +98,13 @@
     align-items: center;
   }
   .search-container {
-    width: 40%;
-    position: relative;
+    position: relative !important;
   }
   .search-container .search-icon {
     position: absolute !important;
-    right: 10px;
+    right: 23px;
     color: #2f80ed !important;
-    top: 10px;
+    top: 22px;
   }
 
   .search-input {
@@ -60,7 +120,7 @@
     margin-left: 10px;
   }
   .categories {
-    width: 300px;
+    min-width: 300px;
   }
   .categories:first-child {
     margin: 0 auto;
