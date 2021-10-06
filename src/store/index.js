@@ -40,6 +40,7 @@ export default new Vuex.Store({
     API_KEY: "21b858443ab2bbdbb90fa7c26e40b421",
     BASE_URL: "https://api.themoviedb.org/3",
     POSTER_URL: "https://www.themoviedb.org/t/p/w220_and_h330_face",
+    BACKDROP_PATH: "https://www.themoviedb.org/t/p/w1280",
     GENRES: [],
   },
   getters: {},
@@ -131,6 +132,26 @@ export default new Vuex.Store({
         //   `${state.BASE_URL}/movie/${id}`,
         //   params
         // );
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async searchByText({ commit, state }, { text, type, page = 1 }) {
+      try {
+        const {
+          data: { results },
+        } = await axios.get(`${state.BASE_URL}/search/${type}`, {
+          params: {
+            api_key: state.API_KEY,
+            query: text.toString(),
+            page: page,
+          },
+        });
+        console.log(results);
+        type == "movie"
+          ? commit("SET_LISTED_MOVIES", results)
+          : commit("SET_LISTED_SERIES", results);
       } catch (e) {
         console.log(e);
       }

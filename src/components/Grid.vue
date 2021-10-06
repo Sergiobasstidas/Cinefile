@@ -7,7 +7,7 @@
         :key="i"
         align-self="center"
         cols="12"
-        sm="6"
+        md="6"
         lg="4"
         xl="3"
       >

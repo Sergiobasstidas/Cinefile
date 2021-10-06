@@ -1,8 +1,8 @@
 <template>
   <div class="grid-container mx-auto">
-    <h1 class="title-text mb-6">Movies</h1>
+    <h1 class="title-text mb-6">Series</h1>
     <SearchBar class="search-bar" :type="type" />
-    <Grid :movieList="$store.state.listedMovies" />
+    <Grid :movieList="$store.state.listedSeries" />
   </div>
 </template>
 <script>
@@ -16,13 +16,13 @@
     },
     data() {
       return {
-        type: "movie",
+        type: "tv",
       };
     },
     beforeCreate() {
       this.$store.dispatch("getByCategory", {
         category: "popular",
-        type: "movie",
+        type: "tv",
       });
     },
   };
