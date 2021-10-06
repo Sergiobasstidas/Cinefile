@@ -109,7 +109,7 @@
 export default {
   name: "DetallePelicula",
   data: () => ({
-    imagenFondo: "imagen-fondo.jpg",
+    imagenFondo: "../imagen-fondo.jpg",
     titulo: "Dune",
     listaInfo: [
       {
