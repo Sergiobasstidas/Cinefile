@@ -69,7 +69,7 @@
               allowfullscreen
             ></iframe>
             <v-layout align-center justify-space-between>
-              <div class="infografia-valoracion">
+              <div class="infografia__valoracion">
                 <v-rating
                   empty-icon="mdi-star-outline"
                   full-icon="mdi-star"
@@ -100,16 +100,49 @@
             </v-layout>
           </div>
         </div>
+        <div class="infografia__cast">
+          <CarouselCast :castList="casts" />
+        </div>
+        <div class="infografia__genre">
+          <h3 class="title_text">Géneros</h3>
+          <v-chip
+            v-for="(genre, $index) in genres"
+            :key="$index"
+            class="mr-12"
+            color="#151F30"
+            text-color="#fff"
+            >{{ genre.text }}</v-chip
+          >
+        </div>
+        <div class="infografia__share">
+          <h3 class="title_text">Compartir</h3>
+          <v-chip class="mr-12" color="#3B5998" text-color="#fff"
+            ><img src="facebook-f-brands.svg" class="img-svg" />
+            Compartir</v-chip
+          >
+          <v-chip class="mr-12" color="#55ACEE" text-color="#fff"
+            ><img src="twitter-brands.svg" class="img-svg" /> Compartir</v-chip
+          >
+          <v-chip class="mr-12" color="#00BB2D" text-color="#fff"
+            ><img src="whatsapp-brands.svg" class="img-svg" /> Compartir</v-chip
+          >
+        </div>
+        <Comentarios></Comentarios>
       </v-container>
     </div>
   </div>
 </template>
 
 <script>
+import CarouselCast from "@/components/CarouselCast";
+import Comentarios from "@/components/Comentarios";
 export default {
   name: "DetallePelicula",
+  components: { CarouselCast, Comentarios },
   data: () => ({
-    imagenFondo: "../imagen-fondo.jpg",
+    //imagenFondo: "../imagen-fondo.jpg",
+    imagenFondo:
+      "https://www.themoviedb.org/t/p/w1280/aknvFyJUQQoZFtmFnYzKi4vGv4J.jpg",
     titulo: "Dune",
     listaInfo: [
       {
@@ -152,10 +185,56 @@ export default {
         value: "ver_despues",
       },
     ],
-    beforeMount(){
-      console.log(this.$route.params.id)
-    }
+    casts: [
+      {
+        id: 1,
+        image: "../cast_01.jpg",
+        title: "Timothée Chalamet",
+      },
+      {
+        id: 2,
+        image: "../cast_02.jpg",
+        title: "Zendaya",
+      },
+      {
+        id: 3,
+        image: "../cast_03.jpg",
+        title: "Rebecca Ferguson",
+      },
+      {
+        id: 4,
+        image: "../cast_04.jpg",
+        title: "Oscar Isaac",
+      },
+      {
+        id: 5,
+        image: "../cast_05.jpg",
+        title: "Jason Momoa",
+      },
+      {
+        id: 6,
+        image: "../cast_06.jpg",
+        title: "Stellan Skarsgård",
+      },
+    ],
+    genres: [
+      {
+        id: "accion",
+        text: "Acción",
+      },
+      {
+        id: "aventura",
+        text: "Aventura",
+      },
+      {
+        id: "drama",
+        text: "Drama",
+      },
+    ],
   }),
+  beforeMount() {
+    console.log(this.$route.params.id);
+  },
 };
 </script>
 
@@ -180,7 +259,7 @@ export default {
   right: 0;
   display: block;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(19, 23, 32, 0.5) 0%, #131720 100%);
+  background: linear-gradient(180deg, rgba(19, 23, 32, 0.5) -20%, #131720 80%);
   pointer-events: none;
 }
 .bodyMovie__back img {
@@ -225,7 +304,7 @@ export default {
 }
 .infografia__container {
   max-width: 900px;
-  width: 95%;
+  width: 100%;
 }
 .infografia__descripcion {
   width: 100%;
@@ -235,8 +314,32 @@ export default {
   width: 100%;
   line-height: 20px;
 }
-.infografia-valoracion {
+.infografia__valoracion {
   line-height: 30px;
   font-weight: 300;
+}
+.infografia__cast {
+  line-height: 20px;
+  margin-top: 3rem;
+}
+.infografia__genre {
+  margin-top: 3rem;
+}
+.infografia__genre span {
+  padding: 20px 1.2rem;
+}
+.infografia__share {
+  margin-top: 3rem;
+}
+.infografia__share span {
+  padding: 20px 1.2rem;
+}
+.infografia__share .img-svg {
+  height: 100%;
+}
+@media (max-width: 960px) {
+  .infografia {
+    padding: 0 20px;
+  }
 }
 </style>

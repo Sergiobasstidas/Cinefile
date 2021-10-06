@@ -90,6 +90,4 @@
   .genres {
     font-size: 0.8em;
   }
-  .genres span {
-  }
 </style>
