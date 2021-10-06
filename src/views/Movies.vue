@@ -1,14 +1,18 @@
 <template>
-  <div>
+  <div class="grid-container mx-auto">
+    <h1 class="title-text mb-6">Movies</h1>
+    <SearchBar class="search-bar" />
     <Grid :movieList="$store.state.listedMovies" />
   </div>
 </template>
 <script>
   import Grid from "@/components/Grid";
+  import SearchBar from "@/components/SearchBar";
 
   export default {
     components: {
       Grid,
+      SearchBar,
     },
     data() {
       return {};
@@ -21,4 +25,15 @@
     },
   };
 </script>
-<style></style>
+<style>
+  .grid-container {
+    width: 90%;
+  }
+  .search-bar {
+    margin-bottom: 50px;
+  }
+  .title-text {
+    font-weight: 400;
+    font-size: 6em;
+  }
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card card-hover">
     <img
       :src="
         movie.poster_path
@@ -63,7 +63,7 @@
   };
 </script>
 <style>
-  .card:hover > .text .movieTitle {
+  .card-hover:hover > .text .movieTitle {
     color: #2f80ed !important;
   }
   .card img {
