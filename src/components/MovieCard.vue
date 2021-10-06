@@ -1,6 +1,13 @@
 <template>
-  <v-container>
-    <v-card class="card d-flex flex-nowrap flex-column flex-sm-row my-4">
+  <div
+    class="
+      card-container card-hover
+      d-flex
+      flex-nowrap flex-column flex-sm-row
+      rounded-xl
+    "
+  >
+    <div class="card-img">
       <img
         class="rounded-l-xl"
         :src="
@@ -9,46 +16,49 @@
             : 'https://media.comicbook.com/files/img/default-movie.png'
         "
       />
+    </div>
 
-      <div class="rounded-r-xl d-flex flex-column pl-4 text">
-        <v-card-text
-          class="
-            movieTitle
-            d-flex
-            flex-column
-            text-body-2 text-md-subtitle-1
-            font-weight-bold
-            pt-3
-            pl-0
-            rounded-tr-xl
-          "
-          >{{ movie.title }}</v-card-text
-        >
-        <v-card-text class="d-none d-sm-flex text-caption pt-0 pb-0">
-          <p class="pr-2">Accion</p>
-          <p class="pr-2">Aventura</p>
-          <p class="pr-2">2010</p>
-        </v-card-text>
+    <div class="d-flex flex-column ml-4 text card-text">
+      <span
+        class="
+          movieTitle
+          d-flex
+          flex-column
+          text-body-2 text-md-subtitle-1
+          font-weight-bold
+          p-0
+        "
+        >{{ movie.title }}</span
+      >
+      <span class="d-none d-sm-flex text-caption pt-0 pb-0">
+        <p class="mr-2">Accion</p>
+        <p class="mr-2">Aventura</p>
+      </span>
 
-        <v-card-text class="d-none d-sm-flex pt-0 text-caption">
-          <p>Lorem ipsum dolor sit.</p>
-        </v-card-text>
+      <span class="d-none d-sm-flex pt-0 text-caption">
+        <p>Lorem ipsum dolor sit.</p>
+      </span>
 
-        <v-card-text
-          class="
-            d-none d-sm-flex
-            rounded-br-xl
-            mb-3
-            mt-auto
-            pr-2 pr-lg-1
-            text-caption
-          "
-        >
-          <i> "Lorem ipsum dolor sit amet consectetur adipisicing elit." </i>
-        </v-card-text>
-      </div>
-    </v-card>
-  </v-container>
+      <span
+        class="
+          d-none d-sm-flex
+          rounded-br-xl
+          mb-3
+          mt-auto
+          pr-2 pr-lg-1
+          text-caption
+        "
+      >
+        <i class="movieOverview"> {{ `"${movie.overview}"` }}... </i>
+        <v-tooltip bottom max-width="400px">
+          <template v-slot:activator="{ on, attrs }">
+            <span class="dots" v-bind="attrs" v-on="on"> ... </span>
+          </template>
+          <span>{{ movie.overview }}</span>
+        </v-tooltip>
+      </span>
+    </div>
+  </div>
 </template>
 <script>
   export default {
@@ -59,33 +69,45 @@
   };
 </script>
 <style>
-  .card * {
-    background-color: #151f30;
-    padding: 0;
+  .card-hover:hover > .card-text .movieTitle {
+    color: #2f80ed !important;
+  }
+  .card-container {
+    max-width: 100%;
+    height: 100%;
+    background-color: #151f30 !important;
     color: white;
   }
-  .card {
-    width: 170px;
-    height: 300px;
-    background-color: transparent !important;
-  }
-  .card img {
-    height: 250px !important;
-    width: auto;
-  }
-  .card .text {
-  }
-  @media (min-width: 600px) {
-    .card {
-      max-width: 200px;
-      max-height: 300px;
-    }
+  .card-img {
+    min-width: 180px;
+    max-width: 200px;
+    height: 100%;
+    display: flex;
   }
 
-  @media (min-width: 960px) {
-    .card {
-      max-width: 380px;
-      max-height: 270px;
-    }
+  .card-img img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+  .card-text {
+    width: 250px;
+  }
+  .card-text .movieTitle {
+    width: 90%;
+    white-space: normal !important;
+  }
+  .card-img,
+  .movieTitle {
+    cursor: pointer;
+  }
+  .card-text .movieOverview {
+    line-height: 1.5em;
+    height: 3em;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+  }
+  .dots {
+    cursor: pointer;
   }
 </style>
