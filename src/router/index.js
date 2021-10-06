@@ -21,7 +21,14 @@ const routes = [
     component: () => import("../views/Movies.vue"),
   },
   {
-    path: "/series",
+
+    path: "/movie/:id",
+    name: "DetallePelicula",
+    component: () => import("../views/DetallePelicula.vue"),
+
+  },
+  {
+     path: "/series",
     name: "series",
     component: () => import("../views/Series.vue"),
   },
@@ -33,6 +40,8 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
   routes,
 });
 
