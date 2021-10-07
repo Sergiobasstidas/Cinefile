@@ -188,7 +188,7 @@ export default {
   align-items: center;
 }
 .reaction__like {
-  margin-right: 3rem;
+  margin-right: 1.8rem;
 }
 .like__icon {
   color: #29b474;
@@ -211,7 +211,7 @@ export default {
   align-items: center;
 }
 .actions__reply {
-  margin-right: 3rem;
+  margin-right: 1.8rem;
 }
 .action__icon {
   margin-right: 10px;
