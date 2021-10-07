@@ -58,6 +58,9 @@ export default new Vuex.Store({
     SETUP_HOME(state, list) {
       state.home.homeMovies.push(list);
     },
+    SET_INFOMOVIE(state, movie) {
+      state.infoMovie = movie;
+    },
   },
 
   actions: {
@@ -116,7 +119,7 @@ export default new Vuex.Store({
       commit("SET_GENRES_LIST", genres);
     },
 
-    async getDetails({ dispatch, state }, { id, type }) {
+    async getDetails({ dispatch, state, commit }, { id, type }) {
       try {
         const { data: movie } = await axios.get(
           `${state.BASE_URL}/${type}/${id}`,
@@ -129,6 +132,7 @@ export default new Vuex.Store({
         const cast = await dispatch("getCast", { id: id, type: type });
         const trailer = await dispatch("getTrailer", { id: id, type: type });
         const detailedMovie = { ...movie, cast, trailer };
+        commit("SET_INFOMOVIE", detailedMovie);
         console.log(detailedMovie);
       } catch (e) {
         console.log(e);
