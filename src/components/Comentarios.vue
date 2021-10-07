@@ -59,7 +59,7 @@
           </v-row>
         </div>
         <div v-if="comentario.answers">
-          <div v-for="(respuesta, $index) in comentario.answers" :key="$index" class="box-comment-answer">
+          <div v-for="(respuesta, $index) in comentario.answers" :key="$index" class="box-comment-answer pa-6">
             <v-row
             justify="start"
             align-items="center"
@@ -170,6 +170,7 @@ export default {
   background-color: #151f30;
   border-radius: 10px;
   margin-bottom: 2rem;
+  margin-left: 3rem;
 }
 .box-comment__texto {
   padding: 1rem 0;
