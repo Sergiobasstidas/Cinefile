@@ -146,216 +146,220 @@
 </template>
 
 <script>
-import CarouselCast from "@/components/CarouselCast";
-import Comentarios from "@/components/Comentarios";
-export default {
-  name: "DetallePelicula",
-  components: { CarouselCast, Comentarios },
-  data: () => ({
-    //imagenFondo: "../imagen-fondo.jpg",
-    imagenFondo:
-      "https://www.themoviedb.org/t/p/w1280/aknvFyJUQQoZFtmFnYzKi4vGv4J.jpg",
-    titulo: "Dune",
-    listaInfo: [
-      {
-        icono: "mdi-star-outline",
-        text: "4.30",
-      },
-      {
-        icono: false,
-        text: "Acción",
-      },
-      {
-        icono: false,
-        text: "Aventura",
-      },
-      {
-        icono: false,
-        text: "Drama",
-      },
-      {
-        icono: false,
-        text: "2021",
-      },
-      {
-        icono: false,
-        text: "2h 35m",
-      },
-      {
-        icono: false,
-        text: "12+",
-      },
-    ],
-    playlistSelect: "",
-    playlist: [
-      {
-        text: "Favoritas",
-        value: "favoritas",
-      },
-      {
-        text: "Ver más tarde",
-        value: "ver_despues",
-      },
-    ],
-    casts: [
-      {
-        id: 1,
-        image: "../cast_01.jpg",
-        title: "Timothée Chalamet",
-      },
-      {
-        id: 2,
-        image: "../cast_02.jpg",
-        title: "Zendaya",
-      },
-      {
-        id: 3,
-        image: "../cast_03.jpg",
-        title: "Rebecca Ferguson",
-      },
-      {
-        id: 4,
-        image: "../cast_04.jpg",
-        title: "Oscar Isaac",
-      },
-      {
-        id: 5,
-        image: "../cast_05.jpg",
-        title: "Jason Momoa",
-      },
-      {
-        id: 6,
-        image: "../cast_06.jpg",
-        title: "Stellan Skarsgård",
-      },
-    ],
-    genres: [
-      {
-        id: "accion",
-        text: "Acción",
-      },
-      {
-        id: "aventura",
-        text: "Aventura",
-      },
-      {
-        id: "drama",
-        text: "Drama",
-      },
-    ],
-  }),
-  beforeMount() {
-    //console.log(this.$route.params.id);
-    //this.$store.dispatch("getDetails", { id: id, type: type });
-  },
-};
+  import CarouselCast from "@/components/CarouselCast";
+  import Comentarios from "@/components/Comentarios";
+  export default {
+    name: "DetallePelicula",
+    components: { CarouselCast, Comentarios },
+    data: () => ({
+      //imagenFondo: "../imagen-fondo.jpg",
+      imagenFondo:
+        "https://www.themoviedb.org/t/p/w1280/aknvFyJUQQoZFtmFnYzKi4vGv4J.jpg",
+      titulo: "Dune",
+      listaInfo: [
+        {
+          icono: "mdi-star-outline",
+          text: "4.30",
+        },
+        {
+          icono: false,
+          text: "Acción",
+        },
+        {
+          icono: false,
+          text: "Aventura",
+        },
+        {
+          icono: false,
+          text: "Drama",
+        },
+        {
+          icono: false,
+          text: "2021",
+        },
+        {
+          icono: false,
+          text: "2h 35m",
+        },
+        {
+          icono: false,
+          text: "12+",
+        },
+      ],
+      playlistSelect: "",
+      playlist: [
+        {
+          text: "Favoritas",
+          value: "favoritas",
+        },
+        {
+          text: "Ver más tarde",
+          value: "ver_despues",
+        },
+      ],
+      casts: [
+        {
+          id: 1,
+          image: "../cast_01.jpg",
+          title: "Timothée Chalamet",
+        },
+        {
+          id: 2,
+          image: "../cast_02.jpg",
+          title: "Zendaya",
+        },
+        {
+          id: 3,
+          image: "../cast_03.jpg",
+          title: "Rebecca Ferguson",
+        },
+        {
+          id: 4,
+          image: "../cast_04.jpg",
+          title: "Oscar Isaac",
+        },
+        {
+          id: 5,
+          image: "../cast_05.jpg",
+          title: "Jason Momoa",
+        },
+        {
+          id: 6,
+          image: "../cast_06.jpg",
+          title: "Stellan Skarsgård",
+        },
+      ],
+      genres: [
+        {
+          id: "accion",
+          text: "Acción",
+        },
+        {
+          id: "aventura",
+          text: "Aventura",
+        },
+        {
+          id: "drama",
+          text: "Drama",
+        },
+      ],
+    }),
+    beforeMount() {
+      //console.log(this.$route.params.id);
+      //this.$store.dispatch("getDetails", { id: id, type: type });
+    },
+  };
 </script>
 
 <style lang="scss">
-.bodyMovie__back {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 15%;
-  top: 0;
-  z-index: 0;
-}
-.bodyMovie__back .Objf::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: block;
-  z-index: 1;
-  background: linear-gradient(180deg, rgba(19, 23, 32, 0.5) -50%, #131720 50%);
-  pointer-events: none;
-}
-.bodyMovie__back img {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  object-fit: cover;
-  object-position: 50% 0;
-  top: 0;
-}
-.infografia {
-  z-index: 10;
-  position: relative;
-  margin-top: 240px;
-  line-height: 60px;
-}
-.bodyMovie__infografia svg {
-  stroke: #fff;
-  color: #ffffff;
-}
-.infografia__trailerText {
-  color: #fff;
-  font-size: 22px;
-  font-weight: 300;
-  margin-left: 15px;
-}
-.infografia__title {
-  font-weight: 400;
-  font-size: 40px;
-}
-.infografia__listado {
-  line-height: 30px;
-  margin-bottom: 20px !important;
-}
-.infografia__listado .col:last-child .icono__separador {
-  display: none;
-}
-.infografia__listado .col:first-child h4 {
-  margin-left: 5px;
-}
-.infografia__container {
-  max-width: 900px;
-  width: 100%;
-}
-.infografia__descripcion {
-  width: 100%;
-  line-height: 25px;
-}
-.infografia__trailer {
-  width: 100%;
-  line-height: 20px;
-}
-.infografia__valoracion {
-  line-height: 30px;
-  font-weight: 300;
-}
-.infografia__cast {
-  line-height: 20px;
-  margin-top: 3rem;
-}
-.infografia__genre {
-  margin-top: 3rem;
-}
-.infografia__genre span {
-  padding: 20px 1.2rem;
-}
-.infografia__share {
-  margin-top: 3rem;
-}
-.infografia__share span {
-  padding: 20px 1.2rem;
-}
-.infografia__share .img-svg {
-  height: 100%;
-}
-.comentarios {
-  margin-top: 5rem;
-  position: relative;
-}
-@media (max-width: 960px) {
-  .infografia {
-    padding: 0 20px;
+  .bodyMovie__back {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 15%;
+    top: 0;
+    z-index: 0;
   }
-}
+  .bodyMovie__back .Objf::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      rgba(19, 23, 32, 0.5) -50%,
+      #131720 50%
+    );
+    pointer-events: none;
+  }
+  .bodyMovie__back img {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 0;
+    top: 0;
+  }
+  .infografia {
+    z-index: 10;
+    position: relative;
+    margin-top: 240px;
+    line-height: 60px;
+  }
+  .bodyMovie__infografia svg {
+    stroke: #fff;
+    color: #ffffff;
+  }
+  .infografia__trailerText {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 300;
+    margin-left: 15px;
+  }
+  .infografia__title {
+    font-weight: 400;
+    font-size: 40px;
+  }
+  .infografia__listado {
+    line-height: 30px;
+    margin-bottom: 20px !important;
+  }
+  .infografia__listado .col:last-child .icono__separador {
+    display: none;
+  }
+  .infografia__listado .col:first-child h4 {
+    margin-left: 5px;
+  }
+  .infografia__container {
+    max-width: 900px;
+    width: 100%;
+  }
+  .infografia__descripcion {
+    width: 100%;
+    line-height: 25px;
+  }
+  .infografia__trailer {
+    width: 100%;
+    line-height: 20px;
+  }
+  .infografia__valoracion {
+    line-height: 30px;
+    font-weight: 300;
+  }
+  .infografia__cast {
+    line-height: 20px;
+    margin-top: 3rem;
+  }
+  .infografia__genre {
+    margin-top: 3rem;
+  }
+  .infografia__genre span {
+    padding: 20px 1.2rem;
+  }
+  .infografia__share {
+    margin-top: 3rem;
+  }
+  .infografia__share span {
+    padding: 20px 1.2rem;
+  }
+  .infografia__share .img-svg {
+    height: 100%;
+  }
+  .comentarios {
+    margin-top: 5rem;
+    position: relative;
+  }
+  @media (max-width: 960px) {
+    .infografia {
+      padding: 0 20px;
+    }
+  }
 </style>
