@@ -9,10 +9,16 @@
     >
       <v-toolbar flat height="100px" color="#131720" dark elevate-on-scroll>
         <img class="logo mr-4" src="../assets/logo.png" alt="" />
-        <v-btn plain :to="{ name: 'Home' }">Home</v-btn>
+
+        
+
+        <div>
+          <v-btn plain :to="{ name: 'Home' }">Home</v-btn>
         <v-btn plain to="/movies">Peliculas</v-btn>
         <v-btn plain to="/series">Series</v-btn>
         <v-btn plain>Mi perfil</v-btn>
+        </div>
+
 
         <v-spacer></v-spacer>
 
