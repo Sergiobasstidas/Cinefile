@@ -1,15 +1,9 @@
 <template>
-  <div
-    class="
-      card-container card-hover
-      d-flex
-      flex-nowrap flex-column flex-sm-row
-      rounded-xl
-    "
-  >
+  <div class="card-container card-hover d-flex flex-nowrap rounded-xl">
     <div class="card-img">
       <img
         class="rounded-l-xl"
+        @click="goToDetails(movie.id)"
         :src="
           movie.poster_path
             ? $store.state.POSTER_URL + movie.poster_path
@@ -28,27 +22,18 @@
           font-weight-bold
           p-0
         "
-        >{{ movie.title }}</span
+        >{{ movie.title ? movie.title : movie.name }}</span
       >
-      <span class="d-none d-sm-flex text-caption pt-0 pb-0">
+      <span class="d-flex text-caption pt-0 pb-0">
         <p class="mr-2">Accion</p>
         <p class="mr-2">Aventura</p>
       </span>
 
-      <span class="d-none d-sm-flex pt-0 text-caption">
+      <span class="d-flex pt-0 text-caption">
         <p>Lorem ipsum dolor sit.</p>
       </span>
 
-      <span
-        class="
-          d-none d-sm-flex
-          rounded-br-xl
-          mb-3
-          mt-auto
-          pr-2 pr-lg-1
-          text-caption
-        "
-      >
+      <span class="d-flex rounded-br-xl mb-3 mt-auto pr-2 pr-lg-1 text-caption">
         <i class="movieOverview"> {{ `"${movie.overview}"` }}... </i>
         <v-tooltip bottom max-width="400px">
           <template v-slot:activator="{ on, attrs }">
@@ -65,6 +50,12 @@
     name: "MovieCard",
     props: {
       movie: Object,
+    },
+    methods: {
+      goToDetails(id) {
+        // this.$store.dispatch("getMovieDetails", id);
+        this.$router.push(`/movie/${id}`);
+      },
     },
   };
 </script>

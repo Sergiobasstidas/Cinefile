@@ -1,16 +1,28 @@
 <template>
   <div>
-    <v-card class="navbar d-flex justify-center" flat height="100px" color="#131720" tile>
+    <v-card
+      class="navbar d-flex justify-center"
+      flat
+      height="100px"
+      color="#131720"
+      tile
+    >
       <v-toolbar flat height="100px" color="#131720" dark elevate-on-scroll>
         <img class="logo mr-4" src="../assets/logo.png" alt="" />
-        <v-btn plain :to="{ name: 'Home' }">Home</v-btn>
-        <v-btn plain :to="{ name: 'Peliculas' }">Peliculas</v-btn>
-        <v-btn plain :to="{ name: 'Series' }">Series</v-btn>
-        <v-btn plain :to="{ name: 'Actores' }">Actores</v-btn>
+
+        
+
+        <div>
+          <v-btn plain :to="{ name: 'Home' }">Home</v-btn>
+        <v-btn plain to="/movies">Peliculas</v-btn>
+        <v-btn plain to="/series">Series</v-btn>
+        <v-btn plain>Mi perfil</v-btn>
+        </div>
+
 
         <v-spacer></v-spacer>
 
-        <v-btn class="px-0" plain :to="{ name: 'Login' }">Registrate</v-btn>
+        <v-btn class="px-0" plain to="/login">Registrate</v-btn>
         <v-btn icon>
           <v-icon>mdi-login</v-icon>
         </v-btn>
@@ -20,19 +32,19 @@
 </template>
 
 <script>
-// src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-export default {
-  name: "Navbar",
-};
+  // src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+  export default {
+    name: "Navbar",
+  };
 </script>
 
 <style>
-.navbar {
-  font-size: 14px;
-  font-weight: 500;
-}
-.logo {
-  max-width: 70px;
-  min-width: 70px;
-}
+  .navbar {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .logo {
+    max-width: 70px;
+    min-width: 70px;
+  }
 </style>

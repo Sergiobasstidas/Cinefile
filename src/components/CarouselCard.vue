@@ -7,7 +7,7 @@
           : 'https://media.comicbook.com/files/img/default-movie.png'
       "
       alt=""
-      @click="goToDetails(movie.id)"
+      @click="goToDetails(movie.id, movie.type)"
     />
     <div class="text">
       <v-tooltip bottom>
@@ -56,8 +56,9 @@
     },
 
     methods: {
-      goToDetails(id) {
-        this.$store.dispatch("getMovieDetails", id);
+      goToDetails(id, type) {
+        this.$store.dispatch("getDetails", { id: id, type: type });
+        this.$router.push(`/movie/${id}`);
       },
     },
   };

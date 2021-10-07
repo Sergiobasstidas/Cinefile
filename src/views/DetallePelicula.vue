@@ -73,7 +73,6 @@
                 src="https://www.youtube.com/embed/n9xhJrPXop4"
                 title="YouTube video player"
                 frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
               <v-layout align-center justify-space-between>
