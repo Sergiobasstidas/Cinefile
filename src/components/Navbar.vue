@@ -1,12 +1,20 @@
 <template>
   <div>
-    <v-card class="navbar d-flex justify-center" flat height="100px" color="#131720" tile>
+    <v-card
+      class="navbar d-flex justify-center"
+      flat
+      height="100px"
+      color="#131720"
+      tile
+    >
       <v-toolbar flat height="100px" color="#131720" dark elevate-on-scroll>
         <img class="logo mr-4" src="../assets/logo.png" alt="" />
-        <v-btn plain :to="{ name: 'Home' }">Home</v-btn>
-        <v-btn plain :to="{ name: 'Peliculas' }">Peliculas</v-btn>
-        <v-btn plain :to="{ name: 'Series' }">Series</v-btn>
-        <v-btn plain :to="{ name: 'Actores' }">Actores</v-btn>
+        <div>
+          <v-btn plain :to="{ name: 'Home' }">Home</v-btn>
+          <v-btn plain :to="{ name: 'Peliculas' }">Peliculas</v-btn>
+          <v-btn plain :to="{ name: 'Series' }">Series</v-btn>
+          <v-btn plain :to="{ name: 'Actores' }">Actores</v-btn>
+        </div>
 
         <v-spacer></v-spacer>
 
