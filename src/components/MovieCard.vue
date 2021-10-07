@@ -3,7 +3,7 @@
     <div class="card-img">
       <img
         class="rounded-l-xl"
-        @click="goToDetails(movie.id)"
+        @click="goToDetails(movie.id, movie.type)"
         :src="
           movie.poster_path
             ? $store.state.POSTER_URL + movie.poster_path
@@ -52,9 +52,9 @@
       movie: Object,
     },
     methods: {
-      goToDetails(id) {
-        // this.$store.dispatch("getMovieDetails", id);
-        this.$router.push(`/movie/${id}`);
+      goToDetails(id, type) {
+        this.$store.dispatch("getDetails", { id: id, type: type });
+        this.$router.push(`/${type}/${id}`);
       },
     },
   };
