@@ -35,7 +35,7 @@ export default new Vuex.Store({
     },
     listedMovies: [], // Peliculas que seran mostradas en la seccion peliculas
     listedSeries: [], // Series que seran mostradas en la seccion Series
-    detailed: {},
+    infoMovie: {},
 
     API_KEY: "21b858443ab2bbdbb90fa7c26e40b421",
     BASE_URL: "https://api.themoviedb.org/3",
@@ -116,22 +116,56 @@ export default new Vuex.Store({
       commit("SET_GENRES_LIST", genres);
     },
 
-    async getMovieDetails({ state }, id) {
-      const params = {
-        params: {
-          api_key: state.API_KEY,
-        },
-      };
+    async getDetails({ dispatch, state }, { id, type }) {
       try {
         const { data: movie } = await axios.get(
-          `${state.BASE_URL}/movie/${id}`,
-          params
+          `${state.BASE_URL}/${type}/${id}`,
+          {
+            params: {
+              api_key: state.API_KEY,
+            },
+          }
         );
-        console.log(movie);
-        // const {data: cast} = await axios.get(
-        //   `${state.BASE_URL}/movie/${id}`,
-        //   params
-        // );
+        const cast = await dispatch("getCast", { id: id, type: type });
+        const trailer = await dispatch("getTrailer", { id: id, type: type });
+        const detailedMovie = { ...movie, cast, trailer };
+        console.log(detailedMovie);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async getCast({ state }, { id, type }) {
+      try {
+        const {
+          data: { cast },
+        } = await axios.get(`${state.BASE_URL}/${type}/${id}/credits`, {
+          params: {
+            api_key: state.API_KEY,
+          },
+        });
+        const actors = cast.filter((cast) => {
+          return cast.known_for_department === "Acting";
+        });
+        return actors;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async getTrailer({ state }, { id, type }) {
+      try {
+        const {
+          data: { results: videos },
+        } = await axios.get(`${state.BASE_URL}/${type}/${id}/videos`, {
+          params: {
+            api_key: state.API_KEY,
+          },
+        });
+        const trailer = videos.find((video) => {
+          return video.type === "Trailer";
+        });
+        return trailer ? trailer : { key: "" };
       } catch (e) {
         console.log(e);
       }

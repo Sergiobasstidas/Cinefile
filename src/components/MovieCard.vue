@@ -3,6 +3,7 @@
     <div class="card-img">
       <img
         class="rounded-l-xl"
+        @click="goToDetails(movie.id)"
         :src="
           movie.poster_path
             ? $store.state.POSTER_URL + movie.poster_path
@@ -21,7 +22,7 @@
           font-weight-bold
           p-0
         "
-        >{{ movie.title }}</span
+        >{{ movie.title ? movie.title : movie.name }}</span
       >
       <span class="d-flex text-caption pt-0 pb-0">
         <p class="mr-2">Accion</p>
@@ -49,6 +50,12 @@
     name: "MovieCard",
     props: {
       movie: Object,
+    },
+    methods: {
+      goToDetails(id) {
+        // this.$store.dispatch("getMovieDetails", id);
+        this.$router.push(`/movie/${id}`);
+      },
     },
   };
 </script>
