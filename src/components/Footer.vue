@@ -1,6 +1,12 @@
 <template>
   <v-footer class="footer" dark padless color="#131720">
-    <v-card flat tile class="white--text text-center" color="#131720" width="100%">
+    <v-card
+      flat
+      tile
+      class="white--text text-center"
+      color="#131720"
+      width="100%"
+    >
       <img class="logo-footer" src="../assets/logo.png" alt="" />
 
       <v-layout class="d-flex justify-center mt-3">
@@ -28,10 +34,10 @@
       </v-card-text>
 
       <v-card-text class="pt-2">
-        <v-btn class="about" plain :to="{ name: 'Home' }">Home</v-btn>
-        <v-btn class="about" plain :to="{ name: 'About' }">Quienes Somos</v-btn>
-        <v-btn class="about" plain :to="{ name: 'Login' }">Login</v-btn>
-        <v-btn class="about" plain :to="{ name: 'Estrenos' }">Estrenos</v-btn>
+        <v-btn class="about" plain to="/">Home</v-btn>
+        <v-btn class="about" plain to="">Quienes Somos</v-btn>
+        <v-btn class="about" plain to="/login">Login</v-btn>
+        <v-btn class="about" plain to="/movies">Estrenos</v-btn>
       </v-card-text>
 
       <v-divider></v-divider>
@@ -45,35 +51,34 @@
 </template>
 
 <script>
-export default {
-  name: "Footer",
-  //   data: () => ({
-  //     icons: [
-  //         '<i class="fab fa-facebook"></i>',
-  //         '<i class="fab fa-instagram"></i>',
-  //     ],
-  //   }),
-};
+  export default {
+    name: "Footer",
+    //   data: () => ({
+    //     icons: [
+    //         '<i class="fab fa-facebook"></i>',
+    //         '<i class="fab fa-instagram"></i>',
+    //     ],
+    //   }),
+  };
 </script>
 
 <style>
-.logo-footer {
-  width: 10%;
-}
-.derechos {
-  font-weight: 400;
-  font-size: 13px;
-}
-.icons {
-  width: 18%;
-  margin: auto;
-  
-}
-.about {
-  font-size: 12px !important;
-  font-weight: 400;
-}
-.nosotros {
-  width: 50%;
-}
+  .logo-footer {
+    width: 10%;
+  }
+  .derechos {
+    font-weight: 400;
+    font-size: 13px;
+  }
+  .icons {
+    width: 18%;
+    margin: auto;
+  }
+  .about {
+    font-size: 12px !important;
+    font-weight: 400;
+  }
+  .nosotros {
+    width: 50%;
+  }
 </style>
