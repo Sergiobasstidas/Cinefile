@@ -127,9 +127,11 @@
             ><img src="whatsapp-brands.svg" class="img-svg" /> Compartir</v-chip
           >
         </div>
-        <Comentarios></Comentarios>
       </v-container>
     </div>
+    <v-container>
+      <Comentarios class="comentarios"></Comentarios>
+    </v-container>
   </div>
 </template>
 
@@ -233,7 +235,7 @@ export default {
     ],
   }),
   beforeMount() {
-    console.log(this.$route.params.id);
+    //console.log(this.$route.params.id);
   },
 };
 </script>
@@ -250,7 +252,7 @@ export default {
   top: 0;
   z-index: 0;
 }
-.bodyMovie__back::before {
+.bodyMovie__back .Objf::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -267,7 +269,6 @@ export default {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 100%;
   object-fit: cover;
   object-position: 50% 0;
   top: 0;
@@ -336,6 +337,9 @@ export default {
 }
 .infografia__share .img-svg {
   height: 100%;
+}
+.comentarios{
+  margin-top: 5rem;
 }
 @media (max-width: 960px) {
   .infografia {
