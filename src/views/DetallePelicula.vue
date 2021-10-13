@@ -3,7 +3,7 @@
     <div class="bodyMovie">
       <div class="bodyMovie__back">
         <figure class="Objf">
-          <img :src="imagenFondo" class="lazy" />
+          <img :src="getImagen" class="lazy" />
         </figure>
       </div>
       <div class="infografia">
@@ -14,7 +14,7 @@
             >
             <h3 class="infografia__trailerText">Tráiler</h3>
           </v-layout>
-          <h2 class="infografia__title">{{ titulo }}</h2>
+          <h2 class="infografia__title">{{ getTitle }}</h2>
           <v-row
             align="center"
             justify="start"
@@ -23,7 +23,7 @@
           >
             <v-col
               cols="auto"
-              v-for="(item, $index) in listaInfo"
+              v-for="(item, $index) in getListas"
               :key="$index"
             >
               <v-row align="center" justify="start" :no-gutters="true">
@@ -44,33 +44,13 @@
           </v-row>
           <div class="infografia__container">
             <div class="infografia__descripcion">
-              <p>
-                Un futuro lejano, en el que las familias de nobles se disputan
-                el dominio del árido planeta Arrakis, también conocido como Dune
-                por su geografía compuesta por desiertos de dunas. Arrakis es el
-                único lugar donde se encuentra 'la especia', la sustancia más
-                codiciada y valiosa del universo que producen gigantescos
-                gusanos de arena. Debido a su rareza, y a su arriesgada
-                extracción, quien controla la producción de la especia, controla
-                el destino no sólo del Imperio, sino de toda la humanidad. El
-                Duque Leto Atreides (Oscar Isaac) aceptará la administración de
-                este peligroso planeta y será enviado a Arrakis junto con Lady
-                Jessica (Rebecca Ferguson) y su hijo Paul (Timothée Chalamet).
-                Será entonces cuando la familia Atreides corra un gran riesgo
-                por estar en el punto de mira de fuerzas malvadas como las de su
-                enemigo el Barón Vladimir Harkonnen (Stellan Skarsgård).
-              </p>
-              <p>
-                Nueva adaptación cinematográfica del clásico de la
-                ciencia-ficción Dune (1965) de Frank Herbert, que dirige el
-                cineasta nominado al Oscar Denis Villeneuve.
-              </p>
+              <p>{{ getDescription }}</p>
             </div>
             <div class="infografia__trailer">
               <iframe
                 width="100%"
                 height="500"
-                src="https://www.youtube.com/embed/n9xhJrPXop4"
+                :src="getTrailer"
                 title="YouTube video player"
                 frameborder="0"
                 allowfullscreen
@@ -108,12 +88,12 @@
             </div>
           </div>
           <div class="infografia__cast">
-            <CarouselCast :castList="casts" />
+            <CarouselCast :castList="getCast" />
           </div>
           <div class="infografia__genre">
             <h3 class="title_text">Géneros</h3>
             <v-chip
-              v-for="(genre, $index) in genres"
+              v-for="(genre, $index) in getGenres"
               :key="$index"
               class="mr-12"
               color="#151F30"
@@ -146,220 +126,182 @@
 </template>
 
 <script>
-  import CarouselCast from "@/components/CarouselCast";
-  import Comentarios from "@/components/Comentarios";
-  export default {
-    name: "DetallePelicula",
-    components: { CarouselCast, Comentarios },
-    data: () => ({
-      //imagenFondo: "../imagen-fondo.jpg",
-      imagenFondo:
-        "https://www.themoviedb.org/t/p/w1280/aknvFyJUQQoZFtmFnYzKi4vGv4J.jpg",
-      titulo: "Dune",
-      listaInfo: [
+import CarouselCast from "@/components/CarouselCast";
+import Comentarios from "@/components/Comentarios";
+export default {
+  name: "DetallePelicula",
+  components: { CarouselCast, Comentarios },
+  data: () => ({
+    playlistSelect: "",
+    playlist: [
+      {
+        text: "Favoritas",
+        value: "favoritas",
+      },
+      {
+        text: "Ver más tarde",
+        value: "ver_despues",
+      },
+    ],
+  }),
+  computed: {
+    getTitle() {
+      return this.$store.state.infoMovie.original_title;
+    },
+    getImagen() {
+      let idImagen = this.$store.state.infoMovie.backdrop_path;
+      return "https://www.themoviedb.org/t/p/w1280/" + idImagen;
+    },
+    getDescription() {
+      return this.$store.state.infoMovie.overview;
+    },
+    getYear(){
+      return this.$store.state.infoMovie.release_date.slice(0,4)
+    },
+    getGenres(){
+      let listaGeneros = []
+      this.$store.state.infoMovie.genres.forEach(genre => {
+        listaGeneros.push({id:genre.id,text: genre.name})
+      });
+      return listaGeneros
+    },
+    getListas() {
+      let listaInfo = [
         {
           icono: "mdi-star-outline",
-          text: "4.30",
+          text: this.$store.state.infoMovie.vote_average,
         },
-        {
-          icono: false,
-          text: "Acción",
-        },
-        {
-          icono: false,
-          text: "Aventura",
-        },
-        {
-          icono: false,
-          text: "Drama",
-        },
-        {
-          icono: false,
-          text: "2021",
-        },
-        {
-          icono: false,
-          text: "2h 35m",
-        },
-        {
-          icono: false,
-          text: "12+",
-        },
-      ],
-      playlistSelect: "",
-      playlist: [
-        {
-          text: "Favoritas",
-          value: "favoritas",
-        },
-        {
-          text: "Ver más tarde",
-          value: "ver_despues",
-        },
-      ],
-      casts: [
-        {
-          id: 1,
-          image: "../cast_01.jpg",
-          title: "Timothée Chalamet",
-        },
-        {
-          id: 2,
-          image: "../cast_02.jpg",
-          title: "Zendaya",
-        },
-        {
-          id: 3,
-          image: "../cast_03.jpg",
-          title: "Rebecca Ferguson",
-        },
-        {
-          id: 4,
-          image: "../cast_04.jpg",
-          title: "Oscar Isaac",
-        },
-        {
-          id: 5,
-          image: "../cast_05.jpg",
-          title: "Jason Momoa",
-        },
-        {
-          id: 6,
-          image: "../cast_06.jpg",
-          title: "Stellan Skarsgård",
-        },
-      ],
-      genres: [
-        {
-          id: "accion",
-          text: "Acción",
-        },
-        {
-          id: "aventura",
-          text: "Aventura",
-        },
-        {
-          id: "drama",
-          text: "Drama",
-        },
-      ],
-    }),
-    beforeMount() {
-      //console.log(this.$route.params.id);
-      //this.$store.dispatch("getDetails", { id: id, type: type });
+      ];
+      this.$store.state.infoMovie.genres.forEach(genre => {
+        listaInfo.push({icono:false,text: genre.name})
+      });
+      listaInfo.push({icono:false, text: this.getYear});
+      listaInfo.push({icono:false, text: this.$store.state.infoMovie.status})
+      return listaInfo
     },
-  };
+    getTrailer(){
+      return "https://www.youtube.com/embed/"+this.$store.state.infoMovie.trailer.key
+    },
+    getCast(){
+      let listaCast = []
+      this.$store.state.infoMovie.cast.forEach(castElement => {
+        listaCast.push({id: castElement.id, image: "https://www.themoviedb.org/t/p/w1280/" + castElement.profile_path, title: castElement.name, character: castElement.character})
+      });
+      return listaCast
+    }
+  },
+  beforeMount() {
+    //console.log(this.$route.params.id);
+    //this.$store.dispatch("getDetails", { id: id, type: type });
+  },
+};
 </script>
 
 <style lang="scss">
-  .bodyMovie__back {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 15%;
-    top: 0;
-    z-index: 0;
-  }
-  .bodyMovie__back .Objf::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: block;
-    z-index: 1;
-    background: linear-gradient(
-      180deg,
-      rgba(19, 23, 32, 0.5) -50%,
-      #131720 50%
-    );
-    pointer-events: none;
-  }
-  .bodyMovie__back img {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    object-fit: cover;
-    object-position: 50% 0;
-    top: 0;
-  }
+.bodyMovie__back {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 15%;
+  top: 0;
+  z-index: 0;
+}
+.bodyMovie__back .Objf::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(19, 23, 32, 0.5) -50%, #131720 50%);
+  pointer-events: none;
+}
+.bodyMovie__back img {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 0;
+  top: 0;
+}
+.infografia {
+  z-index: 10;
+  position: relative;
+  margin-top: 240px;
+  line-height: 60px;
+}
+.bodyMovie__infografia svg {
+  stroke: #fff;
+  color: #ffffff;
+}
+.infografia__trailerText {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 300;
+  margin-left: 15px;
+}
+.infografia__title {
+  font-weight: 400;
+  font-size: 40px;
+}
+.infografia__listado {
+  line-height: 30px;
+  margin-bottom: 20px !important;
+}
+.infografia__listado .col:last-child .icono__separador {
+  display: none;
+}
+.infografia__listado .col:first-child h4 {
+  margin-left: 5px;
+}
+.infografia__container {
+  max-width: 900px;
+  width: 100%;
+}
+.infografia__descripcion {
+  width: 100%;
+  line-height: 25px;
+}
+.infografia__trailer {
+  width: 100%;
+  line-height: 20px;
+}
+.infografia__valoracion {
+  line-height: 30px;
+  font-weight: 300;
+}
+.infografia__cast {
+  line-height: 20px;
+  margin-top: 3rem;
+}
+.infografia__genre {
+  margin-top: 3rem;
+}
+.infografia__genre span {
+  padding: 20px 1.2rem;
+}
+.infografia__share {
+  margin-top: 3rem;
+}
+.infografia__share span {
+  padding: 20px 1.2rem;
+}
+.infografia__share .img-svg {
+  height: 100%;
+}
+.comentarios {
+  margin-top: 5rem;
+  position: relative;
+}
+@media (max-width: 960px) {
   .infografia {
-    z-index: 10;
-    position: relative;
-    margin-top: 240px;
-    line-height: 60px;
+    padding: 0 20px;
   }
-  .bodyMovie__infografia svg {
-    stroke: #fff;
-    color: #ffffff;
-  }
-  .infografia__trailerText {
-    color: #fff;
-    font-size: 22px;
-    font-weight: 300;
-    margin-left: 15px;
-  }
-  .infografia__title {
-    font-weight: 400;
-    font-size: 40px;
-  }
-  .infografia__listado {
-    line-height: 30px;
-    margin-bottom: 20px !important;
-  }
-  .infografia__listado .col:last-child .icono__separador {
-    display: none;
-  }
-  .infografia__listado .col:first-child h4 {
-    margin-left: 5px;
-  }
-  .infografia__container {
-    max-width: 900px;
-    width: 100%;
-  }
-  .infografia__descripcion {
-    width: 100%;
-    line-height: 25px;
-  }
-  .infografia__trailer {
-    width: 100%;
-    line-height: 20px;
-  }
-  .infografia__valoracion {
-    line-height: 30px;
-    font-weight: 300;
-  }
-  .infografia__cast {
-    line-height: 20px;
-    margin-top: 3rem;
-  }
-  .infografia__genre {
-    margin-top: 3rem;
-  }
-  .infografia__genre span {
-    padding: 20px 1.2rem;
-  }
-  .infografia__share {
-    margin-top: 3rem;
-  }
-  .infografia__share span {
-    padding: 20px 1.2rem;
-  }
-  .infografia__share .img-svg {
-    height: 100%;
-  }
-  .comentarios {
-    margin-top: 5rem;
-    position: relative;
-  }
-  @media (max-width: 960px) {
-    .infografia {
-      padding: 0 20px;
-    }
-  }
+}
 </style>
