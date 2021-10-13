@@ -10,7 +10,8 @@
       @click="goToDetails(cast.id)"
     />
     <div class="text text-center">
-      {{ cast.title }}
+      {{ cast.title }}<br />
+      <i>{{ cast.character }}</i>
     </div>
   </div>
 </template>
@@ -28,6 +29,25 @@ export default {
   methods: {
     goToDetails(id) {
       this.$store.dispatch("getMovieDetails", id);
+    },
+    imageExists(image_url) {
+      let http = new XMLHttpRequest();
+
+      http.open("HEAD", image_url, false);
+      http.send();
+      console.log(http.status);
+      return http.status != 404;
+      // fetch(image_url, { method: "HEAD", mode: "cors" })
+      //   .then((res) => {
+      //     if (res.ok) {
+      //       console.log("Image exists.");
+      //       return true
+      //     } else {
+      //       console.log("Image does not exist.");
+      //       return false
+      //     }
+      //   })
+      //   .catch((err) => console.log("Error:", err));
     },
   },
 };
