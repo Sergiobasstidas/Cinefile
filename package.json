@@ -12,6 +12,7 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
+    "firebase": "^9.1.2",
     "vue": "^2.6.11",
     "vue-carousel": "^0.18.0",
     "vue-material-design-icons": "^4.13.0",
