@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div class="profile_carousel">
     <div class="carousel_title">
       <span class="title_text">{{ title }}</span>
     </div>
     <carousel
       :perPageCustom="[
         [100, 2],
-        [800, 3],
-        [1124, 4],
-        [1400, 5],
-        [1700, 6],
+        [700, 2],
+        [1024, 3],
+        [1400, 4],
+        [1900, 7],
       ]"
       :navigationEnabled="windowWidth > 1200 ? true : false"
       :paginationEnabled="windowWidth < 1200 ? true : false"
@@ -128,16 +128,17 @@
     display: flex;
     justify-content: center;
   }
-  .movieCard {
-    max-width: 220px;
+  .profile_carousel .movieCard {
+    max-width: 180px;
     margin: 20px;
+    font-size: 14px;
   }
-  .carousel_title {
-    width: 88%;
+  .profile_carousel .carousel_title {
+    width: 100%;
     margin: 0 auto;
     margin-bottom: 1em;
   }
-  .title_text {
-    font-size: 2.5em;
+  .profile_carousel .title_text {
+    font-size: 2em;
   }
 </style>

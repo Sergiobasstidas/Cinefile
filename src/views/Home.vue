@@ -1,6 +1,6 @@
 <template>
   <v-main class="carousel_container">
-    <v-container :fluid="true">
+    <v-container>
       <v-row justify="center">
         <v-col
           v-for="(list, index) in $store.state.home.homeMovies"

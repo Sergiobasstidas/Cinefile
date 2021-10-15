@@ -57,7 +57,6 @@
 
     methods: {
       goToDetails(id, type) {
-        this.$store.dispatch("getDetails", { id: id, type: type });
         this.$router.push(`/${type}/${id}`);
       },
     },
