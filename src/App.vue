@@ -1,9 +1,11 @@
 <template>
   <v-app>
-    <v-container>
-      <Navbar />
+
+    <v-container >
+      <AppBar  />
     </v-container>
-    <v-main>
+    <v-main absolute>
+
       <router-view />
     </v-main>
     <Footer />
@@ -11,11 +13,14 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar.vue";
+
+
+import AppBar from "./components/AppBar.vue";
 import Footer from "./components/Footer.vue";
 export default {
   name: "App",
-  components: { Navbar, Footer },
+  components: { AppBar, Footer },
+
   data: () => ({
     //
   }),
@@ -43,4 +48,9 @@ html {
   color: white !important;
   font-family: "Rubik", sans-serif;
 }
+
+v-main {
+padding: 80px 0px 0px !important;
+}
+
 </style>

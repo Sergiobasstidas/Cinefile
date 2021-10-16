@@ -1,8 +1,6 @@
 <template>
-  <v-footer class="footer" dark padless color="#131720">
 
-   
-
+  <v-footer  class="footer" dark padless color="#131720">
     <v-card flat tile class="white--text text-center mt-6" color="#131720" width="100%">
 
       <img class="logo-footer" src="../assets/logo.png" alt="" />
@@ -32,10 +30,12 @@
       </v-card-text>
 
       <v-card-text class="pt-2">
-        <v-btn class="about" plain to="/">Home</v-btn>
-        <v-btn class="about" plain to="">Quienes Somos</v-btn>
-        <v-btn class="about" plain to="/login">Login</v-btn>
-        <v-btn class="about" plain to="/movies">Estrenos</v-btn>
+
+        <v-btn class="about" plain :to="{ name: 'Home' }">Home</v-btn>
+        <v-btn class="about" plain :to="{ name: 'About' }">Quienes Somos</v-btn>
+        <v-btn class="about" plain :to="{ name: 'Login' }">Login</v-btn>
+        <v-btn class="about" plain :to="{ name: 'Estrenos' }">Estrenos</v-btn>
+
       </v-card-text>
 
       <v-divider></v-divider>
@@ -49,8 +49,6 @@
 </template>
 
 <script>
-
-  
 
 export default {
   name: "Footer",
@@ -68,8 +66,11 @@ export default {
   font-size: 13px;
 }
 .icons {
-  width: 18%;
+
+  width: 40%;
   margin: auto;
+  max-width: 300px
+
   
 }
 .about {
