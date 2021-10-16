@@ -2,8 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 
-// import Movie from "./movieClass";
-
+import { user } from "./user.js";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -42,6 +41,9 @@ export default new Vuex.Store({
     POSTER_URL: "https://www.themoviedb.org/t/p/w220_and_h330_face",
     BACKDROP_PATH: "https://www.themoviedb.org/t/p/w1280",
     GENRES: [],
+  },
+  modules: {
+    user,
   },
   getters: {},
 
@@ -227,5 +229,4 @@ export default new Vuex.Store({
       }
     },
   },
-  modules: {},
 });

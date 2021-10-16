@@ -1,35 +1,101 @@
 <template>
   <v-row class="profile" justify="center">
     <v-col class="profile_photo mr-6 mb-6" cols="12" lg="3">
-      <div class="photo mb-6"></div>
-      <div class="avatar_button">
-        <v-btn color="#151F30" dark>Cambiar Avatar</v-btn>
-      </div>
+      <div
+        class="photo mb-6"
+        :style="{ backgroundImage: `url(${user.avatar})` }"
+      ></div>
+      <avatarChanger @avatarChange="changeAvatar" />
     </v-col>
     <v-col class="profile_info" cols="12" lg="7">
-      <p class="info_title">
-        Nombre:
+      <p class="info_title" v-for="(field, index) in fields" :key="index">
+        {{ field.title }}:
         <span class="info_text">
-          <div>Ignacio Lagunas</div>
-          <v-icon color="white">mdi-pencil</v-icon></span
-        >
-      </p>
-      <p class="info_title">
-        Nick:
-        <span class="info_text"
-          ><div>Natolasdvasj</div>
-          <v-icon color="white">mdi-pencil</v-icon></span
-        >
-      </p>
-      <p class="info_title">
-        E-mail:
-        <span class="info_text"><div>Ign.lagunas@gmail.com</div> </span>
+          <div v-if="!field.editing">{{ userInfo[field.key] }}</div>
+          <input
+            dark
+            v-else
+            type="text"
+            class="editBox"
+            v-model="user[field.key]"
+          />
+          <div v-if="field.editable" class="profile_icons">
+            <v-icon
+              color="white"
+              class="edit"
+              v-if="!field.editing"
+              @click="editField(index)"
+              >mdi-pencil</v-icon
+            >
+            <div v-else class="confirmIcons">
+              <v-icon color="white" class="confirm" @click="confirmEdit(index)"
+                >mdi-check</v-icon
+              >
+              <v-icon color="white" class="close" @click="editField(index)"
+                >mdi-close</v-icon
+              >
+            </div>
+          </div>
+        </span>
       </p>
     </v-col>
   </v-row>
 </template>
 <script>
-  export default {};
+  import avatarChanger from "./avatarChanger";
+  export default {
+    components: {
+      avatarChanger,
+    },
+    data: function () {
+      return {
+        user: {},
+        fields: [
+          {
+            title: "Nombre",
+            key: "name",
+            editable: true,
+            editing: false,
+          },
+          {
+            title: "Nick",
+            key: "nick",
+            editable: true,
+            editing: false,
+          },
+          {
+            title: "E-mail",
+            key: "mail",
+          },
+        ],
+      };
+    },
+    computed: {
+      userInfo() {
+        return this.$store.state.user.user.userInfo;
+      },
+    },
+    watch: {
+      userInfo() {
+        this.user = { ...this.$store.state.user.user.userInfo };
+      },
+    },
+    methods: {
+      editField(index) {
+        this.fields[index].editing = !this.fields[index].editing;
+        this.user = { ...this.$store.state.user.user.userInfo };
+      },
+      async confirmEdit(index) {
+        await this.$store.dispatch("user/updateUserInfo", this.user);
+        this.fields[index].editing = false;
+      },
+      async changeAvatar(avatarUrl) {
+        console.log(avatarUrl);
+        this.user.avatar = avatarUrl;
+        await this.$store.dispatch("user/updateUserInfo", this.user);
+      },
+    },
+  };
 </script>
 <style>
   .profile {
@@ -45,6 +111,7 @@
 
   .profile_photo .photo {
     border-radius: 400px;
+    border: solid 4px white;
     height: 200px;
     width: 200px;
     background-size: cover;
@@ -66,11 +133,27 @@
   }
   .profile_info .info_text {
     border: solid #151f30 3px;
+    color: white;
     padding: 10px;
     margin-left: 10px;
     border-radius: 8px;
     width: 100%;
     display: flex;
     justify-content: space-between;
+  }
+  .editBox {
+    color: var(--highlight-color);
+  }
+  .profile_icons .edit:hover {
+    color: var(--highlight-color) !important;
+  }
+  .profile_icons .confirm:hover {
+    color: green !important;
+  }
+  .profile_icons .close:hover {
+    color: red !important;
+  }
+  .confirmIcons {
+    display: flex;
   }
 </style>

@@ -11,36 +11,42 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar.vue";
-import Footer from "./components/Footer.vue";
-export default {
-  name: "App",
-  components: { Navbar, Footer },
-  data: () => ({
-    //
-  }),
-  async beforeCreate() {
-    await this.$store.dispatch("getGenreLists");
-    const sections = this.$store.state.home.homeSections;
-    for (const section of sections) {
-      await this.$store.dispatch("initializeHome", {
-        category: section.category,
-        type: section.type,
-      });
-    }
-  },
-};
+  import Navbar from "./components/Navbar.vue";
+  import Footer from "./components/Footer.vue";
+  export default {
+    name: "App",
+    components: { Navbar, Footer },
+    data: () => ({
+      //
+    }),
+    async beforeCreate() {
+      this.$store.dispatch("user/initializeFirebase");
+      await this.$store.dispatch("getGenreLists");
+      const sections = this.$store.state.home.homeSections;
+      for (const section of sections) {
+        await this.$store.dispatch("initializeHome", {
+          category: section.category,
+          type: section.type,
+        });
+      }
+    },
+  };
 </script>
 <style>
-#app {
-  background-color: #131720 !important;
-  color: white !important;
-  font-family: "Rubik", sans-serif !important;
-}
-body,
-html {
-  background-color: #131720 !important;
-  color: white !important;
-  font-family: "Rubik", sans-serif;
-}
+  :root {
+    --main-light-color: #151f30;
+    --main-dark-color: #131720;
+    --highlight-color: #2f80ed;
+  }
+  #app {
+    background-color: #131720 !important;
+    color: white !important;
+    font-family: "Rubik", sans-serif !important;
+  }
+  body,
+  html {
+    background-color: #131720 !important;
+    color: white !important;
+    font-family: "Rubik", sans-serif;
+  }
 </style>

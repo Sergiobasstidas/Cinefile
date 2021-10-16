@@ -1,14 +1,17 @@
 <template>
   <div class="card card-hover">
-    <img
-      :src="
-        movie.poster_path
-          ? $store.state.POSTER_URL + movie.poster_path
-          : 'https://media.comicbook.com/files/img/default-movie.png'
-      "
-      alt=""
-      @click="goToDetails(movie.id, movie.type)"
-    />
+    <div class="cardImg">
+      <img
+        :src="
+          movie.poster_path
+            ? $store.state.POSTER_URL + movie.poster_path
+            : 'https://media.comicbook.com/files/img/default-movie.png'
+        "
+        alt=""
+        @click="goToDetails(movie.id, movie.type)"
+      />
+      <addToListButton class="addToListButton" />
+    </div>
     <div class="text">
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
@@ -27,9 +30,13 @@
   </div>
 </template>
 <script>
+  import addToListButton from "./addToListButton";
   export default {
     data() {
       return {};
+    },
+    components: {
+      addToListButton,
     },
 
     props: {
@@ -66,7 +73,17 @@
   .card-hover:hover > .text .movieTitle {
     color: #2f80ed !important;
   }
-  .card img {
+  .cardImg {
+    position: relative;
+  }
+
+  .cardImg .addToListButton {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+  }
+
+  .cardImg img {
     width: 100%;
     border-radius: 10px;
     cursor: pointer;
@@ -89,5 +106,7 @@
   }
   .genres {
     font-size: 0.8em;
+  }
+  .addToListButton {
   }
 </style>
