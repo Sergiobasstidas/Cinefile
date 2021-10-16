@@ -7,15 +7,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-// Estos se ocupan o los borramos nomas? si son necesarios deberian estar en un modulo aparte.
+    // Estos se ocupan o los borramos nomas? si son necesarios deberian estar en un modulo aparte.
     drawer: false,
-    links: [
-      'Home',
-      'Movies',
-      'Series',
-      'Actors'
-    ],
-/////////////////
+    links: ["Home", "Movies", "Series", "Actors"],
+    /////////////////
     home: {
       homeSections: [
         {
@@ -46,7 +41,6 @@ export default new Vuex.Store({
 
     infoMovie: {},
 
-
     API_KEY: "21b858443ab2bbdbb90fa7c26e40b421",
     BASE_URL: "https://api.themoviedb.org/3",
     POSTER_URL: "https://www.themoviedb.org/t/p/w220_and_h330_face",
@@ -72,16 +66,14 @@ export default new Vuex.Store({
       state.home.homeMovies.push(list);
     },
 
-    
-// Esto igual
+    // Esto igual
     SET_DRAWER(state, payload) {
-      state.drawer = payload
-    }
-////////////////7
+      state.drawer = payload;
+    },
+    ////////////////7
     SET_INFOMOVIE(state, movie) {
       state.infoMovie = movie;
     },
-
   },
 
   actions: {
@@ -106,7 +98,6 @@ export default new Vuex.Store({
           ? commit("SET_LISTED_MOVIES", results)
           : commit("SET_LISTED_SERIES", results);
         return results;
-
       } catch (e) {
         console.log(e);
       }
@@ -139,7 +130,6 @@ export default new Vuex.Store({
       const genres = [movieGenres, tvGenres];
       commit("SET_GENRES_LIST", genres);
     },
-
 
     // async getDetails({ dispatch, state, commit }, { id, type }) {
     //   try {
@@ -210,7 +200,6 @@ export default new Vuex.Store({
           return video.type === "Trailer";
         });
         return trailer ? trailer : { key: "" };
-
       } catch (e) {
         console.log(e);
       }
@@ -242,7 +231,6 @@ export default new Vuex.Store({
       }
     },
 
-
     async getDetailedMovie({ commit, dispatch }, { id, type }) {
       try {
         const movie = await dispatch("getMovie", { id: id, type: type });
@@ -254,6 +242,5 @@ export default new Vuex.Store({
         console.log(e);
       }
     },
-
   },
 });

@@ -21,14 +21,12 @@ const routes = [
     component: () => import("../views/Movies.vue"),
   },
   {
-
     path: "/movie/:id",
     name: "DetallePelicula",
     component: () => import("../views/DetallePelicula.vue"),
-
   },
   {
-     path: "/series",
+    path: "/series",
     name: "Series",
 
     component: () => import("../views/Series.vue"),
@@ -43,21 +41,22 @@ const routes = [
     path: "/register",
     name: "Register",
     component: () => import("../views/Register.vue"),
-
   },
   {
     path: "/forgot",
     name: "Forgotpassword",
     component: () => import("../views/Forgot.vue"),
   },
+  {
+    path: "/profile",
+    component: () => import("../views/Profile.vue"),
+  },
 
-//   path: "/actors",
-//   name: "Actors",
-//   component: () => import("../views/Login.vue"),
-// },
+  //   path: "/actors",
+  //   name: "Actors",
+  //   component: () => import("../views/Login.vue"),
+  // },
 ];
-
-
 
 const router = new VueRouter({
   mode: "history",
