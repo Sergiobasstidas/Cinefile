@@ -1,24 +1,30 @@
 <template>
-  <carousel
-    :perPageCustom="[
-      [100, 2],
-      [700, 3],
-      [1024, 4],
-      [1400, 6],
-    ]"
-    :navigationEnabled="windowWidth > 1000 ? true : false"
-    :paginationEnabled="windowWidth < 1000 ? true : false"
-    class="carousel"
-  >
-    <slide class="slide" v-for="movie in movieList" :key="movie.id">
-      <movieCard class="movieCard" :movie="movie" />
-    </slide>
-  </carousel>
+  <div>
+    <div class="carousel_title">
+      <span class="title_text">{{ title }}</span>
+    </div>
+    <carousel
+      :perPageCustom="[
+        [100, 2],
+        [800, 3],
+        [1124, 4],
+        [1400, 5],
+        [1700, 6],
+      ]"
+      :navigationEnabled="windowWidth > 1200 ? true : false"
+      :paginationEnabled="windowWidth < 1200 ? true : false"
+      class="carousel"
+    >
+      <slide class="slide" v-for="movie in movieList" :key="movie.id">
+        <CarouselCard class="movieCard" :movie="movie" />
+      </slide>
+    </carousel>
+  </div>
 </template>
 
 <script>
   import { Carousel, Slide } from "vue-carousel";
-  import movieCard from "@/components/MovieCard.vue";
+  import CarouselCard from "@/components/CarouselCard.vue";
 
   export default {
     name: "HelloWorld",
@@ -26,14 +32,24 @@
     data: () => ({
       model: null,
       windowWidth: 0,
+      carouselSettings: [
+        [
+          [100, 2],
+          [700, 3],
+          [1024, 4],
+          [1300, 5],
+          [1500, 6],
+        ],
+      ],
     }),
     components: {
       Carousel,
       Slide,
-      movieCard,
+      CarouselCard,
     },
     props: {
       movieList: Array,
+      title: String,
     },
     created() {
       window.addEventListener("resize", this.handleResize);
@@ -51,17 +67,9 @@
   };
 </script>
 <style>
-  .scroller {
-    margin: 0 auto;
-    margin-top: 100px;
-    border: 1px solid red;
-    height: 500px;
-    width: 90%;
-  }
   .carousel {
     width: 90%;
     margin: 0 auto;
-    margin-top: 100px;
   }
 
   .VueCarousel-navigation-button {
@@ -116,5 +124,13 @@
   .movieCard {
     max-width: 220px;
     margin: 20px;
+  }
+  .carousel_title {
+    width: 88%;
+    margin: 0 auto;
+    margin-bottom: 1em;
+  }
+  .title_text {
+    font-size: 2.5em;
   }
 </style>
