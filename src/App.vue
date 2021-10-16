@@ -15,6 +15,7 @@
 <script>
 
 
+
 import AppBar from "./components/AppBar.vue";
 import Footer from "./components/Footer.vue";
 export default {
@@ -25,6 +26,7 @@ export default {
     //
   }),
   async beforeCreate() {
+  this.$store.dispatch("user/initializeFirebase");
     await this.$store.dispatch("getGenreLists");
     const sections = this.$store.state.home.homeSections;
     for (const section of sections) {
@@ -37,6 +39,11 @@ export default {
 };
 </script>
 <style>
+:root {
+    --main-light-color: #151f30;
+    --main-dark-color: #131720;
+    --highlight-color: #2f80ed;
+  }
 #app {
   background-color: #131720 !important;
   color: white !important;
