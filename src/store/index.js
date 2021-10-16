@@ -7,6 +7,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+// Estos se ocupan o los borramos nomas? si son necesarios deberian estar en un modulo aparte.
+    drawer: false,
+    links: [
+      'Home',
+      'Movies',
+      'Series',
+      'Actors'
+    ],
+/////////////////
     home: {
       homeSections: [
         {
@@ -34,7 +43,9 @@ export default new Vuex.Store({
     },
     listedMovies: [], // Peliculas que seran mostradas en la seccion peliculas
     listedSeries: [], // Series que seran mostradas en la seccion Series
+
     infoMovie: {},
+
 
     API_KEY: "21b858443ab2bbdbb90fa7c26e40b421",
     BASE_URL: "https://api.themoviedb.org/3",
@@ -60,9 +71,17 @@ export default new Vuex.Store({
     SETUP_HOME(state, list) {
       state.home.homeMovies.push(list);
     },
+
+    
+// Esto igual
+    SET_DRAWER(state, payload) {
+      state.drawer = payload
+    }
+////////////////7
     SET_INFOMOVIE(state, movie) {
       state.infoMovie = movie;
     },
+
   },
 
   actions: {
@@ -76,6 +95,7 @@ export default new Vuex.Store({
             page: page,
           },
         });
+
         // Agregando la key type para poder diferenciar entre pelicula o serie.
         results.forEach((result) => {
           result.type = type;
@@ -86,6 +106,7 @@ export default new Vuex.Store({
           ? commit("SET_LISTED_MOVIES", results)
           : commit("SET_LISTED_SERIES", results);
         return results;
+
       } catch (e) {
         console.log(e);
       }
@@ -118,6 +139,7 @@ export default new Vuex.Store({
       const genres = [movieGenres, tvGenres];
       commit("SET_GENRES_LIST", genres);
     },
+
 
     // async getDetails({ dispatch, state, commit }, { id, type }) {
     //   try {
@@ -188,6 +210,7 @@ export default new Vuex.Store({
           return video.type === "Trailer";
         });
         return trailer ? trailer : { key: "" };
+
       } catch (e) {
         console.log(e);
       }
@@ -205,10 +228,12 @@ export default new Vuex.Store({
           },
         });
         console.log(results);
+
         results.forEach((result) => {
           result.type = type;
         });
         //////////////////////////////////////////
+
         type == "movie"
           ? commit("SET_LISTED_MOVIES", results)
           : commit("SET_LISTED_SERIES", results);
@@ -216,6 +241,7 @@ export default new Vuex.Store({
         console.log(e);
       }
     },
+
 
     async getDetailedMovie({ commit, dispatch }, { id, type }) {
       try {
@@ -228,5 +254,6 @@ export default new Vuex.Store({
         console.log(e);
       }
     },
+
   },
 });

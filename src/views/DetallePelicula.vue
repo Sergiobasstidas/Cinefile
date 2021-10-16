@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <div class="bodyMovie">
       <div class="bodyMovie__back">
@@ -122,10 +123,12 @@
     <v-container>
       <Comentarios class="comentarios"></Comentarios>
     </v-container>
+
   </div>
 </template>
 
 <script>
+
   import CarouselCast from "@/components/CarouselCast";
   import Comentarios from "@/components/Comentarios";
   export default {
@@ -324,3 +327,4 @@
     }
   }
 </style>
+

@@ -17,30 +17,47 @@ const routes = [
   },
   {
     path: "/movies",
-    name: "movies",
+    name: "Movies",
     component: () => import("../views/Movies.vue"),
   },
   {
-    path: "/:type/:id",
+
+    path: "/movie/:id",
     name: "DetallePelicula",
     component: () => import("../views/DetallePelicula.vue"),
+
   },
   {
-    path: "/series",
-    name: "series",
+     path: "/series",
+    name: "Series",
+
     component: () => import("../views/Series.vue"),
   },
   {
     path: "/login",
-    name: "login",
-    component: () => import("../views/login.vue"),
+
+    name: "Login",
+    component: () => import("../views/Login.vue"),
   },
   {
-    path: "/profile",
-    name: "profile",
-    component: () => import("../views/Profile.vue"),
+    path: "/register",
+    name: "Register",
+    component: () => import("../views/Register.vue"),
+
   },
+  {
+    path: "/forgot",
+    name: "Forgotpassword",
+    component: () => import("../views/Forgot.vue"),
+  },
+
+//   path: "/actors",
+//   name: "Actors",
+//   component: () => import("../views/Login.vue"),
+// },
 ];
+
+
 
 const router = new VueRouter({
   mode: "history",
