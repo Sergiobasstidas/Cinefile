@@ -1,9 +1,11 @@
 <template>
   <v-app>
+
     <v-container >
       <AppBar  />
     </v-container>
     <v-main absolute>
+
       <router-view />
     </v-main>
     <Footer />
@@ -12,11 +14,13 @@
 
 <script>
 
+
 import AppBar from "./components/AppBar.vue";
 import Footer from "./components/Footer.vue";
 export default {
   name: "App",
   components: { AppBar, Footer },
+
   data: () => ({
     //
   }),
@@ -44,7 +48,9 @@ html {
   color: white !important;
   font-family: "Rubik", sans-serif;
 }
+
 v-main {
 padding: 80px 0px 0px !important;
 }
+
 </style>

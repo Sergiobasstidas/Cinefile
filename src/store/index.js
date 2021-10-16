@@ -8,6 +8,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+// Estos se ocupan o los borramos nomas? si son necesarios deberian estar en un modulo aparte.
     drawer: false,
     links: [
       'Home',
@@ -15,6 +16,7 @@ export default new Vuex.Store({
       'Series',
       'Actors'
     ],
+/////////////////
     home: {
       homeSections: [
         {
@@ -42,7 +44,9 @@ export default new Vuex.Store({
     },
     listedMovies: [], // Peliculas que seran mostradas en la seccion peliculas
     listedSeries: [], // Series que seran mostradas en la seccion Series
-    detailed: {},
+
+    infoMovie: {},
+
 
     API_KEY: "21b858443ab2bbdbb90fa7c26e40b421",
     BASE_URL: "https://api.themoviedb.org/3",
@@ -65,9 +69,17 @@ export default new Vuex.Store({
     SETUP_HOME(state, list) {
       state.home.homeMovies.push(list);
     },
+
+    
+// Esto igual
     SET_DRAWER(state, payload) {
       state.drawer = payload
     }
+////////////////7
+    SET_INFOMOVIE(state, movie) {
+      state.infoMovie = movie;
+    },
+
   },
 
   actions: {
@@ -81,18 +93,18 @@ export default new Vuex.Store({
             page: page,
           },
         });
-        const resultsWithType = [];
+
         // Agregando la key type para poder diferenciar entre pelicula o serie.
         results.forEach((result) => {
           result.type = type;
-          resultsWithType.push(result);
         });
         //////////////////////////////////////////
-        console.log(`${category}, ${type}:`, resultsWithType);
+        console.log(`${category}, ${type}:`, results);
         type == "movie"
-          ? commit("SET_LISTED_MOVIES", resultsWithType)
-          : commit("SET_LISTED_SERIES", resultsWithType);
-        return resultsWithType;
+          ? commit("SET_LISTED_MOVIES", results)
+          : commit("SET_LISTED_SERIES", results);
+        return results;
+
       } catch (e) {
         console.log(e);
       }
@@ -126,22 +138,77 @@ export default new Vuex.Store({
       commit("SET_GENRES_LIST", genres);
     },
 
-    async getMovieDetails({ state }, id) {
-      const params = {
-        params: {
-          api_key: state.API_KEY,
-        },
-      };
+
+    // async getDetails({ dispatch, state, commit }, { id, type }) {
+    //   try {
+    //     const { data: movie } = await axios.get(
+    //       `${state.BASE_URL}/${type}/${id}`,
+    //       {
+    //         params: {
+    //           api_key: state.API_KEY,
+    //         },
+    //       }
+    //     );
+    //     movie.type = type;
+    //     const cast = await dispatch("getCast", { id: id, type: type });
+    //     const trailer = await dispatch("getTrailer", { id: id, type: type });
+    //     const detailedMovie = { ...movie, cast, trailer };
+    //     commit("SET_INFOMOVIE", detailedMovie);
+    //     console.log(detailedMovie);
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // },
+
+    async getMovie({ state }, { id, type }) {
       try {
         const { data: movie } = await axios.get(
-          `${state.BASE_URL}/movie/${id}`,
-          params
+          `${state.BASE_URL}/${type}/${id}`,
+          {
+            params: {
+              api_key: state.API_KEY,
+            },
+          }
         );
-        console.log(movie);
-        // const {data: cast} = await axios.get(
-        //   `${state.BASE_URL}/movie/${id}`,
-        //   params
-        // );
+        movie.type = type;
+        return movie;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async getCast({ state }, { id, type }) {
+      try {
+        const {
+          data: { cast },
+        } = await axios.get(`${state.BASE_URL}/${type}/${id}/credits`, {
+          params: {
+            api_key: state.API_KEY,
+          },
+        });
+        const actors = cast.filter((cast) => {
+          return cast.known_for_department === "Acting";
+        });
+        return actors;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async getTrailer({ state }, { id, type }) {
+      try {
+        const {
+          data: { results: videos },
+        } = await axios.get(`${state.BASE_URL}/${type}/${id}/videos`, {
+          params: {
+            api_key: state.API_KEY,
+          },
+        });
+        const trailer = videos.find((video) => {
+          return video.type === "Trailer";
+        });
+        return trailer ? trailer : { key: "" };
+
       } catch (e) {
         console.log(e);
       }
@@ -159,6 +226,12 @@ export default new Vuex.Store({
           },
         });
         console.log(results);
+
+        results.forEach((result) => {
+          result.type = type;
+        });
+        //////////////////////////////////////////
+
         type == "movie"
           ? commit("SET_LISTED_MOVIES", results)
           : commit("SET_LISTED_SERIES", results);
@@ -166,6 +239,20 @@ export default new Vuex.Store({
         console.log(e);
       }
     },
+
+
+    async getDetailedMovie({ commit, dispatch }, { id, type }) {
+      try {
+        const movie = await dispatch("getMovie", { id: id, type: type });
+        const cast = await dispatch("getCast", { id: id, type: type });
+        const trailer = await dispatch("getTrailer", { id: id, type: type });
+        const detailedMovie = { ...movie, cast, trailer };
+        commit("SET_INFOMOVIE", detailedMovie);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
   },
   modules: {},
 });

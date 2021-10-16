@@ -1,6 +1,8 @@
 <template>
   <v-main class="carousel_container">
-    <v-container :fluid="true">
+
+    <v-container fluid>
+
       <v-row justify="center">
         <v-col
           v-for="(list, index) in $store.state.home.homeMovies"
@@ -17,7 +19,9 @@
   </v-main>
 </template>
 
-<script scoped>
+
+<script>
+
   import Carousel from "@/components/Carousel";
   // import SearchBar from "@/components/SearchBar";
   export default {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="carousel_title">
-      <span class="title_text">{{ title }}</span>
+      <h3 class="title_text">Reparto</h3>
     </div>
     <carousel
       :perPageCustom="[
@@ -9,14 +9,14 @@
         [800, 3],
         [1124, 4],
         [1400, 5],
-        [1700, 6],
+        [1904, 6],
       ]"
       :navigationEnabled="windowWidth > 1200 ? true : false"
       :paginationEnabled="windowWidth < 1200 ? true : false"
       class="carousel"
     >
-      <slide class="slide" v-for="movie in movieList" :key="movie.id">
-        <CarouselCard class="movieCard" :movie="movie" />
+      <slide class="slide" v-for="cast in castList" :key="cast.id">
+        <CarouselCardCast class="castCard" :cast="cast" />
       </slide>
     </carousel>
   </div>
@@ -24,10 +24,10 @@
 
 <script>
   import { Carousel, Slide } from "vue-carousel";
-  import CarouselCard from "@/components/CarouselCard.vue";
+  import CarouselCardCast from "@/components/CarouselCardCast.vue";
 
   export default {
-    name: "HelloWorld",
+    name: "CarouselCast",
 
     data: () => ({
       model: null,
@@ -38,27 +38,17 @@
           [700, 3],
           [1024, 4],
           [1300, 5],
-          [1500, 6],
+          [1500, 5],
         ],
-
-        [
-          [100, 2],
-          [800, 3],
-          [1124, 4],
-          [1400, 5],
-          [1700, 6],
-        ],
-
       ],
     }),
     components: {
       Carousel,
       Slide,
-      CarouselCard,
+      CarouselCardCast,
     },
     props: {
-      movieList: Array,
-      title: String,
+      castList: Array,
     },
     created() {
       window.addEventListener("resize", this.handleResize);
@@ -75,9 +65,9 @@
     },
   };
 </script>
-<style>
+<style lang="scss">
   .carousel {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
   }
 
@@ -130,16 +120,17 @@
     display: flex;
     justify-content: center;
   }
-  .movieCard {
+  .castCard {
     max-width: 220px;
     margin: 20px;
+    &:first-child{margin-left: 0px !important;}
   }
   .carousel_title {
-    width: 88%;
+    width: 100%;
     margin: 0 auto;
     margin-bottom: 1em;
   }
   .title_text {
-    font-size: 2.5em;
+    font-size: 2em;
   }
 </style>
