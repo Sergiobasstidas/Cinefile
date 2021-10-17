@@ -1,5 +1,5 @@
-import firebaseConfig from "@/components/firebaseConfig.js";
-import { initializeApp } from "firebase/app";
+import { firebaseApp } from "@/components/firebaseConfig.js";
+// import { initializeApp } from "firebase/app";
 import {
   getFirestore,
   collection,
@@ -36,7 +36,7 @@ export const user = {
   },
   actions: {
     initializeFirebase({ commit }) {
-      const firebaseApp = initializeApp(firebaseConfig);
+      // const firebaseApp = initializeApp(firebaseConfig);
       const firestore = getFirestore();
       commit("SET_FIREBASE", firebaseApp);
       commit("SET_FIRESTORE", firestore);
@@ -85,7 +85,7 @@ export const user = {
 
     async fillNewUserLists({ state }, userId) {
       const lista = {
-        listas: [
+        userLists: [
           {
             name: "Favoritos",
             movies: [],
@@ -99,6 +99,6 @@ export const user = {
       await setDoc(doc(state.firestore, `lists/${userId}`), lista);
     },
 
-    // async getLists(){}
+    // async getUserLists({state, }) {},
   },
 };
