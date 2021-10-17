@@ -233,6 +233,7 @@ export default new Vuex.Store({
 
     async getDetailedMovie({ commit, dispatch }, { id, type }) {
       try {
+        console.log("detalle peli");
         const movie = await dispatch("getMovie", { id: id, type: type });
         const cast = await dispatch("getCast", { id: id, type: type });
         const trailer = await dispatch("getTrailer", { id: id, type: type });

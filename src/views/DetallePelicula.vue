@@ -1,5 +1,4 @@
 <template>
-
   <div>
     <div class="bodyMovie">
       <div class="bodyMovie__back">
@@ -123,12 +122,10 @@
     <v-container>
       <Comentarios class="comentarios"></Comentarios>
     </v-container>
-
   </div>
 </template>
 
 <script>
-
   import CarouselCast from "@/components/CarouselCast";
   import Comentarios from "@/components/Comentarios";
   export default {
@@ -206,7 +203,8 @@
         return listaCast;
       },
     },
-    beforeMount() {
+    beforeCreate() {
+      console.log(this.$route.params.type);
       this.$store.dispatch("getDetailedMovie", {
         id: this.$route.params.id,
         type: this.$route.params.type,
@@ -327,4 +325,3 @@
     }
   }
 </style>
-
