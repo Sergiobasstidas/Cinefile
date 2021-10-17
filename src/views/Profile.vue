@@ -21,9 +21,9 @@
 
     async beforeCreate() {
       // const usuarioPrueba = {
-      //   name: "listas Probando",
-      //   nick: "prueba 2",
-      //   mail: "listas@gmail.com",
+      //   name: "Ignacio Lagunas",
+      //   nick: "ingacioCinefile",
+      //   mail: "ign.lagunas@gmail.com",
       // };
       await this.$store.dispatch("user/setUserInfo", "ign.lagunas@gmail.com");
       // this.$store.dispatch("user/createNewUser", usuarioPrueba);
