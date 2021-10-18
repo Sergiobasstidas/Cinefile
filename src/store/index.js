@@ -3,14 +3,15 @@ import Vuex from "vuex";
 import axios from "axios";
 
 import { user } from "./user.js";
+
 import { lists } from "./lists.js";
+
+import {system} from './system.js'
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    // Estos se ocupan o los borramos nomas? si son necesarios deberian estar en un modulo aparte.
-    drawer: false,
-    links: ["Home", "Movies", "Series", "Actors"],
+  state: {    
     /////////////////
     home: {
       homeSections: [
@@ -50,7 +51,11 @@ export default new Vuex.Store({
   },
   modules: {
     user,
+
     lists,
+
+    system,
+
   },
   getters: {},
 
@@ -67,12 +72,6 @@ export default new Vuex.Store({
     SETUP_HOME(state, list) {
       state.home.homeMovies.push(list);
     },
-
-    // Esto igual
-    SET_DRAWER(state, payload) {
-      state.drawer = payload;
-    },
-    ////////////////7
     SET_INFOMOVIE(state, movie) {
       state.infoMovie = movie;
     },
