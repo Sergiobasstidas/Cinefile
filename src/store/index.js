@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import axios from "axios";
 
 import { user } from "./user.js";
+import { lists } from "./lists.js";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -49,6 +50,7 @@ export default new Vuex.Store({
   },
   modules: {
     user,
+    lists,
   },
   getters: {},
 
@@ -93,7 +95,7 @@ export default new Vuex.Store({
           result.type = type;
         });
         //////////////////////////////////////////
-        console.log(`${category}, ${type}:`, results);
+        // console.log(`${category}, ${type}:`, results);
         type == "movie"
           ? commit("SET_LISTED_MOVIES", results)
           : commit("SET_LISTED_SERIES", results);
