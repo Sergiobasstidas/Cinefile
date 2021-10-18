@@ -22,7 +22,7 @@
     async beforeCreate() {
       // const usuarioPrueba = {
       //   name: "Ignacio Lagunas",
-      //   nick: "ingacioCinefile",
+      //   nick: "natosjd",
       //   mail: "ign.lagunas@gmail.com",
       // };
       await this.$store.dispatch("user/setUserInfo", "ign.lagunas@gmail.com");
