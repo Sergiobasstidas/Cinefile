@@ -1,5 +1,5 @@
 <template>
-  <v-form fluid class="contenedor d-flex">
+  <form @submit.prevent="procesarFormulario" fluid class="contenedor d-flex">
     <v-row>
       <v-col
         cols="12"
@@ -10,12 +10,20 @@
             <img alt="" src="@/assets/logo.png" class="sign_logo" />
           </a>
           <div class="sign_group">
-            <input class="sign_input" type="email" placeholder="Email" />
+            <input
+              class="sign_input"
+              type="email"
+              v-model="mail"
+              required
+              placeholder="Email"
+            />
           </div>
           <div class="sign_group">
             <input
               class="sign_input"
               type="password"
+              v-model="password"
+              required
               placeholder="Contraseña"
             />
           </div>
@@ -27,7 +35,7 @@
             ></v-checkbox>
           </div>
 
-          <button type="button" class="button">Ingresar</button>
+          <button type="submit" class="button">Ingresar</button>
           <span>O</span>
 
           <div class="sign_social">
@@ -47,11 +55,38 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-form>
+  </form>
 </template>
 
 <script>
-export default {};
+import { mapActions } from "vuex";
+import { validationMixin } from "vuelidate";
+import { required, email } from "vuelidate/lib/validators";
+
+export default {
+  mixins: [validationMixin],
+  validations: {
+    email: { required, email },
+    select: { required },
+  },
+
+  data: () => ({
+    mail: null,
+    password: null,
+  }),
+  methods: {
+    ...mapActions(["logIn"]),
+
+    procesarFormulario() {
+      this.$store.dispatch("system/logInUser", {
+        mail: this.mail,
+        password: this.password,
+      });
+      this.email = "";
+      this.password = "";
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -60,7 +95,6 @@ export default {};
   background-repeat: no-repeat;
   background-size: contain;
   min-height: 890px;
-  
 }
 .sign_form {
   background-color: #131720;
@@ -109,8 +143,8 @@ export default {};
   height: 10%;
 }
 .v-input--selection-controls {
-    margin-top: 0px;
-    padding-top: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
 }
 .v-checkbox v-label {
   color: white !important;
@@ -147,7 +181,7 @@ export default {};
   flex-direction: row !important;
   justify-content: center !important;
   align-items: center !important;
-  margin: 0px 15px  auto !important;
+  margin: 0px 15px auto !important;
   width: 300px;
   height: 45px !important;
   border-radius: 16px !important;
@@ -176,7 +210,7 @@ a {
   background-color: transparent;
 }
 .col {
-  padding: 0px  !important;
+  padding: 0px !important;
 }
 
 @media (min-width: 576px) {
