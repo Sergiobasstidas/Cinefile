@@ -1,11 +1,9 @@
 <template>
   <v-app>
-
-    <v-container >
-      <AppBar  />
+    <v-container id="headerContainer">
+      <AppBar />
     </v-container>
     <v-main absolute>
-
       <router-view />
     </v-main>
     <Footer />
@@ -13,9 +11,6 @@
 </template>
 
 <script>
-
-
-
 import AppBar from "./components/AppBar.vue";
 import Footer from "./components/Footer.vue";
 export default {
@@ -26,7 +21,7 @@ export default {
     //
   }),
   async beforeCreate() {
-  this.$store.dispatch("user/initializeFirebase");
+    this.$store.dispatch("user/initializeFirebase");
     await this.$store.dispatch("getGenreLists");
     const sections = this.$store.state.home.homeSections;
     for (const section of sections) {
@@ -40,15 +35,16 @@ export default {
 </script>
 <style>
 :root {
-    --main-light-color: #151f30;
-    --main-dark-color: #131720;
-    --highlight-color: #2f80ed;
-  }
+  --main-light-color: #151f30;
+  --main-dark-color: #131720;
+  --highlight-color: #2f80ed;
+}
 #app {
   background-color: #131720 !important;
   color: white !important;
   font-family: "Rubik", sans-serif !important;
 }
+#headerContainer{padding: 0px;}
 body,
 html {
   background-color: #131720 !important;
@@ -57,7 +53,6 @@ html {
 }
 
 v-main {
-padding: 80px 0px 0px !important;
+  padding: 80px 0px 0px !important;
 }
-
 </style>

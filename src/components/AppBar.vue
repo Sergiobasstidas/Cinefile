@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app color="#131720" class="navbar px-5 d-flex" height="100px">
+  <v-app-bar app color="#131720" class="navbar px-5 d-flex" height="100px" id="headerMenu">
     <img src="@/assets/logo.png" alt="" class="logo mr-4" />
     <v-toolbar-items
       v-if="$vuetify.breakpoint.mdAndUp"
@@ -46,4 +46,5 @@ export default {
   max-width: 70px;
   min-width: 70px;
 }
+#headerMenu {z-index: 100;}
 </style>
