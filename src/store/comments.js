@@ -31,5 +31,7 @@ export const comments = {
         }
     },
     mutations: {},
-    actions: {},
+    actions: {
+        
+    },
 }

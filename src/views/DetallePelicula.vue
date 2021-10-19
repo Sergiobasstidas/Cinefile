@@ -203,7 +203,7 @@ export default {
         } else {
           listaCast.push({
             id: castElement.id,
-            image:"https://media.comicbook.com/files/img/default-movie.png",
+            image: "https://media.comicbook.com/files/img/default-movie.png",
             title: castElement.name,
             character: castElement.character,
           });
