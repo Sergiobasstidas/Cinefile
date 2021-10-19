@@ -70,12 +70,6 @@
         return genreNames;
       },
     },
-
-    methods: {
-      goToDetails(id, type) {
-        this.$router.push(`/${type}/${id}`);
-      },
-    },
   };
 </script>
 <style>

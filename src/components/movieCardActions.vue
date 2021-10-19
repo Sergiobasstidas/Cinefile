@@ -22,6 +22,11 @@
     props: {
       movie: Object,
     },
+    methods: {
+      goToDetails(id, type) {
+        this.$router.push(`/${type}/${id}`);
+      },
+    },
   };
 </script>
 <style></style>
