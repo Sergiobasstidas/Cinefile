@@ -1,5 +1,5 @@
 <template>
-  <v-form fluid class="contenedor d-flex">
+  <form @submit.prevent="procesarFormulario" fluid class="contenedor d-flex">
     <v-row>
       <v-col
         cols="12"
@@ -10,22 +10,37 @@
             <img alt="" src="@/assets/logo.png" class="sign_logo" />
           </a>
           <div class="sign_group">
-            <input class="sign_input" type="email" placeholder="Nombre de usuario" />
+            <input
+              class="sign_input"
+              type="text"
+              v-model="userName"
+              required
+              placeholder="Nombre de usuario"
+            />
           </div>
           <div class="sign_group">
-            <input class="sign_input" type="email" placeholder="Email" />
+            <input
+              class="sign_input"
+              type="email"
+              v-model.trim="email"
+              required
+              placeholder="Email"
+            />
           </div>
           <div class="sign_group">
             <input
               class="sign_input"
               type="password"
+              v-model.trim="password"
+              required
               placeholder="Contraseña"
             />
           </div>
-                    <div class="sign_group">
+          <div class="sign_group">
             <input
               class="sign_input"
               type="password"
+              v-model.trim="password2"
               placeholder="Confirma la contraseña"
             />
           </div>
@@ -33,11 +48,13 @@
             <v-checkbox
               class="checkbox"
               style="color='#FFFFF'"
+              required
               label="Estoy de acuerdo con las politicas de privacidad"
             ></v-checkbox>
           </div>
 
-          <button type="button" class="button">Registrarse</button>
+          <button type="submit" class="button">Registrarse</button>
+
           <span>O</span>
 
           <div class="sign_social">
@@ -53,11 +70,40 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-form>
+  </form>
 </template>
 
 <script>
-export default {};
+import { validationMixin } from "vuelidate";
+import { required, email } from "vuelidate/lib/validators";
+
+export default {
+  mixins: [validationMixin],
+  validations: {
+    email: { required, email },
+    select: { required },
+  },
+
+  data: () => ({
+    userName: null,
+    email: null,
+    password: null,
+    password2: null,
+  }),
+
+  methods: {
+    procesarFormulario() {
+      this.$store.dispatch("system/registerNewUser", {
+        nick: this.userName,
+        mail: this.email,
+        password: this.password,
+      });
+      this.userName = "",
+      this.email = "";
+      this.password = "";
+    },
+  },
+};
 </script>
 
 <style scoped>

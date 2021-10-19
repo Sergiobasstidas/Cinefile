@@ -1,9 +1,10 @@
-import firebaseConfig from "@/components/firebaseConfig.js";
-import { initializeApp } from "firebase/app";
+import { firebaseApp } from "@/components/firebaseConfig.js";
+// import { initializeApp } from "firebase/app";
 import {
   getFirestore,
   collection,
   getDocs,
+  // getDoc,
   addDoc,
   setDoc,
   doc,
@@ -18,8 +19,13 @@ export const user = {
       userId: "",
       userInfo: "",
     },
-    lists: [],
   },
+  getters: {
+    userId(state) {
+      return state.user.userId;
+    },
+  },
+
   mutations: {
     SET_FIREBASE(state, firebaseApp) {
       state.firebaseApp = firebaseApp;
@@ -35,34 +41,41 @@ export const user = {
     },
   },
   actions: {
-    initializeFirebase({ commit }) {
-      const firebaseApp = initializeApp(firebaseConfig);
+    initializeFirebase({ commit, dispatch }) {
       const firestore = getFirestore();
+
+      // TEMPORAL!!!!!!!!!!!!!!!
+      dispatch("lists/getFirestore", null, { root: true });
+      /////////////////////////////////////////////////
+
       commit("SET_FIREBASE", firebaseApp);
       commit("SET_FIRESTORE", firestore);
     },
 
     // Si el usuario ya existe esta funcion busca por el mail y llena la store con los datos del usuario,
     // sus listas y sus likes.
-    async setUserInfo({ state, commit }, mail) {
+    async setUserInfo({ state, commit, dispatch }, mail) {
       const querySnapshot = await getDocs(collection(state.firestore, "users"));
       let user = state.user;
       querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data().mail}`);
+        // console.log(`${doc.id} => ${doc.data().mail}`);
         if (doc.data().mail == mail) {
           return (user = { userInfo: doc.data(), userId: doc.id });
         }
       });
       commit("SET_USER_INFO", user.userInfo);
       commit("SET_USER_ID", user.userId);
+      dispatch("lists/updateUserLists", null, { root: true });
 
-      console.log(state.user.userId);
+      console.log(
+        `Usuario logeado: ${state.user.userInfo.mail} con id ${state.user.userId}`
+      );
     },
 
     async createNewUser({ state, dispatch }, user) {
       const docref = await addDoc(collection(state.firestore, "users"), user);
-      console.log(docref.id);
-      dispatch("fillNewUserLists", docref.id);
+      console.log(`Usuario creado con id ${docref.id} y nombre ${user.mail}`);
+      dispatch("lists/fillNewUserLists", docref.id, { root: true });
       dispatch("setUserInfo", user.mail);
     },
 
@@ -74,7 +87,7 @@ export const user = {
     // }
 
     async updateUserInfo({ state, commit }, updatedUserInfo) {
-      console.log(state.user.userId);
+      // console.log(state.user.userId);
       await setDoc(
         doc(state.firestore, `users/${state.user.userId}`),
         updatedUserInfo
@@ -82,23 +95,5 @@ export const user = {
 
       commit("SET_USER_INFO", updatedUserInfo);
     },
-
-    async fillNewUserLists({ state }, userId) {
-      const lista = {
-        listas: [
-          {
-            name: "Favoritos",
-            movies: [],
-          },
-          {
-            name: "Ver más tarde",
-            movies: [],
-          },
-        ],
-      };
-      await setDoc(doc(state.firestore, `lists/${userId}`), lista);
-    },
-
-    // async getLists(){}
   },
 };

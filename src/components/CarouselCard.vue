@@ -8,9 +8,17 @@
             : 'https://media.comicbook.com/files/img/default-movie.png'
         "
         alt=""
-        @click="goToDetails(movie.id, movie.type)"
       />
-      <addToListButton class="addToListButton" />
+      <movieCardActions :movie="movie" />
+      <!--<div class="movieCardActions">
+        <div class="cardIcons">
+          <v-icon x-large dark class="likeIcon">mdi-heart-outline</v-icon>
+          <addToList class="addToList" :movie="movie" />
+        </div>
+        <h3 class="goToDetails" @click="goToDetails(movie.id, movie.type)">
+          Ver detalles
+        </h3>
+      </div> !-->
     </div>
     <div class="text">
       <v-tooltip bottom>
@@ -30,13 +38,14 @@
   </div>
 </template>
 <script>
-  import addToListButton from "./addToListButton";
+  import movieCardActions from "./movieCardActions";
+
   export default {
     data() {
       return {};
     },
     components: {
-      addToListButton,
+      movieCardActions,
     },
 
     props: {
@@ -70,17 +79,40 @@
   };
 </script>
 <style>
-  .card-hover:hover > .text .movieTitle {
+  .card-hover .text:hover > .movieTitle {
     color: #2f80ed !important;
   }
   .cardImg {
     position: relative;
   }
 
-  .cardImg .addToListButton {
+  .cardImg .movieCardActions {
+    opacity: 0;
     position: absolute;
-    right: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
     top: 5px;
+  }
+  .movieCardActions .cardIcons {
+    display: flex;
+    margin-bottom: 25px;
+  }
+
+  .movieCardActions .goToDetails {
+    font-weight: 400;
+  }
+  .movieCardActions .goToDetails:hover {
+    color: var(--highlight-color);
+    cursor: pointer;
+  }
+
+  .cardImg .cardIcons .likeIcon {
+    margin-right: 30px;
+    cursor: pointer;
   }
 
   .cardImg img {
@@ -90,7 +122,7 @@
   }
   .text {
     margin-top: 10px;
-    width: 200px;
+    width: 80%;
   }
   .movieTitle {
     display: block;
@@ -107,6 +139,19 @@
   .genres {
     font-size: 0.8em;
   }
-  .addToListButton {
+
+  .cardImg:hover img {
+    opacity: 0.1;
+    transition: opacity 0.5s;
+  }
+  .cardImg:hover .movieCardActions {
+    transition: opacity 0.9s;
+    opacity: 1;
+  }
+  .cardImg .addToList:hover i {
+    color: var(--highlight-color);
+  }
+  .cardImg .likeIcon:hover {
+    color: crimson;
   }
 </style>

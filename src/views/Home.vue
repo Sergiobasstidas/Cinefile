@@ -1,8 +1,6 @@
 <template>
   <v-main class="carousel_container">
-
     <v-container fluid>
-
       <v-row justify="center">
         <v-col
           v-for="(list, index) in $store.state.home.homeMovies"
@@ -19,11 +17,8 @@
   </v-main>
 </template>
 
-
 <script>
-
   import Carousel from "@/components/Carousel";
-  // import SearchBar from "@/components/SearchBar";
   export default {
     name: "App",
     components: { Carousel },
@@ -34,7 +29,8 @@
     margin-top: 100px;
   }
   .carousel_container {
-    width: 95%;
+    width: 85%;
     margin: 0 auto;
+    padding: 0 !important;
   }
 </style>

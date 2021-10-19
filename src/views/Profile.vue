@@ -8,22 +8,25 @@
       />
     </v-container>
     <span class="title_text">Mis Listas</span>
+    <listsPanel class="mt-7" />
   </v-container>
 </template>
 <script>
   import ProfileInfo from "@/components/ProfileInfo";
   import CarouselProfile from "@/components/CarouselProfile";
+  import listsPanel from "@/components/listsPanel";
   export default {
     components: {
       ProfileInfo,
       CarouselProfile,
+      listsPanel,
     },
 
     async beforeCreate() {
       // const usuarioPrueba = {
-      //   name: "listas Probando",
-      //   nick: "prueba 2",
-      //   mail: "listas@gmail.com",
+      //   name: "Ignacio Lagunas",
+      //   nick: "natosjd",
+      //   mail: "ign.lagunas@gmail.com",
       // };
       await this.$store.dispatch("user/setUserInfo", "ign.lagunas@gmail.com");
       // this.$store.dispatch("user/createNewUser", usuarioPrueba);
