@@ -151,11 +151,13 @@ export default {
   }),
   computed: {
     getComentarios() {
-      //this.hasComment = true;
       console.log(this.$store.getters["comments/getComments"]);
       return this.$store.getters["comments/getComments"];
     },
   },
+  beforeCreate(){
+    this.$store.dispatch("comments/getUser")
+  }
 };
 </script>
 

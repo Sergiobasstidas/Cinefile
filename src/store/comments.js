@@ -23,15 +23,22 @@ export const comments = {
                 dislikes: 1,
 
             },
-        ]
+        ],
+        usuario: 0
     },
     getters: {
         getComments(state){
             return state.commentsActive
         }
     },
-    mutations: {},
+    mutations: {
+        SET_ID_USER(arrayUser){
+            this.state.usuario = arrayUser
+        }
+    },
     actions: {
-        
+        async getUser({ rootState, commit }){
+            commit("SET_ID_USER", {id: rootState.user.user.userId, info: rootState.user.user.userInfo})
+        }
     },
 }
