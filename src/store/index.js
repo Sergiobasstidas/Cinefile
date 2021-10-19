@@ -3,10 +3,12 @@ import Vuex from "vuex";
 import axios from "axios";
 
 import { user } from "./user.js";
+import { comments } from "./comments.js";
 
 import { lists } from "./lists.js";
 
 import {system} from './system.js'
+
 
 Vue.use(Vuex);
 
@@ -51,6 +53,7 @@ export default new Vuex.Store({
   },
   modules: {
     user,
+    comments,
 
     lists,
 

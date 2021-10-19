@@ -93,6 +93,7 @@ export default {
   max-width: 70px;
   min-width: 70px;
 }
+#headerMenu {z-index: 100;}
 </style>
 
   <!-- <v-toolbar-items

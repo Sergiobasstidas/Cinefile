@@ -1,11 +1,7 @@
 <template>
   <div class="card card-hover">
     <img
-      :src="
-        cast.image
-          ? cast.image
-          : 'https://media.comicbook.com/files/img/default-movie.png'
-      "
+      :src="cast.image"
       alt=""
       @click="goToDetails(cast.id)"
     />
@@ -29,25 +25,6 @@ export default {
   methods: {
     goToDetails(id) {
       this.$store.dispatch("getMovieDetails", id);
-    },
-    imageExists(image_url) {
-      let http = new XMLHttpRequest();
-
-      http.open("HEAD", image_url, false);
-      http.send();
-      console.log(http.status);
-      return http.status != 404;
-      // fetch(image_url, { method: "HEAD", mode: "cors" })
-      //   .then((res) => {
-      //     if (res.ok) {
-      //       console.log("Image exists.");
-      //       return true
-      //     } else {
-      //       console.log("Image does not exist.");
-      //       return false
-      //     }
-      //   })
-      //   .catch((err) => console.log("Error:", err));
     },
   },
 };
