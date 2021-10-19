@@ -1,11 +1,7 @@
 <template>
   <div class="card card-hover">
     <img
-      :src="
-        cast.image
-          ? cast.image
-          : 'https://media.comicbook.com/files/img/default-movie.png'
-      "
+      :src="cast.image"
       alt=""
       @click="goToDetails(cast.id)"
     />
