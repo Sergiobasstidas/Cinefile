@@ -6,7 +6,8 @@
     <carousel
       :perPageCustom="[
         [100, 2],
-        [800, 3],
+        [620, 3],
+        [800, 4],
         [1124, 4],
         [1400, 5],
         [1700, 6],
@@ -48,7 +49,6 @@
           [1400, 5],
           [1700, 6],
         ],
-
       ],
     }),
     components: {
@@ -131,7 +131,7 @@
     justify-content: center;
   }
   .movieCard {
-    max-width: 220px;
+    width: 200px;
     margin: 20px;
   }
   .carousel_title {
@@ -141,5 +141,10 @@
   }
   .title_text {
     font-size: 2.5em;
+  }
+  @media (max-width: 1110px) {
+    .movieCard {
+      width: 130px;
+    }
   }
 </style>

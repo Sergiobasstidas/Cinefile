@@ -3,15 +3,14 @@
     <div class="card-img">
       <img
         class="rounded-l-xl"
-
         @click="goToDetails(movie.id, movie.type)"
-
         :src="
           movie.poster_path
             ? $store.state.POSTER_URL + movie.poster_path
             : 'https://media.comicbook.com/files/img/default-movie.png'
         "
       />
+      <movieCardActions :movie="movie" />
     </div>
 
     <div class="d-flex flex-column ml-4 text card-text">
@@ -24,9 +23,7 @@
           font-weight-bold
           p-0
         "
-
         >{{ movie.title ? movie.title : movie.name }}</span
-
       >
       <span class="d-flex text-caption pt-0 pb-0">
         <p class="mr-2">Accion</p>
@@ -50,10 +47,14 @@
   </div>
 </template>
 <script>
+  import movieCardActions from "./movieCardActions";
   export default {
     name: "MovieCard",
     props: {
       movie: Object,
+    },
+    components: {
+      movieCardActions,
     },
 
     methods: {
@@ -61,7 +62,6 @@
         this.$router.push(`/${type}/${id}`);
       },
     },
-
   };
 </script>
 <style>

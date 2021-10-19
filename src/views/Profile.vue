@@ -8,15 +8,18 @@
       />
     </v-container>
     <span class="title_text">Mis Listas</span>
+    <listsPanel class="mt-7" />
   </v-container>
 </template>
 <script>
   import ProfileInfo from "@/components/ProfileInfo";
   import CarouselProfile from "@/components/CarouselProfile";
+  import listsPanel from "@/components/listsPanel";
   export default {
     components: {
       ProfileInfo,
       CarouselProfile,
+      listsPanel,
     },
 
     async beforeCreate() {
