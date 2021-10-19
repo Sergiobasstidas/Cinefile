@@ -27,7 +27,7 @@
     },
   };
 </script>
-<style>
+<style scoped>
   .grid-container {
     width: 90%;
   }
