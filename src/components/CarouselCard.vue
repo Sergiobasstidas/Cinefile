@@ -9,7 +9,7 @@
         "
         alt=""
       />
-      <movieCardActions :movie="movie" />
+      <movieCardActions :movie="movie" class="actions" />
       <!--<div class="movieCardActions">
         <div class="cardIcons">
           <v-icon x-large dark class="likeIcon">mdi-heart-outline</v-icon>
@@ -72,7 +72,7 @@
     },
   };
 </script>
-<style>
+<style lang="scss">
   .card-hover .text:hover > .movieTitle {
     color: #2f80ed !important;
   }
@@ -80,34 +80,34 @@
     position: relative;
   }
 
-  .cardImg .movieCardActions {
-    opacity: 0;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    top: 5px;
-  }
-  .movieCardActions .cardIcons {
-    display: flex;
-    margin-bottom: 25px;
-  }
+  // .cardImg .movieCardActions {
+  //   opacity: 0;
+  //   position: absolute;
+  //   display: flex;
+  //   flex-direction: column;
+  //   width: 100%;
+  //   height: 100%;
+  //   justify-content: center;
+  //   align-items: center;
+  //   top: 5px;
+  // }
+  // .movieCardActions .cardIcons {
+  //   display: flex;
+  //   margin-bottom: 25px;
+  // }
 
-  .movieCardActions .goToDetails {
-    font-weight: 400;
-  }
-  .movieCardActions .goToDetails:hover {
-    color: var(--highlight-color);
-    cursor: pointer;
-  }
+  // .movieCardActions .goToDetails {
+  //   font-weight: 400;
+  // }
+  // .movieCardActions .goToDetails:hover {
+  //   color: var(--highlight-color);
+  //   cursor: pointer;
+  // }
 
-  .cardImg .cardIcons .likeIcon {
-    margin-right: 30px;
-    cursor: pointer;
-  }
+  // .cardImg .cardIcons .likeIcon {
+  //   margin-right: 30px;
+  //   cursor: pointer;
+  // }
 
   .cardImg img {
     width: 100%;
@@ -138,14 +138,17 @@
     opacity: 0.1;
     transition: opacity 0.5s;
   }
-  .cardImg:hover .movieCardActions {
+  .cardImg .actions {
+    opacity: 0;
+  }
+  .cardImg:hover .actions {
     transition: opacity 0.9s;
     opacity: 1;
   }
-  .cardImg .addToList:hover i {
-    color: var(--highlight-color);
-  }
-  .cardImg .likeIcon:hover {
-    color: crimson;
-  }
+  // .cardImg .addToList:hover i {
+  //   color: var(--highlight-color);
+  // }
+  // .cardImg .likeIcon:hover {
+  //   color: crimson;
+  // }
 </style>

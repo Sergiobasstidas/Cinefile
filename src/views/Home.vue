@@ -29,7 +29,7 @@
     margin-top: 100px;
   }
   .carousel_container {
-    width: 85%;
+    width: 100%;
     margin: 0 auto;
     padding: 0 !important;
   }
