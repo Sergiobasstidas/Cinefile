@@ -26,7 +26,7 @@ export const system = {
         });
     },
     logInUser({ commit, dispatch }, logedUser) {
-        console.log(logedUser.mail, logedUser.password);
+      console.log(logedUser.mail, logedUser.password);
       const auth = getAuth();
       signInWithEmailAndPassword(auth, logedUser.mail, logedUser.password)
         .then((userCredential) => {
@@ -40,7 +40,7 @@ export const system = {
           console.log(e);
         });
     },
-    toggleDrawer({commit}) {
+    toggleDrawer({ commit }) {
       commit("SET_DRAWER")
     }
   },
@@ -48,7 +48,7 @@ export const system = {
     SET_USER(state, payload) {
       state.user = payload;
     },
-    SET_DRAWER(state ) {
+    SET_DRAWER(state) {
       state.drawer = !state.drawer;
     },
   },

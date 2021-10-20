@@ -139,24 +139,28 @@
 </template>
 
 <script>
-  import AddComments from "@/components/AddComments";
-  export default {
-    name: "Comentarios",
-    components: {
-      AddComments,
+
+import AddComments from "@/components/AddComments";
+export default {
+  name: "Comentarios",
+  components: {
+    AddComments,
+  },
+  data: () => ({
+    hasComment: true,
+    isLogged: true
+  }),
+  computed: {
+    getComentarios() {
+      console.log(this.$store.getters["comments/getComments"]);
+      return this.$store.getters["comments/getComments"];
     },
-    data: () => ({
-      hasComment: true,
-      isLogged: true,
-    }),
-    computed: {
-      getComentarios() {
-        //this.hasComment = true;
-        console.log(this.$store.getters["comments/getComments"]);
-        return this.$store.getters["comments/getComments"];
-      },
-    },
-  };
+  },
+  beforeCreate(){
+    this.$store.dispatch("comments/getUser")
+  }
+};
+
 </script>
 
 <style lang="scss">

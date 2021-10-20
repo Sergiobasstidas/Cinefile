@@ -120,7 +120,7 @@
       </div>
     </div>
     <v-container>
-      <Comentarios class="comentarios"></Comentarios>
+      <Comentarios class="comentarios" :idMovie="idMovie"></Comentarios>
     </v-container>
   </div>
 </template>
@@ -145,8 +145,15 @@ export default {
     ],
   }),
   computed: {
+    idMovie() {
+      return this.$store.state.infoMovie.id;
+    },
     getTitle() {
-      return this.$store.state.infoMovie.original_title;
+      if (this.$route.params.type == "tv") {
+        return this.$store.state.infoMovie.name;
+      } else {
+        return this.$store.state.infoMovie.original_title;
+      }
     },
     getImagen() {
       let idImagen = this.$store.state.infoMovie.backdrop_path;
@@ -156,7 +163,11 @@ export default {
       return this.$store.state.infoMovie.overview;
     },
     getYear() {
-      return this.$store.state.infoMovie.release_date.slice(0, 4);
+      if (this.$route.params.type == "tv") {
+        return this.$store.state.infoMovie.first_air_date.slice(0, 4);
+      } else {
+        return this.$store.state.infoMovie.release_date.slice(0, 4);
+      }
     },
     getGenres() {
       let listaGeneros = [];
@@ -219,6 +230,14 @@ export default {
       type: this.$route.params.type,
     });
   },
+  // beforeRouteEnter(to, from, next) {
+  //   console.log(this.$route.params.type);
+  //   this.$store.dispatch("getDetailedMovie", {
+  //     id: this.$route.params.id,
+  //     type: this.$route.params.type,
+  //   });
+  //   next()
+  // },
 };
 </script>
 
