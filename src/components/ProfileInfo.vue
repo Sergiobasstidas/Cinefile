@@ -92,6 +92,7 @@
       async changeAvatar(avatarUrl) {
         console.log(avatarUrl);
         this.user.avatar = avatarUrl;
+        console.log(this.user);
         await this.$store.dispatch("user/updateUserInfo", this.user);
       },
     },

@@ -18,9 +18,12 @@
 </template>
 <script>
   import MovieCard from "@/components/MovieCard.vue";
+  // import CarouselCard from "@/components/CarouselCard.vue";
+
   export default {
     components: {
       MovieCard,
+      // CarouselCard,
     },
     props: {
       movieList: Array,

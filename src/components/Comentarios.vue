@@ -139,81 +139,82 @@
 </template>
 
 <script>
-import AddComments from "@/components/AddComments";
-export default {
-  name: "Comentarios",
-  components: {
-    AddComments,
-  },
-  data: () => ({
-    hasComment: true,
-    isLogged: true
-  }),
-  computed: {
-    getComentarios() {
-      //this.hasComment = true;
-      console.log(this.$store.getters["comments/getComments"]);
-      return this.$store.getters["comments/getComments"];
+  import AddComments from "@/components/AddComments";
+  export default {
+    name: "Comentarios",
+    components: {
+      AddComments,
     },
-  },
-};
+    data: () => ({
+      hasComment: true,
+      isLogged: true,
+    }),
+    computed: {
+      getComentarios() {
+        //this.hasComment = true;
+        console.log(this.$store.getters["comments/getComments"]);
+        return this.$store.getters["comments/getComments"];
+      },
+    },
+  };
 </script>
 
 <style lang="scss">
-.box-comment {
-  background-color: #151f30;
-  border-radius: 10px;
-  margin-bottom: 2rem;
-}
-.box-comment-answer {
-  background-color: #151f30;
-  border-radius: 10px;
-  margin-bottom: 2rem;
-  margin-left: 3rem;
-}
-.box-comment__texto {
-  padding: 1rem 0;
-}
-.box-comment__avatar img{border-radius: 80px;}
-.reaction,
-.actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.reaction__like,
-.reaction__dislike {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.reaction__like {
-  margin-right: 1.8rem;
-}
-.like__icon {
-  color: #29b474;
-  border-radius: 10px;
-  border: 1px solid #29b474;
-  padding: 5px 7px;
-  margin-right: 10px;
-}
-.dislike__icon {
-  color: #eb5757;
-  border-radius: 10px;
-  border: 1px solid #eb5757;
-  padding: 5px 7px;
-  margin-right: 10px;
-}
-.actions__reply,
-.actions__quote {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.actions__reply {
-  margin-right: 1.8rem;
-}
-.action__icon {
-  margin-right: 10px;
-}
+  .box-comment {
+    background-color: #151f30;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+  }
+  .box-comment-answer {
+    background-color: #151f30;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    margin-left: 3rem;
+  }
+  .box-comment__texto {
+    padding: 1rem 0;
+  }
+  .box-comment__avatar img {
+    border-radius: 80px;
+  }
+  .reaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .reaction__like,
+  .reaction__dislike {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .reaction__like {
+    margin-right: 1.8rem;
+  }
+  .like__icon {
+    color: #29b474;
+    border-radius: 10px;
+    border: 1px solid #29b474;
+    padding: 5px 7px;
+    margin-right: 10px;
+  }
+  .dislike__icon {
+    color: #eb5757;
+    border-radius: 10px;
+    border: 1px solid #eb5757;
+    padding: 5px 7px;
+    margin-right: 10px;
+  }
+  .actions__reply,
+  .actions__quote {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .actions__reply {
+    margin-right: 1.8rem;
+  }
+  .action__icon {
+    margin-right: 10px;
+  }
 </style>

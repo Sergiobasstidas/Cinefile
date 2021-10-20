@@ -29,4 +29,39 @@
     },
   };
 </script>
-<style></style>
+<style scoped>
+  .movieCardActions {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    top: 5px;
+  }
+  .movieCardActions .cardIcons {
+    display: flex;
+    margin-bottom: 25px;
+  }
+  .movieCardActions .goToDetails {
+    font-weight: 400;
+  }
+  .movieCardActions .goToDetails:hover {
+    color: var(--highlight-color);
+    cursor: pointer;
+  }
+  .cardIcons .likeIcon {
+    margin-right: 30px;
+    cursor: pointer;
+  }
+
+  .likeIcon:hover {
+    color: crimson;
+  }
+</style>
+<style>
+  .addToList:hover i {
+    color: var(--highlight-color);
+  }
+</style>

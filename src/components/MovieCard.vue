@@ -10,7 +10,7 @@
             : 'https://media.comicbook.com/files/img/default-movie.png'
         "
       />
-      <movieCardActions :movie="movie" />
+      <movieCardActions :movie="movie" class="actions" />
     </div>
 
     <div class="d-flex flex-column ml-4 text card-text">
@@ -79,12 +79,25 @@
     max-width: 200px;
     height: 100%;
     display: flex;
+    position: relative;
   }
 
   .card-img img {
     max-height: 100%;
     max-width: 100%;
   }
+  .card-img .actions {
+    opacity: 0;
+  }
+  .card-img:hover img {
+    opacity: 0.1;
+    transition: opacity 0.5s;
+  }
+  .card-img:hover .actions {
+    transition: opacity 0.9s;
+    opacity: 1;
+  }
+
   .card-text {
     width: 250px;
   }
