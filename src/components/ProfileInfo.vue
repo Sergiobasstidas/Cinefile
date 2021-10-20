@@ -3,7 +3,7 @@
     <v-col class="profile_photo mr-6 mb-6" cols="12" lg="3">
       <div
         class="photo mb-6"
-        :style="{ backgroundImage: `url(${user.avatar})` }"
+        :style="{ backgroundImage: `url(${userInfo.avatar})` }"
       ></div>
       <avatarChanger @avatarChange="changeAvatar" />
     </v-col>
@@ -75,11 +75,7 @@
         return this.$store.state.user.user.userInfo;
       },
     },
-    watch: {
-      userInfo() {
-        this.user = { ...this.$store.state.user.user.userInfo };
-      },
-    },
+
     methods: {
       editField(index) {
         this.fields[index].editing = !this.fields[index].editing;
@@ -90,7 +86,7 @@
         this.fields[index].editing = false;
       },
       async changeAvatar(avatarUrl) {
-        console.log(avatarUrl);
+        this.user = { ...this.$store.state.user.user.userInfo };
         this.user.avatar = avatarUrl;
         console.log(this.user);
         await this.$store.dispatch("user/updateUserInfo", this.user);

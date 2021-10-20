@@ -24,7 +24,7 @@
     components: { Carousel },
   };
 </script>
-<style>
+<style scoped>
   #carousel {
     margin-top: 100px;
   }

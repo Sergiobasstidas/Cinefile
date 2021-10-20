@@ -6,24 +6,30 @@
         v-for="(movie, i) in movieList"
         :key="i"
         align-self="center"
-        cols="12"
+        cols="4"
+        sm="3"
         md="6"
         lg="4"
         xl="3"
       >
-        <MovieCard :movie="movie" class="movieCard-card" />
+        <MovieCard
+          :movie="movie"
+          v-if="$vuetify.breakpoint.mdAndUp"
+          class="movieCard-card"
+        />
+        <CarouselCard v-else :movie="movie" :hideGenres="true" />
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
   import MovieCard from "@/components/MovieCard.vue";
-  // import CarouselCard from "@/components/CarouselCard.vue";
+  import CarouselCard from "@/components/CarouselCard.vue";
 
   export default {
     components: {
       MovieCard,
-      // CarouselCard,
+      CarouselCard,
     },
     props: {
       movieList: Array,

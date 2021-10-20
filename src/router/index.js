@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import Store from "../store";
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,13 @@ const routes = [
     path: "/:type/:id",
     name: "DetallePelicula",
     component: () => import("../views/DetallePelicula.vue"),
+    beforeEnter: async (to, from, next) => {
+      await Store.dispatch("getDetailedMovie", {
+        id: to.params.id,
+        type: to.params.type,
+      });
+      next();
+    },
   },
   {
     path: "/series",
@@ -50,18 +58,26 @@ const routes = [
   {
     path: "/profile",
     component: () => import("../views/Profile.vue"),
+    meta: { requiresLoged: true },
   },
-
-  //   path: "/actors",
-  //   name: "Actors",
-  //   component: () => import("../views/Login.vue"),
-  // },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresLoged) {
+    const logedIn = Store.state.system.logedUser ? true : false;
+    if (!logedIn) {
+      next("/login");
+    } else {
+      next();
+    }
+  }
+  next();
 });
 
 export default router;
