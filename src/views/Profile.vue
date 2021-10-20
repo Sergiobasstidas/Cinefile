@@ -21,20 +21,6 @@
       CarouselProfile,
       listsPanel,
     },
-
-    async beforeCreate() {
-      // const usuarioPrueba = {
-      //   name: "Ignacio Lagunas",
-      //   nick: "natosjd",
-      //   mail: "ign.lagunas@gmail.com",
-      // };
-      await this.$store.dispatch("user/setUserInfo", "ign.lagunas@gmail.com");
-      // this.$store.dispatch("user/createNewUser", usuarioPrueba);
-      // this.$store.dispatch("user/updateUserInfo", {
-      //   ...usuarioPrueba,
-      //   name: "cambiado exitoso ",
-      // });
-    },
   };
 </script>
 <style>

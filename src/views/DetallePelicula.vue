@@ -126,226 +126,215 @@
 </template>
 
 <script>
-import CarouselCast from "@/components/CarouselCast";
-import Comentarios from "@/components/Comentarios";
-export default {
-  name: "DetallePelicula",
-  components: { CarouselCast, Comentarios },
-  data: () => ({
-    playlistSelect: "",
-    playlist: [
-      {
-        text: "Favoritas",
-        value: "favoritas",
-      },
-      {
-        text: "Ver más tarde",
-        value: "ver_despues",
-      },
-    ],
-  }),
-  computed: {
-    idMovie() {
-      return this.$store.state.infoMovie.id;
-    },
-    getTitle() {
-      if (this.$route.params.type == "tv") {
-        return this.$store.state.infoMovie.name;
-      } else {
-        return this.$store.state.infoMovie.original_title;
-      }
-    },
-    getImagen() {
-      let idImagen = this.$store.state.infoMovie.backdrop_path;
-      return "https://www.themoviedb.org/t/p/w1280/" + idImagen;
-    },
-    getDescription() {
-      return this.$store.state.infoMovie.overview;
-    },
-    getYear() {
-      if (this.$route.params.type == "tv") {
-        return this.$store.state.infoMovie.first_air_date.slice(0, 4);
-      } else {
-        return this.$store.state.infoMovie.release_date.slice(0, 4);
-      }
-    },
-    getGenres() {
-      let listaGeneros = [];
-      this.$store.state.infoMovie.genres.forEach((genre) => {
-        listaGeneros.push({ id: genre.id, text: genre.name });
-      });
-      return listaGeneros;
-    },
-    getListas() {
-      let listaInfo = [
+  import CarouselCast from "@/components/CarouselCast";
+  import Comentarios from "@/components/Comentarios";
+  export default {
+    name: "DetallePelicula",
+    components: { CarouselCast, Comentarios },
+    data: () => ({
+      playlistSelect: "",
+      playlist: [
         {
-          icono: "mdi-star-outline",
-          text: this.$store.state.infoMovie.vote_average,
+          text: "Favoritas",
+          value: "favoritas",
         },
-      ];
-      this.$store.state.infoMovie.genres.forEach((genre) => {
-        listaInfo.push({ icono: false, text: genre.name });
-      });
-      listaInfo.push({ icono: false, text: this.getYear });
-      listaInfo.push({
-        icono: false,
-        text: this.$store.state.infoMovie.status,
-      });
-      return listaInfo;
-    },
-    getTrailer() {
-      return (
-        "https://www.youtube.com/embed/" +
-        this.$store.state.infoMovie.trailer.key
-      );
-    },
-    getCast() {
-      let listaCast = [];
-      this.$store.state.infoMovie.cast.forEach((castElement) => {
-        if (castElement.profile_path != null) {
-          listaCast.push({
-            id: castElement.id,
-            image:
-              "https://www.themoviedb.org/t/p/w1280/" +
-              castElement.profile_path,
-            title: castElement.name,
-            character: castElement.character,
-          });
+        {
+          text: "Ver más tarde",
+          value: "ver_despues",
+        },
+      ],
+    }),
+    computed: {
+      idMovie() {
+        return this.$store.state.infoMovie.id;
+      },
+      getTitle() {
+        if (this.$route.params.type == "tv") {
+          return this.$store.state.infoMovie.name;
         } else {
-          listaCast.push({
-            id: castElement.id,
-            image: "https://media.comicbook.com/files/img/default-movie.png",
-            title: castElement.name,
-            character: castElement.character,
-          });
+          return this.$store.state.infoMovie.original_title;
         }
-      });
-      return listaCast;
+      },
+      getImagen() {
+        let idImagen = this.$store.state.infoMovie.backdrop_path;
+        return "https://www.themoviedb.org/t/p/w1280/" + idImagen;
+      },
+      getDescription() {
+        return this.$store.state.infoMovie.overview;
+      },
+      getYear() {
+        if (this.$route.params.type == "tv") {
+          return this.$store.state.infoMovie.first_air_date.slice(0, 4);
+        } else {
+          return this.$store.state.infoMovie.release_date.slice(0, 4);
+        }
+      },
+      getGenres() {
+        let listaGeneros = [];
+        this.$store.state.infoMovie.genres.forEach((genre) => {
+          listaGeneros.push({ id: genre.id, text: genre.name });
+        });
+        return listaGeneros;
+      },
+      getListas() {
+        let listaInfo = [
+          {
+            icono: "mdi-star-outline",
+            text: this.$store.state.infoMovie.vote_average,
+          },
+        ];
+        this.$store.state.infoMovie.genres.forEach((genre) => {
+          listaInfo.push({ icono: false, text: genre.name });
+        });
+        listaInfo.push({ icono: false, text: this.getYear });
+        listaInfo.push({
+          icono: false,
+          text: this.$store.state.infoMovie.status,
+        });
+        return listaInfo;
+      },
+      getTrailer() {
+        return (
+          "https://www.youtube.com/embed/" +
+          this.$store.state.infoMovie.trailer.key
+        );
+      },
+      getCast() {
+        let listaCast = [];
+        this.$store.state.infoMovie.cast.forEach((castElement) => {
+          if (castElement.profile_path != null) {
+            listaCast.push({
+              id: castElement.id,
+              image:
+                "https://www.themoviedb.org/t/p/w1280/" +
+                castElement.profile_path,
+              title: castElement.name,
+              character: castElement.character,
+            });
+          } else {
+            listaCast.push({
+              id: castElement.id,
+              image: "https://media.comicbook.com/files/img/default-movie.png",
+              title: castElement.name,
+              character: castElement.character,
+            });
+          }
+        });
+        return listaCast;
+      },
     },
-  },
-  beforeCreate() {
-    console.log(this.$route.params.type);
-    this.$store.dispatch("getDetailedMovie", {
-      id: this.$route.params.id,
-      type: this.$route.params.type,
-    });
-  },
-  // beforeRouteEnter(to, from, next) {
-  //   console.log(this.$route.params.type);
-  //   this.$store.dispatch("getDetailedMovie", {
-  //     id: this.$route.params.id,
-  //     type: this.$route.params.type,
-  //   });
-  //   next()
-  // },
-};
+  };
 </script>
 
 <style lang="scss">
-.bodyMovie__back {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 15%;
-  top: 0;
-  z-index: 0;
-}
-.bodyMovie__back .Objf::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: block;
-  z-index: 1;
-  background: linear-gradient(180deg, rgba(19, 23, 32, 0.5) -50%, #131720 50%);
-  pointer-events: none;
-}
-.bodyMovie__back img {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  object-fit: cover;
-  object-position: 50% 0;
-  top: 0;
-}
-.infografia {
-  z-index: 10;
-  position: relative;
-  margin-top: 240px;
-  line-height: 60px;
-}
-.bodyMovie__infografia svg {
-  stroke: #fff;
-  color: #ffffff;
-}
-.infografia__trailerText {
-  color: #fff;
-  font-size: 22px;
-  font-weight: 300;
-  margin-left: 15px;
-}
-.infografia__title {
-  font-weight: 400;
-  font-size: 40px;
-}
-.infografia__listado {
-  line-height: 30px;
-  margin-bottom: 20px !important;
-}
-.infografia__listado .col:last-child .icono__separador {
-  display: none;
-}
-.infografia__listado .col:first-child h4 {
-  margin-left: 5px;
-}
-.infografia__container {
-  max-width: 900px;
-  width: 100%;
-}
-.infografia__descripcion {
-  width: 100%;
-  line-height: 25px;
-}
-.infografia__trailer {
-  width: 100%;
-  line-height: 20px;
-}
-.infografia__valoracion {
-  line-height: 30px;
-  font-weight: 300;
-}
-.infografia__cast {
-  line-height: 20px;
-  margin-top: 3rem;
-}
-.infografia__genre {
-  margin-top: 3rem;
-}
-.infografia__genre span {
-  padding: 20px 1.2rem;
-}
-.infografia__share {
-  margin-top: 3rem;
-}
-.infografia__share span {
-  padding: 20px 1.2rem;
-}
-.infografia__share .img-svg {
-  height: 100%;
-}
-.comentarios {
-  margin-top: 5rem;
-  position: relative;
-}
-@media (max-width: 960px) {
-  .infografia {
-    padding: 0 20px;
+  .bodyMovie__back {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 15%;
+    top: 0;
+    z-index: 0;
   }
-}
+  .bodyMovie__back .Objf::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      rgba(19, 23, 32, 0.5) -50%,
+      #131720 50%
+    );
+    pointer-events: none;
+  }
+  .bodyMovie__back img {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 0;
+    top: 0;
+  }
+  .infografia {
+    z-index: 10;
+    position: relative;
+    margin-top: 240px;
+    line-height: 60px;
+  }
+  .bodyMovie__infografia svg {
+    stroke: #fff;
+    color: #ffffff;
+  }
+  .infografia__trailerText {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 300;
+    margin-left: 15px;
+  }
+  .infografia__title {
+    font-weight: 400;
+    font-size: 40px;
+  }
+  .infografia__listado {
+    line-height: 30px;
+    margin-bottom: 20px !important;
+  }
+  .infografia__listado .col:last-child .icono__separador {
+    display: none;
+  }
+  .infografia__listado .col:first-child h4 {
+    margin-left: 5px;
+  }
+  .infografia__container {
+    max-width: 900px;
+    width: 100%;
+  }
+  .infografia__descripcion {
+    width: 100%;
+    line-height: 25px;
+  }
+  .infografia__trailer {
+    width: 100%;
+    line-height: 20px;
+  }
+  .infografia__valoracion {
+    line-height: 30px;
+    font-weight: 300;
+  }
+  .infografia__cast {
+    line-height: 20px;
+    margin-top: 3rem;
+  }
+  .infografia__genre {
+    margin-top: 3rem;
+  }
+  .infografia__genre span {
+    padding: 20px 1.2rem;
+  }
+  .infografia__share {
+    margin-top: 3rem;
+  }
+  .infografia__share span {
+    padding: 20px 1.2rem;
+  }
+  .infografia__share .img-svg {
+    height: 100%;
+  }
+  .comentarios {
+    margin-top: 5rem;
+    position: relative;
+  }
+  @media (max-width: 960px) {
+    .infografia {
+      padding: 0 20px;
+    }
+  }
 </style>

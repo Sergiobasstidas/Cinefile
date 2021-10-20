@@ -58,7 +58,6 @@ export const user = {
       const querySnapshot = await getDocs(collection(state.firestore, "users"));
       let user = state.user;
       querySnapshot.forEach((doc) => {
-        // console.log(`${doc.id} => ${doc.data().mail}`);
         if (doc.data().mail == mail) {
           return (user = { userInfo: doc.data(), userId: doc.id });
         }
@@ -83,7 +82,6 @@ export const user = {
     //   name: "",
     //   nick: "",
     //   mail: "",
-    //   avatarIndex: 0,
     // }
 
     async updateUserInfo({ state, commit }, updatedUserInfo) {

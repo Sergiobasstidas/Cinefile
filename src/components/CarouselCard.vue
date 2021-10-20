@@ -29,7 +29,7 @@
         </template>
         <span>{{ movie.title ? movie.title : movie.name }}</span>
       </v-tooltip>
-      <div class="genres mt-1">
+      <div class="genres mt-1" v-if="!hideGenres">
         <span v-for="genre in genres.slice(0, 2)" :key="genre" class="mr-2">{{
           genre
         }}</span>
@@ -50,6 +50,10 @@
 
     props: {
       movie: Object,
+      hideGenres: {
+        required: false,
+        default: false,
+      },
     },
     computed: {
       genres() {
@@ -79,35 +83,6 @@
   .cardImg {
     position: relative;
   }
-
-  // .cardImg .movieCardActions {
-  //   opacity: 0;
-  //   position: absolute;
-  //   display: flex;
-  //   flex-direction: column;
-  //   width: 100%;
-  //   height: 100%;
-  //   justify-content: center;
-  //   align-items: center;
-  //   top: 5px;
-  // }
-  // .movieCardActions .cardIcons {
-  //   display: flex;
-  //   margin-bottom: 25px;
-  // }
-
-  // .movieCardActions .goToDetails {
-  //   font-weight: 400;
-  // }
-  // .movieCardActions .goToDetails:hover {
-  //   color: var(--highlight-color);
-  //   cursor: pointer;
-  // }
-
-  // .cardImg .cardIcons .likeIcon {
-  //   margin-right: 30px;
-  //   cursor: pointer;
-  // }
 
   .cardImg img {
     width: 100%;
@@ -145,10 +120,4 @@
     transition: opacity 0.9s;
     opacity: 1;
   }
-  // .cardImg .addToList:hover i {
-  //   color: var(--highlight-color);
-  // }
-  // .cardImg .likeIcon:hover {
-  //   color: crimson;
-  // }
 </style>

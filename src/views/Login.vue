@@ -84,6 +84,7 @@
         });
         this.email = "";
         this.password = "";
+        this.$router.push("Home");
       },
     },
   };
