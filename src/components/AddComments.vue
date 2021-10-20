@@ -41,6 +41,9 @@ export default {
       }
     },
   },
+  methods:{
+    subirComentario(){}
+  }
 };
 </script>
 

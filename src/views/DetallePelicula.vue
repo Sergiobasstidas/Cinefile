@@ -120,7 +120,7 @@
       </div>
     </div>
     <v-container>
-      <Comentarios class="comentarios" :idMovie="idMovie"></Comentarios>
+      <Comentarios class="comentarios" :paraComentarios="paraComentarios"></Comentarios>
     </v-container>
   </div>
 </template>
@@ -145,8 +145,10 @@ export default {
     ],
   }),
   computed: {
-    idMovie() {
-      return this.$store.state.infoMovie.id;
+    paraComentarios() {
+      console.log(this.$store.state.user.user)
+      console.log(this.$store.state.infoMovie.id)
+      return {idMovie: this.$store.state.infoMovie.id, user: this.$store.state.user.user};
     },
     getTitle() {
       if (this.$route.params.type == "tv") {
@@ -230,13 +232,9 @@ export default {
       type: this.$route.params.type,
     });
   },
-  // beforeRouteEnter(to, from, next) {
-  //   console.log(this.$route.params.type);
-  //   this.$store.dispatch("getDetailedMovie", {
-  //     id: this.$route.params.id,
-  //     type: this.$route.params.type,
-  //   });
-  //   next()
+  // beforeRouteEnter (to, from, next) {
+  //   console.log(this.$route.params.type)
+  //   next
   // },
 };
 </script>

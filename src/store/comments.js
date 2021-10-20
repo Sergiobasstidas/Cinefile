@@ -24,7 +24,8 @@ export const comments = {
 
             },
         ],
-        usuario: 0
+        usuario: {},
+        movieActive: 0
     },
     getters: {
         getComments(state){
@@ -32,13 +33,22 @@ export const comments = {
         }
     },
     mutations: {
-        SET_ID_USER(arrayUser){
-            this.state.usuario = arrayUser
+        SET_ID_USER(state, arrayUser){
+            state.usuario = arrayUser
+        },
+        SET_MOVIE_ACTIVE(state, idMovie){
+            state.movieActive = idMovie
         }
     },
     actions: {
-        async getUser({ rootState, commit }){
-            commit("SET_ID_USER", {id: rootState.user.user.userId, info: rootState.user.user.userInfo})
+        // async getUser({ rootState, commit }){
+        //     commit("SET_ID_USER", {id: rootState.user.user.userId, info: rootState.user.user.userInfo})
+        // }
+        async setUser(context, arrayUser){
+            context.commit("SET_ID_USER", arrayUser)
+        },
+        async setIdMovieActive(context, idMovie){
+            context.commit("SET_MOVIE_ACTIVE", idMovie)
         }
     },
 }
