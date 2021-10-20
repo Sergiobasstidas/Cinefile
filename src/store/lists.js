@@ -38,18 +38,6 @@ export const lists = {
     },
 
     async fillNewUserLists({ state }, userId) {
-      //   const lista = {
-      //     userLists: [
-      //       {
-      //         name: "Favoritos",
-      //         movies: [],
-      //       },
-      //       {
-      //         name: "Ver más tarde",
-      //         movies: [],
-      //       },
-      //     ],
-      //   };
       const favoritos = {
         name: "Favoritos",
         movies: [],

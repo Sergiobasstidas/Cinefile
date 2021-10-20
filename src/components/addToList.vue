@@ -8,7 +8,7 @@
           ></span
         >
       </template>
-      <v-card>
+      <v-card v-if="userLogedIn">
         <v-card-title>Agregar a lista</v-card-title>
         <v-divider></v-divider>
 
@@ -23,7 +23,6 @@
               :key="index"
               :list="list"
               :movie="movie"
-              @add="addOrRemoveFromList(list)"
             />
 
             <v-list-item v-if="editing">
@@ -50,6 +49,21 @@
           </v-btn>
         </v-card-actions>
       </v-card>
+      <v-card v-else>
+        <v-card-title>Advertencia</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="mt-4">
+          Para poder agregar a tus listas primero debes
+          <span @click="$router.push('/login')" class="spanButton"
+            >iniciar sesión</span
+          >.
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="blue darken-1" text @click="dialog = false">
+            Cerrar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
     </v-dialog>
   </div>
 </template>
@@ -65,6 +79,7 @@
         editing: false,
         dialog: false,
         newList: "",
+        loading: false,
       };
     },
     props: {
@@ -73,6 +88,10 @@
     computed: {
       lists() {
         return this.$store.state.lists.userLists;
+      },
+
+      userLogedIn() {
+        return this.$store.state.system.logedUser ? true : false;
       },
     },
     watch: {
@@ -94,28 +113,18 @@
         this.editing = false;
         this.newList = "";
       },
-      async addOrRemoveFromList(list) {
-        console.log(this.movie);
-        const movieToAdd = {
-          id: this.movie.id,
-          type: this.movie.type,
-          title: this.movie.title ? this.movie.title : this.movie.name,
-          poster_path: this.movie.poster_path,
-          genre_ids: this.movie.genre_ids,
-        };
-        this.$store.dispatch("lists/addOrRemoveMovieFromList", {
-          listName: list.name,
-          newMovie: movieToAdd,
-        });
-      },
     },
   };
 </script>
-<style>
+<style scoped lang="scss">
   .nuevaListaInput {
     max-width: 228px;
   }
   .nuevaListaInput:focus {
     border: none !important;
+  }
+  .spanButton {
+    cursor: pointer;
+    color: var(--highlight-color);
   }
 </style>
