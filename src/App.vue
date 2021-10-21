@@ -17,22 +17,15 @@ export default {
   name: "App",
   components: { AppBar, Footer },
 
-  data: () => ({
-    //
-  }),
-  async beforeCreate() {
-    this.$store.dispatch("system/initializeFirebase");
-    //this.$store.dispatch("user/traerTodosUsuarios");
-    await this.$store.dispatch("getGenreLists");
-    const sections = this.$store.state.home.homeSections;
-    for (const section of sections) {
-      await this.$store.dispatch("initializeHome", {
-        category: section.category,
-        type: section.type,
-      });
-    }
-  },
-};
+
+    data: () => ({
+      //
+    }),
+    async beforeCreate() {
+      this.$store.dispatch("system/initializeApp");
+    },
+  };
+
 </script>
 <style>
 :root {

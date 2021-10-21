@@ -9,6 +9,7 @@
 import Grid from "@/components/Grid";
 import SearchBar from "@/components/SearchBar";
 
+<<<<<<< HEAD
 export default {
   components: {
     Grid,
@@ -26,6 +27,19 @@ export default {
     });
   },
 };
+=======
+  export default {
+    components: {
+      Grid,
+      SearchBar,
+    },
+    data() {
+      return {
+        type: "movie",
+      };
+    },
+  };
+>>>>>>> df7f4cb26cb3e62a3bc06bbecbd7b28879370322
 </script>
 <style scoped>
 .grid-container {
