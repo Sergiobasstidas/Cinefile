@@ -9,6 +9,17 @@
           <a href="/home">
             <img alt="" src="@/assets/logo.png" class="sign_logo" />
           </a>
+          <v-alert
+            dense
+            outlined
+            transition="scale-transition"
+            type="error"
+            class="text-body-2"
+            v-if="logInFailed"
+          >
+            El <strong>email</strong> o la <strong>contraseña</strong> no son
+            validos, intente nuevamente.
+          </v-alert>
           <div class="sign_group">
             <input
               class="sign_input"
@@ -73,18 +84,30 @@
     data: () => ({
       mail: null,
       password: null,
+      logInFailed: false,
     }),
     methods: {
       ...mapActions(["logIn"]),
 
       async procesarFormulario() {
-        await this.$store.dispatch("system/logInUser", {
-          mail: this.mail,
-          password: this.password,
-        });
+        const logInSuccessfull = await this.$store.dispatch(
+          "system/logInUser",
+          {
+            mail: this.mail,
+            password: this.password,
+          }
+        );
+        console.log(logInSuccessfull);
+        if (logInSuccessfull) {
+          this.$router.push("/home");
+        } else {
+          this.logInFailed = true;
+          setTimeout(() => {
+            this.logInFailed = false;
+          }, 3000);
+        }
         this.email = "";
         this.password = "";
-        this.$router.push("Home");
       },
     },
   };

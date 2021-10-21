@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="carousel_title">
+    <div class="cast_carousel_title">
       <h3 class="title_text">Reparto</h3>
     </div>
     <carousel
@@ -67,7 +67,7 @@
 </script>
 <style lang="scss">
   .carousel {
-    width: 100%;
+    width: 90%;
     margin: 0 auto;
   }
 
@@ -123,14 +123,16 @@
   .castCard {
     max-width: 220px;
     margin: 20px;
-    &:first-child{margin-left: 0px !important;}
+    &:first-child {
+      margin-left: 0px !important;
+    }
   }
-  .carousel_title {
+  .cast_carousel_title {
     width: 100%;
     margin: 0 auto;
     margin-bottom: 1em;
   }
-  .title_text {
+  .cast_carousel_title .title_text {
     font-size: 2em;
   }
 </style>

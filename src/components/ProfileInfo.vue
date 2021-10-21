@@ -140,6 +140,7 @@
   }
   .editBox {
     color: var(--highlight-color);
+    width: 80%;
   }
   .profile_icons .edit:hover {
     color: var(--highlight-color) !important;

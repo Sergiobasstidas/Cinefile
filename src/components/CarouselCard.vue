@@ -10,15 +10,6 @@
         alt=""
       />
       <movieCardActions :movie="movie" class="actions" />
-      <!--<div class="movieCardActions">
-        <div class="cardIcons">
-          <v-icon x-large dark class="likeIcon">mdi-heart-outline</v-icon>
-          <addToList class="addToList" :movie="movie" />
-        </div>
-        <h3 class="goToDetails" @click="goToDetails(movie.id, movie.type)">
-          Ver detalles
-        </h3>
-      </div> !-->
     </div>
     <div class="text">
       <v-tooltip bottom>

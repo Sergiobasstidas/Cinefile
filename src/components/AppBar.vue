@@ -9,6 +9,7 @@
       color="#131720"
       height="90px"
       dark
+      style="z-index: 90"
     >
       <v-avatar @click="$router.push('/Home')" style="cursor: pointer">
         <img src="@/assets/logo.png" alt="" />
@@ -39,7 +40,13 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn v-if="userLogedIn" absolute right class="px-0" @click="logOut()"
+        <v-btn
+          v-if="userLogedIn"
+          absolute
+          right
+          plain
+          class="px-0"
+          @click="logOut()"
           >Cerrar Sesión<v-icon class="ml-2">mdi-logout</v-icon>
         </v-btn>
         <v-btn v-else absolute right class="px-0" plain to="/login"
@@ -51,17 +58,18 @@
     <v-navigation-drawer
       height="auto"
       v-model="drawer"
-      absolute
+      fixed
       right
       dark
       temporary
       clipped
+      style="z-index: 90"
       class="navigationDrawer"
     >
       <v-list>
         <v-list-item>
           <v-list-item-content>
-            <UserCard :userLoged="userLogedIn" />
+            <UserCard :userLoged="userLogedIn" @logOut="logOut()" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
