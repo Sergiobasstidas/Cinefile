@@ -1,26 +1,19 @@
 import {
-  getFirestore,
   collection,
   getDocs,
-  // getDoc,
   addDoc,
   updateDoc,
-  // setDoc,
   doc,
 } from "firebase/firestore";
 
 export const lists = {
   namespaced: true,
   state: {
-    firestore: {},
     listsCollection: {},
     userLists: [],
   },
   getters: {},
   mutations: {
-    SET_FIRESTORE(state, firestore) {
-      state.firestore = firestore;
-    },
     SET_USER_LISTS_COLLECTION(state, listsCollection) {
       state.listsCollection = listsCollection;
     },
@@ -29,15 +22,7 @@ export const lists = {
     },
   },
   actions: {
-    getFirestore({ commit }) {
-      console.log("setting firestore");
-      //   console.log("User id from lists module: ", rootGetters["user/userId"]);
-
-      const firestore = getFirestore();
-      commit("SET_FIRESTORE", firestore);
-    },
-
-    async fillNewUserLists({ state }, userId) {
+    async fillNewUserLists({ rootGetters }, userId) {
       const favoritos = {
         name: "Favoritos",
         movies: [],
@@ -48,15 +33,21 @@ export const lists = {
         movies: [],
         userId: userId,
       };
-      const listsCollection = collection(state.firestore, "lists");
+      const listsCollection = collection(
+        rootGetters["system/getFirestore"],
+        "lists"
+      );
       await addDoc(listsCollection, favoritos);
       await addDoc(listsCollection, verMasTarde);
     },
 
     // busca las listas del usuario y las coloca en userLists.
-    async updateUserLists({ state, rootGetters, commit }) {
+    async updateUserLists({ rootGetters, commit }) {
       const currentUserId = rootGetters["user/userId"];
-      const listsCollection = collection(state.firestore, "lists");
+      const listsCollection = collection(
+        rootGetters["system/getFirestore"],
+        "lists"
+      );
       const listsCollectionData = await getDocs(listsCollection);
 
       const currentUserLists = [];
@@ -90,7 +81,7 @@ export const lists = {
 
     //  Toma el nombre de la lista, toma la refencia de las listas del usuario y modifica la lista.
     async addOrRemoveMovieFromList(
-      { state, dispatch },
+      { rootGetters, dispatch },
       { listName, newMovie }
     ) {
       const requestedList = await dispatch("getListRefByName", listName);
@@ -98,7 +89,11 @@ export const lists = {
       const movieInListIndex = listMovies.findIndex((movie) => {
         return movie.id === newMovie.id && movie.type === newMovie.type;
       });
-      const docRef = doc(state.firestore, "lists", requestedList.id);
+      const docRef = doc(
+        rootGetters["system/getFirestore"],
+        "lists",
+        requestedList.id
+      );
       if (movieInListIndex < 0) {
         console.log(
           `La pelicula ${newMovie.id} de tipo ${newMovie.type} esta siendo agregada a la lista ${listName}`

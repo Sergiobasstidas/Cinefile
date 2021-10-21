@@ -35,6 +35,8 @@
 </script>
 <style>
   .toggle-container {
+    min-width: 300px;
+
     border-radius: 20px;
     background-color: black;
     padding: 10px 20px 10px 20px;
@@ -50,5 +52,19 @@
   }
   .category-active {
     color: #2f80ed;
+  }
+
+  @media (max-width: 500px) {
+    .toggle-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: 80%;
+      min-width: 100px;
+    }
+    .toggle-container span {
+      display: inline-block;
+    }
   }
 </style>

@@ -11,7 +11,12 @@
       </div>
     </div>
     <v-row justify="center">
-      <v-btn class="text-center mt-4" outlined v-if="userLoged">
+      <v-btn
+        class="text-center mt-4"
+        outlined
+        v-if="userLoged"
+        @click="$emit('logOut')"
+      >
         Cerrar sesion
         <span class="ml-1"><v-icon small>mdi-logout</v-icon></span></v-btn
       >
