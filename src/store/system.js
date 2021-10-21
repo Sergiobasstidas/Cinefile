@@ -44,7 +44,7 @@ export const system = {
     async logOut({ commit }) {
       const auth = getAuth();
       await signOut(auth);
-      commit("SET_USER", null);
+      commit("SET_USER", false);
     },
     toggleDrawer({ commit }) {
       commit("SET_DRAWER");

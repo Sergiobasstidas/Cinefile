@@ -22,6 +22,7 @@ export default {
   }),
   async beforeCreate() {
     this.$store.dispatch("user/initializeFirebase");
+    this.$store.dispatch("user/traerTodosUsuarios");
     await this.$store.dispatch("getGenreLists");
     const sections = this.$store.state.home.homeSections;
     for (const section of sections) {

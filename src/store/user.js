@@ -19,6 +19,7 @@ export const user = {
       userId: "",
       userInfo: "",
     },
+    allUsers: []
   },
   getters: {
     userId(state) {
@@ -39,6 +40,9 @@ export const user = {
     SET_USER_ID(state, userId) {
       state.user.userId = userId;
     },
+    SET_ALL_USERS(state, users) {
+      state.allUsers = users
+    }
   },
   actions: {
     initializeFirebase({ commit, dispatch }) {
@@ -93,5 +97,13 @@ export const user = {
 
       commit("SET_USER_INFO", updatedUserInfo);
     },
+    async traerTodosUsuarios({ state, commit }) {
+      let consultarUsuarios = [];
+      const usersDB = await getDocs(collection(state.firestore, "users"));
+      usersDB.forEach((doc) => {
+        consultarUsuarios.push(doc.data())
+      });
+      commit("SET_ALL_USERS", consultarUsuarios)
+    }
   },
 };

@@ -26,6 +26,8 @@ const routes = [
     name: "DetallePelicula",
     component: () => import("../views/DetallePelicula.vue"),
     beforeEnter: async (to, from, next) => {
+      await Store.dispatch("comments/vaciarComentariosActivos")
+      await Store.dispatch("comments/vaciarPeliculaActiva")
       await Store.dispatch("getDetailedMovie", {
         id: to.params.id,
         type: to.params.type,
