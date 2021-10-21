@@ -64,7 +64,7 @@
     },
   };
 </script>
-<style>
+<style scoped>
   .card-hover:hover > .card-text .movieTitle {
     color: #2f80ed !important;
   }

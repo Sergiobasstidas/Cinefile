@@ -21,15 +21,7 @@
       //
     }),
     async beforeCreate() {
-      this.$store.dispatch("system/initializeFirebase");
-      await this.$store.dispatch("getGenreLists");
-      const sections = this.$store.state.home.homeSections;
-      for (const section of sections) {
-        await this.$store.dispatch("initializeHome", {
-          category: section.category,
-          type: section.type,
-        });
-      }
+      this.$store.dispatch("system/initializeApp");
     },
   };
 </script>

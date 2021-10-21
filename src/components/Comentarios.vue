@@ -139,31 +139,29 @@
 </template>
 
 <script>
-
-import AddComments from "@/components/AddComments";
-export default {
-  name: "Comentarios",
-  components: {
-    AddComments,
-  },
-  data: () => ({
-    hasComment: true,
-    isLogged: true
-  }),
-  computed: {
-    getComentarios() {
-      console.log(this.$store.getters["comments/getComments"]);
-      return this.$store.getters["comments/getComments"];
+  import AddComments from "@/components/AddComments";
+  export default {
+    name: "Comentarios",
+    components: {
+      AddComments,
     },
-  },
-  beforeCreate(){
-    this.$store.dispatch("comments/getUser")
-  }
-};
-
+    data: () => ({
+      hasComment: true,
+      isLogged: true,
+    }),
+    computed: {
+      getComentarios() {
+        console.log(this.$store.getters["comments/getComments"]);
+        return this.$store.getters["comments/getComments"];
+      },
+    },
+    beforeCreate() {
+      this.$store.dispatch("comments/getUser");
+    },
+  };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .box-comment {
     background-color: #151f30;
     border-radius: 10px;

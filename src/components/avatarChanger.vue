@@ -32,7 +32,14 @@
           </v-card-text>
           <v-card-actions class="justify-end">
             <v-btn text @click="dialog.value = false">Close</v-btn>
-            <v-btn text @click="confirmAvatar()">Save</v-btn>
+            <v-btn
+              text
+              @click="
+                confirmAvatar();
+                dialog.value = false;
+              "
+              >Save</v-btn
+            >
           </v-card-actions>
         </v-card>
       </template>
@@ -101,7 +108,6 @@
         this.selectedAvatar = index;
       },
       confirmAvatar() {
-        console.log(this.avatars[this.selectedAvatar].url);
         this.$emit("avatarChange", this.avatars[this.selectedAvatar].url);
       },
     },

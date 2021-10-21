@@ -46,7 +46,16 @@
             ></v-checkbox>
           </div>
 
-          <button type="submit" class="button">Ingresar</button>
+          <button type="submit" class="button" v-if="loading" disabled>
+            <v-progress-circular
+              indeterminate
+              size="20"
+              width="3"
+              color="white"
+            ></v-progress-circular>
+          </button>
+          <button type="submit" class="button" v-else>Ingresar</button>
+
           <span>O</span>
 
           <div class="sign_social">
@@ -85,11 +94,13 @@
       mail: null,
       password: null,
       logInFailed: false,
+      loading: false,
     }),
     methods: {
       ...mapActions(["logIn"]),
 
       async procesarFormulario() {
+        this.loading = true;
         const logInSuccessfull = await this.$store.dispatch(
           "system/logInUser",
           {
@@ -97,7 +108,6 @@
             password: this.password,
           }
         );
-        console.log(logInSuccessfull);
         if (logInSuccessfull) {
           this.$router.push("/home");
         } else {
@@ -106,6 +116,7 @@
             this.logInFailed = false;
           }, 3000);
         }
+        this.loading = false;
         this.email = "";
         this.password = "";
       },

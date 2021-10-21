@@ -20,6 +20,13 @@ const routes = [
     path: "/movies",
     name: "Movies",
     component: () => import("../views/Movies.vue"),
+    beforeEnter(to, from, next) {
+      Store.dispatch("getByCategory", {
+        category: "popular",
+        type: "movie",
+      });
+      next();
+    },
   },
   {
     path: "/:type/:id",
