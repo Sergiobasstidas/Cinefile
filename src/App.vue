@@ -17,15 +17,13 @@ export default {
   name: "App",
   components: { AppBar, Footer },
 
-
-    data: () => ({
-      //
-    }),
-    async beforeCreate() {
-      this.$store.dispatch("system/initializeApp");
-    },
-  };
-
+  data: () => ({
+    //
+  }),
+  async beforeCreate() {
+    this.$store.dispatch("system/initializeApp");
+  },
+};
 </script>
 <style>
 :root {
