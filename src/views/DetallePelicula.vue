@@ -150,7 +150,7 @@ export default {
   }),
   computed: {
     paraComentarios() {
-      if (this.$store.state.system.logedUser != false) {
+      if (this.$store.state.system.logedUser) {
         let nuevoArrayObjectUser = {
           id: this.$store.state.user.user.userId,
           avatar: this.$store.state.user.user.userInfo.avatar,
@@ -248,7 +248,7 @@ export default {
     },
   },
   beforeMount(){
-    this.$store.dispatch("comments/traerComentarios");
+    //this.$store.dispatch("comments/traerComentarios");
   }
 };
 </script>

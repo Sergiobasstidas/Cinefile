@@ -1,8 +1,8 @@
 
 import {
-    getFirestore,
-    collection,
-    getDocs,
+    //getFirestore,
+    //collection,
+    //getDocs,
     // getDoc,
     //addDoc,
     //setDoc,
@@ -68,10 +68,6 @@ export const comments = {
         // }
     },
     actions: {
-        getFirestore({ commit }) {
-            const firestore = getFirestore();
-            commit("SET_FIRESTORE", firestore);
-        },
         async vaciarComentariosActivos(context) {
             context.commit("CLEAR_COMMENTS_ACTIVE")
         },
@@ -89,15 +85,15 @@ export const comments = {
         async vaciarPeliculaActiva(context) {
             context.commit("CLEAR_MOVIE_ACTIVE")
         },
-        async traerComentarios(context) {
-            let consultarComentarios = [];
-            const commentsDB = await getDocs(collection(context.state.firestore, "comments"));
-            commentsDB.forEach((doc) => {
-                console.log(doc.data())
-                consultarComentarios.push(doc.data())
-            });
-            context.commit("SET_ALL_COMMENTS", consultarComentarios)
-        }
+        // async traerComentarios(context) {
+        //     let consultarComentarios = [];
+        //     const commentsDB = await getDocs(collection(context.state.firestore, "comments"));
+        //     commentsDB.forEach((doc) => {
+        //         console.log(doc.data())
+        //         consultarComentarios.push(doc.data())
+        //     });
+        //     context.commit("SET_ALL_COMMENTS", consultarComentarios)
+        // }
         // async traerTodosUsuarios({ state, commit }) {
         //   let consultarUsuarios = [];
         //   const usersDB = await getDocs(collection(state.firestore, "users"));

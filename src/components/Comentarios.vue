@@ -31,7 +31,8 @@
                   <div class="like__icon" @click="sumarLike()">
                     <v-icon color="#29B474" dense>mdi-thumb-up-outline</v-icon>
                   </div>
-                  {{ comentario.likes.length = 0 ? 0 : comentario.likes.length }}
+                  <!-- {{ comentario.likes.length = 0 ? 0 : comentario.likes.length }} -->
+                  {{comentario.likes}}
                 </div>
                 <div class="reaction__dislike" @click="sumarDislike()">
                   <div class="dislike__icon">
@@ -39,7 +40,8 @@
                       >mdi-thumb-down-outline</v-icon
                     >
                   </div>
-                  {{ comentario.dislikes.length = 0 ? 0 : comentario.dislikes.length }}
+                  <!-- {{ comentario.dislikes.length = 0 ? 0 : comentario.dislikes.length }} -->
+                  {{comentario.dislikes}}
                 </div>
               </v-col>
             </v-row>
