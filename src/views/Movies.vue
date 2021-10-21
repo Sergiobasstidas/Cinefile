@@ -19,12 +19,6 @@
         type: "movie",
       };
     },
-    beforeCreate() {
-      this.$store.dispatch("getByCategory", {
-        category: "popular",
-        type: "movie",
-      });
-    },
   };
 </script>
 <style scoped>

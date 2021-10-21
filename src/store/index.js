@@ -71,7 +71,7 @@ export default new Vuex.Store({
       state.listedSeries = series;
     },
     SETUP_HOME(state, list) {
-      state.home.homeMovies.push(list);
+      state.home.homeMovies = list;
     },
     SET_INFOMOVIE(state, movie) {
       state.infoMovie = movie;
@@ -105,14 +105,22 @@ export default new Vuex.Store({
       }
     },
 
-    async initializeHome({ commit, dispatch }, { type, category }) {
+    async initializeHome({ state, commit, dispatch }) {
       try {
-        const movieArray = await dispatch("getByCategory", {
-          category: category,
-          page: 1,
-          type: type,
+        let homeMovies = [];
+        state.home.homeSections.forEach((section) => {
+          dispatch("getByCategory", {
+            category: section.category,
+            page: 1,
+            type: section.type,
+          })
+            .then((movieList) => {
+              homeMovies.push(movieList);
+            })
+            .catch(() => {});
         });
-        commit("SETUP_HOME", movieArray);
+
+        commit("SETUP_HOME", homeMovies);
       } catch (e) {
         console.log(e);
       }
@@ -132,27 +140,6 @@ export default new Vuex.Store({
       const genres = [movieGenres, tvGenres];
       commit("SET_GENRES_LIST", genres);
     },
-
-    // async getDetails({ dispatch, state, commit }, { id, type }) {
-    //   try {
-    //     const { data: movie } = await axios.get(
-    //       `${state.BASE_URL}/${type}/${id}`,
-    //       {
-    //         params: {
-    //           api_key: state.API_KEY,
-    //         },
-    //       }
-    //     );
-    //     movie.type = type;
-    //     const cast = await dispatch("getCast", { id: id, type: type });
-    //     const trailer = await dispatch("getTrailer", { id: id, type: type });
-    //     const detailedMovie = { ...movie, cast, trailer };
-    //     commit("SET_INFOMOVIE", detailedMovie);
-    //     console.log(detailedMovie);
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
 
     async getMovie({ state }, { id, type }) {
       try {

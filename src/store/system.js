@@ -36,6 +36,12 @@ export const system = {
     },
   },
   actions: {
+    async initializeApp({ dispatch }) {
+      dispatch("initializeFirebase");
+      await dispatch("getGenreLists", null, { root: true });
+      dispatch("initializeHome", null, { root: true });
+    },
+
     initializeFirebase({ commit }) {
       const firestore = getFirestore();
       commit("SET_FIREBASE", firebaseApp);
@@ -57,20 +63,21 @@ export const system = {
         });
     },
     async logInUser({ commit, dispatch }, logedUser) {
-      console.log(logedUser.mail, logedUser.password);
       const auth = getAuth();
-      signInWithEmailAndPassword(auth, logedUser.mail, logedUser.password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          console.log(user);
-          commit("SET_USER", user);
+      try {
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          logedUser.mail,
+          logedUser.password
+        );
+        if (userCredential) {
+          commit("SET_USER", userCredential);
           dispatch("user/setUserInfo", logedUser.mail, { root: true });
           return true;
-        })
-        .catch(() => {
-          return false;
-        });
+        }
+      } catch {
+        return false;
+      }
     },
 
     async logOut({ commit }) {

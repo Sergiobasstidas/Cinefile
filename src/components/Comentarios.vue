@@ -58,6 +58,7 @@
 </template>
 
 <script>
+
 import AddComments from "@/components/AddComments";
 export default {
   name: "Comentarios",
@@ -144,4 +145,5 @@ export default {
 .action__icon {
   margin-right: 10px;
 }
+
 </style>
