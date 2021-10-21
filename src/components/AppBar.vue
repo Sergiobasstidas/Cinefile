@@ -39,7 +39,7 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn v-if="userLogedIn" absolute right class="px-0" @click="logOut()"
+        <v-btn v-if="userLogedIn" plain  absolute right class="px-0" @click="logOut()"
           >Cerrar Sesión<v-icon class="ml-2">mdi-logout</v-icon>
         </v-btn>
         <v-btn v-else absolute right class="px-0" plain to="/login"
@@ -94,59 +94,59 @@
 </template>
 
 <script>
-  import UserCard from "@/components/UserCard.vue";
-  export default {
-    components: { UserCard },
-    name: "App",
-    data: () => ({
-      drawer: false,
-      group: null,
-      links: [
-        {
-          title: "Home",
-          route: "/home",
-          icon: "mdi-home",
-        },
-        {
-          title: "Peliculas",
-          route: "/movies",
-          icon: "mdi-movie-open-outline",
-        },
-        {
-          title: "Series",
-          route: "/series",
-          icon: "mdi-television-classic",
-        },
-      ],
-    }),
-    methods: {
-      setDrawer() {
-        this.$store.dispatch("system/toggleDrawer");
+import UserCard from "@/components/UserCard.vue";
+export default {
+  components: { UserCard },
+  name: "App",
+  data: () => ({
+    drawer: false,
+    group: null,
+    links: [
+      {
+        title: "Home",
+        route: "/home",
+        icon: "mdi-home",
       },
-      async logOut() {
-        await this.$store.dispatch("system/logOut");
-        this.$router.push("Home");
+      {
+        title: "Peliculas",
+        route: "/movies",
+        icon: "mdi-movie-open-outline",
       },
+      {
+        title: "Series",
+        route: "/series",
+        icon: "mdi-television-classic",
+      },
+    ],
+  }),
+  methods: {
+    setDrawer() {
+      this.$store.dispatch("system/toggleDrawer");
     },
-    computed: {
-      userLogedIn() {
-        return this.$store.state.system.logedUser ? true : false;
-      },
+    async logOut() {
+      await this.$store.dispatch("system/logOut");
+      this.$router.push("Home");
     },
-  };
+  },
+  computed: {
+    userLogedIn() {
+      return this.$store.state.system.logedUser ? true : false;
+    },
+  },
+};
 </script>
 
 <style scoped>
-  .navbar {
-    font-size: 14px;
-    font-weight: 500;
-  }
-  .logo {
-    max-width: 70px;
-    min-width: 70px;
-  }
-  .navigationDrawer {
-    top: 90px !important;
-    background-color: var(--main-dark-color) !important;
-  }
+.navbar {
+  font-size: 14px;
+  font-weight: 500;
+}
+.logo {
+  max-width: 70px;
+  min-width: 70px;
+}
+.navigationDrawer {
+  top: 90px !important;
+  background-color: var(--main-dark-color) !important;
+}
 </style>

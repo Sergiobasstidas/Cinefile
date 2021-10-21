@@ -6,36 +6,36 @@
   </div>
 </template>
 <script>
-  import Grid from "@/components/Grid";
-  import SearchBar from "@/components/SearchBar";
+import Grid from "@/components/Grid";
+import SearchBar from "@/components/SearchBar";
 
-  export default {
-    components: {
-      Grid,
-      SearchBar,
-    },
-    data() {
-      return {
-        type: "movie",
-      };
-    },
-    beforeCreate() {
-      this.$store.dispatch("getByCategory", {
-        category: "popular",
-        type: "movie",
-      });
-    },
-  };
+export default {
+  components: {
+    Grid,
+    SearchBar,
+  },
+  data() {
+    return {
+      type: "movie",
+    };
+  },
+  beforeCreate() {
+    this.$store.dispatch("getByCategory", {
+      category: "popular",
+      type: "movie",
+    });
+  },
+};
 </script>
 <style scoped>
-  .grid-container {
-    width: 90%;
-  }
-  .search-bar {
-    margin-bottom: 50px;
-  }
-  .title-text {
-    font-weight: 400;
-    font-size: 6em;
-  }
+.grid-container {
+  width: 90%;
+}
+.search-bar {
+  margin-bottom: 50px;
+}
+.title-text {
+  font-weight: 400;
+  font-size: 6em;
+}
 </style>
