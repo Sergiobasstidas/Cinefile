@@ -19,7 +19,7 @@
 
         <v-col class="categories" cols="12" sm="1">
           <CategoriesToggle
-            :categories="categories"
+            :categories="type === 'movie' ? categoriesMovies : categoriesTv"
             :activeCategory="activeCategory"
             @categoryChange="changeCategory"
           />
@@ -44,18 +44,32 @@
     },
     data() {
       return {
-        categories: [
+        categoriesMovies: [
           {
             name: "Popular",
             path: "popular",
           },
           {
-            name: "Top-rated",
+            name: "Top",
             path: "top_rated",
           },
           {
-            name: "Upcoming",
+            name: "Proximamente",
             path: "upcoming",
+          },
+        ],
+        categoriesTv: [
+          {
+            name: "Popular",
+            path: "popular",
+          },
+          {
+            name: "Top",
+            path: "top_rated",
+          },
+          {
+            name: "On air",
+            path: "on_the_air",
           },
         ],
         activeCategory: "popular",
@@ -119,10 +133,19 @@
     color: white;
     margin-left: 10px;
   }
+
   .categories {
-    min-width: 300px;
+    position: absolute;
+    right: 300px;
   }
   .categories:first-child {
     margin: 0 auto;
+  }
+
+  @media (max-width: 600px) {
+    .categories {
+      position: static;
+      right: 0px;
+    }
   }
 </style>

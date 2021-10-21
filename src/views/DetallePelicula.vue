@@ -226,7 +226,7 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .bodyMovie__back {
     position: absolute;
     left: 0;
