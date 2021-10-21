@@ -1,8 +1,8 @@
 <template>
   <v-container class="contenedor" cols="12" fluid>
-    <v-row dense justify="space-between" no-gutters>
+    <v-row dense justify="space-around" no-gutters>
       <v-col
-        class="movieCard-container pa-6 pb-7"
+        class="movieCard-container pa-md-6 pa-sm-2 pa-1 pb-7"
         v-for="(movie, i) in movieList"
         :key="i"
         align-self="center"
@@ -17,7 +17,12 @@
           v-if="$vuetify.breakpoint.mdAndUp"
           class="movieCard-card"
         />
-        <CarouselCard v-else :movie="movie" :hideGenres="true" />
+        <CarouselCard
+          v-else
+          class="carrouselCard-card text-caption text-sm-body-2"
+          :movie="movie"
+          :hideGenres="true"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -44,5 +49,10 @@
 
   .movieCard-card {
     margin: 0 auto;
+  }
+  @media (max-width: 500px) {
+    .carrouselCard-card {
+      font-size: 12px;
+    }
   }
 </style>

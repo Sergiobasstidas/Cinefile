@@ -7,13 +7,12 @@ import { comments } from "./comments.js";
 
 import { lists } from "./lists.js";
 
-import {system} from './system.js'
-
+import { system } from "./system.js";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {    
+  state: {
     /////////////////
     home: {
       homeSections: [
@@ -58,7 +57,6 @@ export default new Vuex.Store({
     lists,
 
     system,
-
   },
   getters: {},
 
@@ -182,6 +180,7 @@ export default new Vuex.Store({
             api_key: state.API_KEY,
           },
         });
+        console.log(cast);
         const actors = cast.filter((cast) => {
           return cast.known_for_department === "Acting";
         });

@@ -253,8 +253,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.bodyMovie__back {
+<style lang="scss" scoped>
+  .bodyMovie__back {
   position: absolute;
   left: 0;
   bottom: 0;

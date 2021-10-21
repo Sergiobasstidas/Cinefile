@@ -11,7 +11,6 @@ import {
 export const comments = {
     namespaced: true,
     state: {
-        firestore: {},
         commentSnapshot: [
             {
                 id: 1,
@@ -34,7 +33,8 @@ export const comments = {
             },
         ],
         usuario: {},
-        movieActive: 0,
+        movieActive: {},
+        allUsers: []
     },
     getters: {
         getComments(state) {
@@ -45,9 +45,6 @@ export const comments = {
         }
     },
     mutations: {
-        SET_FIRESTORE(state, firestore) {
-            state.firestore = firestore;
-        },
         SET_ID_USER(state, arrayUser) {
             state.usuario = arrayUser
         },
@@ -61,11 +58,14 @@ export const comments = {
             state.commentSnapshot = []
         },
         CLEAR_MOVIE_ACTIVE(state) {
-            state.movieActive = 0
+            state.movieActive = {}
         },
         SET_ALL_COMMENTS(state, allComments) {
             state.commentSnapshot = allComments
-        }
+        },
+        // SET_ALL_USERS(state, users) {
+        //   state.allUsers = users
+        // }
     },
     actions: {
         getFirestore({ commit }) {
@@ -82,7 +82,7 @@ export const comments = {
             context.commit("SET_MOVIE_ACTIVE", idMovie)
         },
         async addCommentsToMovie(context, comentario) {
-            //let nuevoComentario = { idUser: comentario.idUser, comment: comentario.comentario, date: comentario.fechaComentario, like: {}, dislike: {} }
+            //let nuevoComentario = { idUser: comentario.idUser, comment: comentario.comentario, date: comentario.fechaComentario, like: [], dislike: [] }
             let nuevoComentario = { idUser: comentario.idUser, name: comentario.name, comment: comentario.comentario, date: comentario.fechaComentario, avatar: comentario.avatar, likes: [], dislikes: [] }
             context.commit("ADD_COMMENTS_TO_MOVIE", nuevoComentario)
         },
@@ -98,5 +98,13 @@ export const comments = {
             });
             context.commit("SET_ALL_COMMENTS", consultarComentarios)
         }
+        // async traerTodosUsuarios({ state, commit }) {
+        //   let consultarUsuarios = [];
+        //   const usersDB = await getDocs(collection(state.firestore, "users"));
+        //   usersDB.forEach((doc) => {
+        //     consultarUsuarios.push(doc.data())
+        //   });
+        //   commit("SET_ALL_USERS", consultarUsuarios)
+        // }
     },
 }

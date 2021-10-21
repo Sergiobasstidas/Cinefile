@@ -21,8 +21,8 @@ export default {
     //
   }),
   async beforeCreate() {
-    this.$store.dispatch("user/initializeFirebase");
-    this.$store.dispatch("user/traerTodosUsuarios");
+    this.$store.dispatch("system/initializeFirebase");
+    //this.$store.dispatch("user/traerTodosUsuarios");
     await this.$store.dispatch("getGenreLists");
     const sections = this.$store.state.home.homeSections;
     for (const section of sections) {
@@ -45,7 +45,7 @@ export default {
   color: white !important;
   font-family: "Rubik", sans-serif !important;
 }
-#headerContainer{padding: 0px;}
+
 body,
 html {
   background-color: #131720 !important;

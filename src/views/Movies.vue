@@ -38,4 +38,10 @@
     font-weight: 400;
     font-size: 6em;
   }
+  @media (max-width: 600px) {
+    .title-text {
+      font-weight: 400;
+      font-size: 3em;
+    }
+  }
 </style>
