@@ -11,11 +11,12 @@
 </template>
 
 <script>
-  import AppBar from "./components/AppBar.vue";
-  import Footer from "./components/Footer.vue";
-  export default {
-    name: "App",
-    components: { AppBar, Footer },
+import AppBar from "./components/AppBar.vue";
+import Footer from "./components/Footer.vue";
+export default {
+  name: "App",
+  components: { AppBar, Footer },
+
 
     data: () => ({
       //
@@ -24,27 +25,28 @@
       this.$store.dispatch("system/initializeApp");
     },
   };
+
 </script>
 <style>
-  :root {
-    --main-light-color: #151f30;
-    --main-dark-color: #131720;
-    --highlight-color: #2f80ed;
-  }
-  #app {
-    background-color: #131720 !important;
-    color: white !important;
-    font-family: "Rubik", sans-serif !important;
-  }
+:root {
+  --main-light-color: #151f30;
+  --main-dark-color: #131720;
+  --highlight-color: #2f80ed;
+}
+#app {
+  background-color: #131720 !important;
+  color: white !important;
+  font-family: "Rubik", sans-serif !important;
+}
 
-  body,
-  html {
-    background-color: #131720 !important;
-    color: white !important;
-    font-family: "Rubik", sans-serif;
-  }
+body,
+html {
+  background-color: #131720 !important;
+  color: white !important;
+  font-family: "Rubik", sans-serif;
+}
 
-  v-main {
-    padding: 80px 0px 0px !important;
-  }
+v-main {
+  padding: 80px 0px 0px !important;
+}
 </style>

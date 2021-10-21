@@ -7,6 +7,7 @@ export const user = {
       userId: "",
       userInfo: "",
     },
+    
   },
   getters: {
     userId(state) {
