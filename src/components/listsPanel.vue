@@ -23,37 +23,37 @@
   </v-row>
 </template>
 <script>
-  import CarouselCard from "./CarouselCard.vue";
+import CarouselCard from "./CarouselCard.vue";
 
-  export default {
-    data() {
-      return {};
+export default {
+  data() {
+    return {};
+  },
+  computed: {
+    lists() {
+      return this.$store.state.lists.userLists;
     },
-    computed: {
-      lists() {
-        return this.$store.state.lists.userLists;
-      },
-    },
-    components: {
-      CarouselCard,
-    },
-  };
+  },
+  components: {
+    CarouselCard,
+  },
+};
 </script>
 <style scoped>
-  .listPanel .list {
-    background-color: var(--main-light-color) !important;
-    color: white !important;
-    font-size: 13px !important;
-  }
+.listPanel .list {
+  background-color: var(--main-light-color) !important;
+  color: white !important;
+  font-size: 13px !important;
+}
 
-  @media (min-width: 1900px) {
-    .Moviecard {
-      width: 160px;
-    }
+@media (min-width: 1900px) {
+  .Moviecard {
+    width: 160px;
   }
-  @media (max-width: 600px) {
-    .Moviecard {
-      max-width: 140px;
-    }
+}
+@media (max-width: 600px) {
+  .Moviecard {
+    max-width: 140px;
   }
+}
 </style>

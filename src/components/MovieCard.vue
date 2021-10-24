@@ -14,7 +14,7 @@
     </div>
 
     <div class="d-flex flex-column ml-4 text card-text">
-      <span
+      <span @click="goToDetails(movie.id, movie.type)"
         class="
           movieTitle
           d-flex

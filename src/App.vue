@@ -1,9 +1,7 @@
 <template>
   <v-app>
-    <v-container id="headerContainer">
       <AppBar />
-    </v-container>
-    <v-main absolute>
+    <v-main >
       <router-view />
     </v-main>
     <Footer />
@@ -45,6 +43,6 @@ html {
 }
 
 v-main {
-  padding: 80px 0px 0px !important;
+  padding: 65px 0px 0px !important;
 }
 </style>
