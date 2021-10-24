@@ -1,13 +1,4 @@
-
-import {
-    //getFirestore,
-    //collection,
-    //getDocs,
-    // getDoc,
-    //addDoc,
-    //setDoc,
-    //doc,
-} from "firebase/firestore";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 export const comments = {
     namespaced: true,
     state: {
@@ -38,10 +29,14 @@ export const comments = {
     },
     getters: {
         getComments(state) {
-            return state.commentSnapshot
+            return state.commentSnapshot[0]
         },
         getLengthComments(state) {
             return state.commentSnapshot.length
+        },
+        getUser: (state) => (idUser) => {
+            let finalUser = state.allUsers.filter(user => user.id == idUser)
+            return { avatar: finalUser.avatar, nombre: finalUser.nombre }
         }
     },
     mutations: {
@@ -63,9 +58,9 @@ export const comments = {
         SET_ALL_COMMENTS(state, allComments) {
             state.commentSnapshot = allComments
         },
-        // SET_ALL_USERS(state, users) {
-        //   state.allUsers = users
-        // }
+        SET_ALL_USERS(state, users) {
+            state.allUsers = users
+        }
     },
     actions: {
         async vaciarComentariosActivos(context) {
@@ -85,22 +80,34 @@ export const comments = {
         async vaciarPeliculaActiva(context) {
             context.commit("CLEAR_MOVIE_ACTIVE")
         },
-        // async traerComentarios(context) {
-        //     let consultarComentarios = [];
-        //     const commentsDB = await getDocs(collection(context.state.firestore, "comments"));
-        //     commentsDB.forEach((doc) => {
-        //         console.log(doc.data())
-        //         consultarComentarios.push(doc.data())
-        //     });
-        //     context.commit("SET_ALL_COMMENTS", consultarComentarios)
-        // }
-        // async traerTodosUsuarios({ state, commit }) {
-        //   let consultarUsuarios = [];
-        //   const usersDB = await getDocs(collection(state.firestore, "users"));
-        //   usersDB.forEach((doc) => {
-        //     consultarUsuarios.push(doc.data())
-        //   });
-        //   commit("SET_ALL_USERS", consultarUsuarios)
-        // }
+        async traerComentarios({ commit, rootGetters, dispatch }, { id, type }) {
+            let consultarComentarios = [];
+            const commentsDB = await getDoc(doc(rootGetters["system/getFirestore"], "comments", type + "-" + id));
+            console.log(commentsDB.data())
+            consultarComentarios.push(commentsDB.data())
+            commit("SET_ALL_COMMENTS", consultarComentarios)
+            dispatch("crearArregloComentarios")
+        },
+        async crearArregloComentarios({ state }) {
+            let commentsPrimitive = state.commentSnapshot[0]
+            console.log(commentsPrimitive);
+            // let usuariosActivos = state.allUsers
+            // for (const comentario in commentsPrimitive) {
+            //     console.log(commentsPrimitive[comentario]);
+            //     let arrayInfo = usuariosActivos.filter(user => user.id == commentsPrimitive[comentario])
+            //     console.log(arrayInfo.avatar);
+            //     console.log(arrayInfo.name);
+            //     comentario.avatar = arrayInfo.avatar
+            //     comentario.name = arrayInfo.name
+            // }
+        },
+        async traerTodosUsuarios({ commit, rootGetters }) {
+            let consultarUsuarios = [];
+            const usersDB = await getDocs(collection(rootGetters["system/getFirestore"], "users"));
+            usersDB.forEach((doc) => {
+                consultarUsuarios.push({ id: doc.id, nombre: doc.data().name, avatar: doc.data().avatar })
+            });
+            commit("SET_ALL_USERS", consultarUsuarios)
+        }
     },
 }
