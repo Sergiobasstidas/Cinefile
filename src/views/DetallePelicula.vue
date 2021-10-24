@@ -158,7 +158,10 @@ export default {
           nombre: this.$store.state.user.user.userInfo.name,
           alias: this.$store.state.user.user.userInfo.nick,
         };
-        this.$store.dispatch("comments/setIdMovieActive", this.$store.state.infoMovie.id);
+        this.$store.dispatch(
+          "comments/setIdMovieActive",
+          this.$store.state.infoMovie.id
+        );
         this.$store.dispatch("comments/setUser", nuevoArrayObjectUser);
         return true;
       } else {
@@ -247,14 +250,14 @@ export default {
       return listaCast;
     },
   },
-  beforeMount(){
+  beforeMount() {
     //this.$store.dispatch("comments/traerComentarios");
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  .bodyMovie__back {
+.bodyMovie__back {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -274,7 +277,7 @@ export default {
   right: 0;
   display: block;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(19, 23, 32, 0.5) -50%, #131720 50%);
+  background: linear-gradient(180deg, rgba(19, 23, 32, 0.5) -37%, #131720 50%);
   pointer-events: none;
 }
 .bodyMovie__back img {
@@ -298,7 +301,7 @@ export default {
 }
 .infografia__trailerText {
   color: #fff;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 300;
   margin-left: 15px;
 }
@@ -358,6 +361,11 @@ export default {
 @media (max-width: 960px) {
   .infografia {
     padding: 0 20px;
+  }
+}
+@media (min-width: 1264px) {
+  .container {
+    max-width: 90% !important;
   }
 }
 </style>

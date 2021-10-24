@@ -1,6 +1,8 @@
 import { firebaseApp } from "@/components/firebaseConfig.js";
 import {
   getAuth,
+  // signInWithPopup,
+  // GoogleAuthProvide,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
@@ -62,6 +64,23 @@ export const system = {
           // ..
         });
     },
+    // googleLogin({ commit, dispatch }, provider) {
+    //   const auth = getAuth();
+    //   signInWithPopup(auth, provider)
+    //     .then((result) => {
+    //       // This gives you a Google Access Token. You can use it to access the Google API.
+    //       const credential = GoogleAuthProvider.credentialFromResult(result);
+    //       const token = credential.accessToken;
+    //       // The signed-in user info.
+    //       const user = result.user;
+    //       commit("SET_USER", user);
+    //       dispatch("user/createNewUser", newUser, { root: true });
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       // ..
+    //     });
+    // },
     async logInUser({ commit, dispatch }, logedUser) {
       const auth = getAuth();
       try {

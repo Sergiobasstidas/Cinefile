@@ -12,17 +12,24 @@
           <div class="sign_group">
             <input class="sign_input" type="email" placeholder="Email" />
           </div>
-    
-          <div class=" sign_group--checkbox">
-            <v-checkbox
-              class="checkbox"
-              label="Estoy de acuerdo con las politicas de privacidad"
-            ></v-checkbox>
-          </div>
 
-          <button type="button" class="button">Registrarse</button>
+          <div class="sign_group--checkbox">
+            <input
+              id="remember"
+              name="remember"
+              type="checkbox"
+              checked="checked"
+              required
+              v-validate="'required'"
+            />
+            <label class="ml-2" for="remember"
+              >Estoy de acuerdo con las politicas de privacidad</label
+            >
+          </div>
+          <button type="submit" class="register-button">Enviar</button>
+
           <span class="sign_text">
-            Te evniaremos una contraseña a tu Email
+            Te enviaremos una contraseña a tu Email
           </span>
           <div></div>
         </v-card>
@@ -32,14 +39,23 @@
 </template>
 
 <script>
-export default {};
+import { validationMixin } from "vuelidate";
+import { required, email } from "vuelidate/lib/validators";
+export default {
+  mixins: [validationMixin],
+  validations: {
+    email: { required, email },
+    select: { required },
+  },
+};
 </script>
 
 <style scoped>
 .contenedor {
-  background-image: url("https://dmitryvolkov.me/demo/flixtv/main/img/bg.jpg");
+  background-image: url("./../assets/bg.jpg");
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
+  background-position: center;
   min-height: 890px;
 }
 .sign_form {
@@ -82,42 +98,43 @@ export default {};
   padding: 0 20px;
 }
 .sign_group--checkbox {
+  width: 100%;
+  text-align: center;
   font-size: 14px;
-  color: #e0e0e0 !important;
-  font-weight: normal;
-  margin: 0;
-  height: 60px;
-}
-.v-checkbox v-label {
   color: white !important;
+  font-weight: normal;
+  margin: 15px 0px 30px 15px;
+  height: 10%;
 }
 ::placeholder {
   color: white;
 }
 
-.button {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: center !important;
-  align-items: center !important;
-  margin: 30px 15px 15px 20px !important;
-  width: 300px;
-  height: 45px !important;
-  border-radius: 16px !important;
-  background-color: #2f80ed !important;
-  font-size: 16px !important;
-  color: #e0e0e0 !important;
-  text-transform: uppercase !important;
-  font-weight: 500 !important;
+.register-button {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  transition: all 0.4s ease;
+  padding: 8px 95px;
+  border-radius: 30px;
+  background-color: #007bff;
 }
+
+.register-button:hover {
+  color: #131720;
+  background-color: #007bff;
+}
+
 span {
   color: white;
   margin: 8px 0px 8px 0px;
 }
 .sign_text {
-  margin: 18px 0px 5px 0px;
+  margin: 10px 0px 5px 0px;
   font-size: 14px;
   color: #e0e0e0;
+  text-align: center;
+  width: 70%;
 }
 
 @media (min-width: 576px) {
