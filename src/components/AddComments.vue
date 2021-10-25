@@ -6,7 +6,7 @@
           name="comentario"
           outlined
           label="Agregar comentario"
-          v-model="formData.comentario"
+          v-model="formData.comment"
           color="white"
           dark
           class="agregarComentario mb-0"
@@ -27,9 +27,9 @@ export default {
   data: () => ({
     formData: [
       {
-        idUser: "",
-        comentario: "",
-        fechaComentario: "",
+        id: "",
+        comment: "",
+        date: "",
       },
     ],
   }),
@@ -41,10 +41,16 @@ export default {
       let day = date.getDate();
       let month = date.getMonth() + 1;
       let year = date.getFullYear();
-      if (month < 10) {
-        return `${day}-0${month}-${year} ${hour}:${minute}`;
+      if (day < 10 && month < 10 && hour < 10 && minute < 10) {
+        return `0${day}-0${month}-${year}, 0${hour}:0${minute}`;
+      } else if (day >= 10 && month < 10 && hour < 10 && minute < 10) {
+        return `${day}-0${month}-${year}, 0${hour}:0${minute}`;
+      } else if (day >= 10 && month >= 10 && hour < 10 && minute < 10) {
+        return `${day}-${month}-${year}, 0${hour}:0${minute}`;
+      } else if (day >= 10 && month >= 10 && hour >= 10 && minute < 10) {
+        return `${day}-${month}-${year}, ${hour}:0${minute}`;
       } else {
-        return `${day}-${month}-${year}`;
+        return `${day}-${month}-${year}, ${hour}:${minute}`;
       }
     },
   },
@@ -52,12 +58,10 @@ export default {
     subirComentario() {
       const form = this.$refs.form;
       if (form.validate()) {
-        this.formData.fechaComentario = this.fechaDeHoy;
-        this.formData.idUser = this.$store.state.comments.usuario.id
-        this.formData.avatar = this.$store.state.comments.usuario.avatar
-        this.formData.name = this.$store.state.comments.usuario.nombre
+        this.formData.date = this.fechaDeHoy;
+        this.formData.id = this.$store.state.comments.usuario.id;
         this.$store.dispatch("comments/addCommentsToMovie", this.formData);
-        this.$refs.form.reset();
+        form.reset();
       } else {
         console.error("Error al enviar tu comentario");
       }

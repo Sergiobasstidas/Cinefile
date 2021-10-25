@@ -158,7 +158,6 @@ export default {
           nombre: this.$store.state.user.user.userInfo.name,
           alias: this.$store.state.user.user.userInfo.nick,
         };
-        this.$store.dispatch("comments/setIdMovieActive", this.$store.state.infoMovie.id);
         this.$store.dispatch("comments/setUser", nuevoArrayObjectUser);
         return true;
       } else {
@@ -247,9 +246,6 @@ export default {
       return listaCast;
     },
   },
-  beforeMount(){
-    //this.$store.dispatch("comments/traerComentarios");
-  }
 };
 </script>
 
