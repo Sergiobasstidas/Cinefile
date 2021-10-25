@@ -6,36 +6,36 @@
   </div>
 </template>
 <script>
-  import Grid from "@/components/Grid";
-  import SearchBar from "@/components/SearchBar";
+import Grid from "@/components/Grid";
+import SearchBar from "@/components/SearchBar";
 
-  export default {
-    components: {
-      Grid,
-      SearchBar,
-    },
-    data() {
-      return {
-        type: "movie",
-      };
-    },
-  };
+export default {
+  components: {
+    Grid,
+    SearchBar,
+  },
+  data() {
+    return {
+      type: "movie",
+    };
+  },
+};
 </script>
 <style scoped>
-  .grid-container {
-    width: 90%;
-  }
-  .search-bar {
-    margin-bottom: 50px;
-  }
+.grid-container {
+  width: 90%;
+}
+.search-bar {
+  margin-bottom: 50px;
+}
+.title-text {
+  font-weight: 400;
+  font-size: 6em;
+}
+@media (max-width: 600px) {
   .title-text {
     font-weight: 400;
-    font-size: 6em;
+    font-size: 3em;
   }
-  @media (max-width: 600px) {
-    .title-text {
-      font-weight: 400;
-      font-size: 3em;
-    }
-  }
+}
 </style>

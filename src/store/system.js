@@ -1,6 +1,8 @@
 import { firebaseApp } from "@/components/firebaseConfig.js";
 import {
   getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
@@ -61,6 +63,21 @@ export const system = {
           console.log(error);
           // ..
         });
+    },
+    async googleLogin({ commit, dispatch }) {
+      const auth = getAuth();
+      const provider = new GoogleAuthProvider();
+      try {
+        const result = await signInWithPopup(auth, provider);
+
+        GoogleAuthProvider.credentialFromResult(result);
+        const user = result.user;
+        commit("SET_USER", user);
+        await dispatch("user/verifyIfMailExists", user.email, { root: true });
+        return true;
+      } catch {
+        return false;
+      }
     },
     async logInUser({ commit, dispatch }, logedUser) {
       const auth = getAuth();

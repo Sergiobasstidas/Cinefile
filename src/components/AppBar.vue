@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar
-      class="px-5"
+      class="px-12"
       app
       hide-on-scroll
       scroll-threshold="200"
@@ -30,11 +30,12 @@
           :key="index"
           :to="link.route"
           plain
+          class="buttons"
         >
           {{ link.title }}
         </v-btn>
 
-        <v-btn color="#FFFFFF" plain to="/profile" v-if="userLogedIn"
+        <v-btn class="buttons" plain to="/profile" v-if="userLogedIn"
           >Mi perfil</v-btn
         >
 
@@ -45,11 +46,11 @@
           absolute
           right
           plain
-          class="px-0"
+          class="buttons px-0"
           @click="logOut()"
           >Cerrar Sesión<v-icon class="ml-2">mdi-logout</v-icon>
         </v-btn>
-        <v-btn v-else absolute right class="px-0" plain to="/login"
+        <v-btn v-else absolute right class="buttons px-0" plain to="/login"
           >Ingresar<v-icon class="ml-2">mdi-login</v-icon>
         </v-btn>
       </v-toolbar-items>
@@ -102,59 +103,70 @@
 </template>
 
 <script>
-  import UserCard from "@/components/UserCard.vue";
-  export default {
-    components: { UserCard },
-    name: "App",
-    data: () => ({
-      drawer: false,
-      group: null,
-      links: [
-        {
-          title: "Home",
-          route: "/home",
-          icon: "mdi-home",
-        },
-        {
-          title: "Peliculas",
-          route: "/movies",
-          icon: "mdi-movie-open-outline",
-        },
-        {
-          title: "Series",
-          route: "/series",
-          icon: "mdi-television-classic",
-        },
-      ],
-    }),
-    methods: {
-      setDrawer() {
-        this.$store.dispatch("system/toggleDrawer");
+import UserCard from "@/components/UserCard.vue";
+export default {
+  components: { UserCard },
+  name: "App",
+  data: () => ({
+    drawer: false,
+    group: null,
+    links: [
+      {
+        title: "Home",
+        route: "/home",
+        icon: "mdi-home",
       },
-      async logOut() {
-        await this.$store.dispatch("system/logOut");
-        this.$router.push("Home");
+      {
+        title: "Peliculas",
+        route: "/movies",
+        icon: "mdi-movie-open-outline",
       },
+      {
+        title: "Series",
+        route: "/series",
+        icon: "mdi-television-classic",
+      },
+    ],
+  }),
+  methods: {
+    setDrawer() {
+      this.$store.dispatch("system/toggleDrawer");
     },
-    computed: {
-      userLogedIn() {
-        return this.$store.state.system.logedUser ? true : false;
-      },
+    async logOut() {
+      await this.$store.dispatch("system/logOut");
+      this.$router.push("Home");
     },
-  };
+  },
+  computed: {
+    userLogedIn() {
+      return this.$store.state.system.logedUser ? true : false;
+    },
+  },
+};
 </script>
 
 <style scoped>
-  .navbar {
-    font-size: 14px;
-    font-weight: 500;
-  }
-  .logo {
-    max-width: 70px;
-    min-width: 70px;
-  }
-  .navigationDrawer {
-    top: 90px !important;
-    background-color: var(--main-dark-color) !important;
-  }
+.navbar {
+  font-size: 14px;
+  font-weight: 500;
+}
+.logo {
+  max-width: 70px;
+  min-width: 70px;
+}
+.buttons:active {
+  color: red;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+.buttons:hover {
+  transition: all .5s ease !important;
+  color: #0050b8;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+.navigationDrawer {
+  top: 90px !important;
+  background-color: var(--main-dark-color) !important;
+}
 </style>
