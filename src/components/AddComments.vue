@@ -1,5 +1,10 @@
 <template>
-  <v-form ref="form" lazy-validation @submit.prevent="subirComentario()">
+  <v-form
+    ref="form"
+    lazy-validation
+    @submit.prevent="subirComentario()"
+    :class="loading"
+  >
     <v-row justify="start" align-items="center" :no-gutters="true">
       <v-col class="pr-3">
         <v-textarea
@@ -15,7 +20,13 @@
         ></v-textarea>
       </v-col>
       <v-col cols="auto">
-        <v-btn color="#2F80ED" type="submit" dark> Comentar </v-btn>
+        <v-btn color="#2F80ED" type="submit" dark v-if="loading == 'finish'"> Comentar </v-btn>
+        <v-btn color="#2F80ED" type="submit" dark v-else disabled><v-progress-circular
+              indeterminate
+              size="20"
+              width="3"
+              color="white"
+            ></v-progress-circular></v-btn>
       </v-col>
     </v-row>
   </v-form>
@@ -25,13 +36,12 @@
 export default {
   name: "AddComments",
   data: () => ({
-    formData: [
-      {
-        id: "",
-        comment: "",
-        date: "",
-      },
-    ],
+    formData: {
+      id: "",
+      comment: "",
+      date: "",
+    },
+    loading: "finish"
   }),
   computed: {
     fechaDeHoy() {
@@ -55,15 +65,21 @@ export default {
     },
   },
   methods: {
-    subirComentario() {
+    async subirComentario() {
+      this.loading = "loading"
       const form = this.$refs.form;
       if (form.validate()) {
         this.formData.date = this.fechaDeHoy;
         this.formData.id = this.$store.state.comments.usuario.id;
-        this.$store.dispatch("comments/addCommentsToMovie", this.formData);
+        await this.$store.dispatch(
+          "comments/addCommentsToMovie",
+          this.formData
+        );
+        this.loading = "finish"
         form.reset();
       } else {
-        console.error("Error al enviar tu comentario");
+        console.log("Error al enviar tu comentario");
+        this.loading = "finish"
       }
     },
   },
@@ -80,5 +96,11 @@ export default {
 }
 .agregarComentario .v-text-field__details {
   display: none;
+}
+form.loading{
+  opacity:.2
+}
+form.finish{
+  opacity:1
 }
 </style>
