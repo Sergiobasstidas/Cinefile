@@ -39,7 +39,6 @@
                   {{
                     comentario.likes.length == 0 ? 0 : comentario.likes.length
                   }}
-                  <p :class="claseLikeClick">{{textoLikeClick}}</p>
                 </div>
                 <div
                   :class="getLinkedDislike($index)"
@@ -53,7 +52,6 @@
                       ? 0
                       : comentario.dislikes.length
                   }}
-                  <p :class="claseDislikeClick">{{textoDislikeClick}}</p>
                 </div>
               </v-col>
             </v-row>
@@ -87,10 +85,6 @@ export default {
   data: () => ({
     colorIconLike: "#29B474",
     colorIconDislike: "#EB5757",
-    claseLikeClick: "infoClickLike",
-    claseDislikeClick: "infoClickDislike",
-    textoLikeClick: "",
-    textoDislikeClick: ""
   }),
   computed: {
     getComentarios() {
@@ -100,28 +94,16 @@ export default {
   methods: {
     async sumarLike(idComment) {
       if(this.isLogged){
-        this.textoLikeClick = "Me Gusta!"
-        this.claseLikeClick = "infoClickLike--visible"
         await this.$store.dispatch("comments/agregarLike", idComment)
-        setTimeout(function(){this.claseLikeClick = "infoClickLike"}, 1500)
       }else{
-        this.textoLikeClick = "Debes iniciar sesión"
-        this.claseLikeClick = "infoClickLike--visible"
         console.log("Usuario no esta logueado para dar Like")
-        setTimeout(function(){this.claseLikeClick = "infoClickLike"}, 1500)
       }
     },
     async sumarDislike(idComment) {
       if(this.isLogged){
-        this.textoDislikeClick = "No me Gusta!"
-        this.claseDislikeClick = "infoClickDislike--visible"
         await this.$store.dispatch("comments/agregarDislike", idComment)
-        setTimeout(function(){this.claseDislikeClick = "infoClickDislike"}, 1500)
       }else{
-        this.textoDislikeClick = "Debes iniciar sesión"
-        this.claseDislikeClick = "infoClickDislike--visible"
         console.log("Usuario no esta logueado para dar Dislike")
-        setTimeout(function(){this.claseDislikeClick = "infoClickDislike"}, 1500)
       }
     },
     getLinkedLike(idComment) {
@@ -250,59 +232,5 @@ export default {
 }
 .action__icon {
   margin-right: 10px;
-}
-.infoClickLike{
-  font-size: .9rem;
-  border-radius: 10px;
-  background-color: #fff;
-  width: max-content;
-  text-align: center;
-  color: #151f30;
-  padding: .2rem 1rem;
-  margin: 0 !important;
-  position: absolute;
-  top: calc(100% + 5px);
-  left:0;
-  opacity: 0;
-  transition: all .5s;
-  &--visible{
-    opacity: 1;
-  }
-}
-.infoClickLike::before{
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 25%;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent #fff transparent;
-}
-.infoClickDislike{
-  font-size: .9rem;
-  border-radius: 10px;
-  background-color: #fff;
-  width: max-content;
-  text-align: center;
-  color: #151f30;
-  padding: .2rem 1rem;
-  margin: 0 !important;
-  position: absolute;
-  top: calc(100% + 10px);
-  left:0;
-  opacity: 0;
-  transition: all .5s;
-  &--visible{
-    opacity: 1;
-  }
-}
-.infoClickDislike::before{
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 25%;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent #fff transparent;
 }
 </style>
