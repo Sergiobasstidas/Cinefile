@@ -87,7 +87,7 @@ export const comments = {
             let consultarComentarios = [];
             const commentsDB = await getDoc(doc(rootGetters["system/getFirestore"], "comments", state.movieActive));
             if (commentsDB.exists()) {
-                consultarComentarios.push(commentsDB.data().comentarios)
+                consultarComentarios = commentsDB.data().comentarios
                 commit("SET_ALL_COMMENTS", consultarComentarios)
                 dispatch("crearArregloComentarios")
             } else {
@@ -96,13 +96,17 @@ export const comments = {
             }
         },
         async crearArregloComentarios({ state, commit }) {
-            let commentsPrimitive = state.commentSnapshot[0]
+            let commentsPrimitive = state.commentSnapshot
             let usuariosActivos = state.allUsers
-            commentsPrimitive.forEach((comentario) => {
-                let arrayInfoUser = usuariosActivos.filter(user => user.id == comentario.id)
-                console.log(arrayInfoUser);
-                comentario.avatar = arrayInfoUser[0].avatar
-                comentario.name = arrayInfoUser[0].nombre
+            let indexInfoUser = 0
+            commentsPrimitive.forEach((comment) => {
+                console.log(comment.id);
+                indexInfoUser = usuariosActivos.findIndex(user => user.id == comment.id)
+                // console.log("index of: "+indexInfoUser);
+                if (indexInfoUser >= 0) {
+                    comment.avatar = usuariosActivos[indexInfoUser].avatar
+                    comment.name = usuariosActivos[indexInfoUser].nombre
+                }
             })
             commit("UPDATE_ARRAY_COMMENTS", commentsPrimitive)
         },
@@ -123,12 +127,12 @@ export const comments = {
             } else if (consultarDislike >= 0) {
                 console.log("Existe un Dislike de este usuario. Por lo que se eliminará el Dislike para agregar el Like.")
                 dispatch("eliminarDislike", idLike)
-                commit("ADD_LIKE_TO_COMMENT", {idComment: idLike, idUser: state.usuario.id})
+                commit("ADD_LIKE_TO_COMMENT", { idComment: idLike, idUser: state.usuario.id })
                 let nuevaColeccionComentarios = { comentarios: state.commentSnapshot }
                 await setDoc(doc(collection(rootGetters["system/getFirestore"], "comments"), state.movieActive), nuevaColeccionComentarios);
                 dispatch("traerComentarios")
             } else {
-                commit("ADD_LIKE_TO_COMMENT", {idComment: idLike, idUser: state.usuario.id})
+                commit("ADD_LIKE_TO_COMMENT", { idComment: idLike, idUser: state.usuario.id })
                 let nuevaColeccionComentarios = { comentarios: state.commentSnapshot }
                 await setDoc(doc(collection(rootGetters["system/getFirestore"], "comments"), state.movieActive), nuevaColeccionComentarios);
                 dispatch("traerComentarios")
@@ -143,12 +147,12 @@ export const comments = {
             } else if (consultarLike.length > 0) {
                 console.log("Existe un Like de este usuario. Por lo que se eliminará el Like para agregar el Dislike.")
                 dispatch("eliminarLike", idDislike)
-                commit("ADD_DISLIKE_TO_COMMENT", {idComment: idDislike, idUser: state.usuario.id})
+                commit("ADD_DISLIKE_TO_COMMENT", { idComment: idDislike, idUser: state.usuario.id })
                 let nuevaColeccionComentarios = { comentarios: state.commentSnapshot }
                 await setDoc(doc(collection(rootGetters["system/getFirestore"], "comments"), state.movieActive), nuevaColeccionComentarios);
                 dispatch("traerComentarios")
             } else {
-                commit("ADD_DISLIKE_TO_COMMENT", {idComment: idDislike, idUser: state.usuario.id})
+                commit("ADD_DISLIKE_TO_COMMENT", { idComment: idDislike, idUser: state.usuario.id })
                 let nuevaColeccionComentarios = { comentarios: state.commentSnapshot }
                 await setDoc(doc(collection(rootGetters["system/getFirestore"], "comments"), state.movieActive), nuevaColeccionComentarios);
                 dispatch("traerComentarios")
