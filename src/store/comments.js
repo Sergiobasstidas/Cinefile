@@ -100,6 +100,7 @@ export const comments = {
             let usuariosActivos = state.allUsers
             commentsPrimitive.forEach((comentario) => {
                 let arrayInfoUser = usuariosActivos.filter(user => user.id == comentario.id)
+                console.log(arrayInfoUser);
                 comentario.avatar = arrayInfoUser[0].avatar
                 comentario.name = arrayInfoUser[0].nombre
             })
