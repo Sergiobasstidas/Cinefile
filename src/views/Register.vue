@@ -36,31 +36,26 @@
               placeholder="Contraseña"
             />
           </div>
-          <div class="sign_group">
+          <div class="sign_group--checkbox">
             <input
-              class="sign_input"
-              type="password"
-              v-model.trim="password2"
-              placeholder="Confirma la contraseña"
-            />
-          </div>
-          <div class="sign_group sign_group--checkbox">
-            <v-checkbox
-              class="checkbox"
-              style="color='#FFFFF'"
+              id="remember"
+              name="remember"
+              type="checkbox"
+              checked="checked"
               required
-              label="Estoy de acuerdo con las politicas de privacidad"
-            ></v-checkbox>
+              v-validate="'required'"
+            />
+            <label class="ml-2" for="remember"
+              >Estoy de acuerdo con las politicas de privacidad</label
+            >
           </div>
 
-          <button type="submit" class="button">Registrarse</button>
+          <button type="submit" class="register-button">Registrarse</button>
 
           <span>O</span>
 
           <div class="sign_social">
-            <v-btn class="fb">Facebook</v-btn>
-            <v-btn class="tw">Twitter</v-btn>
-            <v-btn class="gl">Google</v-btn>
+            <button class="gl-button">Google</button>
           </div>
           <span class="sign_text">
             Ya tienes una cuenta?
@@ -74,157 +69,153 @@
 </template>
 
 <script>
-  import { validationMixin } from "vuelidate";
-  import { required, email } from "vuelidate/lib/validators";
+import { validationMixin } from "vuelidate";
+import { required, email } from "vuelidate/lib/validators";
 
-  export default {
-    mixins: [validationMixin],
-    validations: {
-      email: { required, email },
-      select: { required },
+export default {
+  mixins: [validationMixin],
+  validations: {
+    email: { required, email },
+    select: { required },
+  },
+
+  data: () => ({
+    userName: null,
+    email: null,
+    password: null,
+  }),
+
+  methods: {
+    procesarFormulario() {
+      this.$store.dispatch("system/registerNewUser", {
+        nick: this.userName,
+        mail: this.email,
+        password: this.password,
+      });
+      (this.userName = ""), (this.email = "");
+      this.password = "";
+      this.$router.push("/home");
     },
-
-    data: () => ({
-      userName: null,
-      email: null,
-      password: null,
-      password2: null,
-    }),
-
-    methods: {
-      procesarFormulario() {
-        this.$store.dispatch("system/registerNewUser", {
-          nick: this.userName,
-          mail: this.email,
-          password: this.password,
-        });
-        (this.userName = ""), (this.email = "");
-        this.password = "";
-        this.$router.push("Home");
-      },
-    },
-  };
+  },
+};
 </script>
 
 <style scoped>
-  .contenedor {
-    background-image: url("./../assets/fondo_login.jpg");
-    background-repeat: no-repeat;
-    background-size: contain;
-    min-height: 890px;
-  }
+.contenedor {
+  background-image: url("./../assets/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 890px;
+}
+.sign_form {
+  background-color: #131720;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  padding: 30px 42px;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #151f30;
+}
+.sign_logo {
+  max-width: 90px;
+  min-width: 90px;
+  margin: 0 30px 15px 30px;
+}
+.sign_group {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.sign_input {
+  background-color: #151f30;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  height: 44px;
+  position: relative;
+  color: #fff;
+  font-size: 14px;
+  width: 100%;
+  padding: 0 20px;
+  transition: 0.5s ease !important;
+  transition-property: color, border-color !important;
+}
+.sign_group--checkbox {
+  width: 100%;
+  text-align: center;
+  font-size: 15px;
+  color: white !important;
+  font-weight: normal;
+  margin: 0px 0px 30px 15px;
+  height: 10%;
+}
+
+.sign_social {
+  margin-bottom: 10px;
+}
+::placeholder {
+  color: white;
+}
+.register-button {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  transition: all 0.4s ease;
+  padding: 8px 95px;
+  border-radius: 30px;
+  background-color: #007bff;
+}
+
+.register-button:hover {
+  color: #131720;
+  background-color: #007bff;
+}
+
+.gl-button {
+  font-size: 17px;
+  font-weight: 500;
+  color: white;
+  transition: all 0.4s ease;
+  padding: 5px 40px;
+  border-radius: 30px;
+  background-color: #df4a32;
+}
+.gl-button:hover {
+  color: #df4a32;
+  background-color: white;
+}
+span {
+  color: white;
+  margin: 8px 0px 8px 0px;
+}
+.sign_text {
+  margin: 18px 0px 5px 0px;
+  font-size: 14px;
+  color: #e0e0e0;
+}
+.sign_text a {
+  position: relative;
+  color: #2f80ed;
+  margin-left: 5px;
+  text-decoration: none;
+}
+.sign_text a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+@media (min-width: 576px) {
   .sign_form {
-    background-color: #131720;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 30px;
     padding: 30px 42px;
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    border: 1px solid #151f30;
   }
-  .sign_logo {
-    max-width: 90px;
-    min-width: 90px;
-    margin: 0 30px 15px 30px;
-  }
-  .sign_group {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    position: relative;
-    margin-bottom: 20px;
-    width: 100%;
-  }
-  .sign_input {
-    background-color: #151f30;
-    border: 1px solid transparent;
-    border-radius: 16px;
-    height: 44px;
-    position: relative;
-    color: #fff;
-    font-size: 14px;
-    width: 100%;
-    padding: 0 20px;
-  }
-  .sign_group--checkbox {
-    font-size: 14px;
-    color: #e0e0e0 !important;
-    font-weight: normal;
-    margin: 0;
-    height: 10%;
-  }
-  .v-input--selection-controls {
-    margin-top: 0px;
-    padding-top: 0px;
-  }
-  .v-checkbox v-label {
-    color: white !important;
-  }
-  .fb {
-    background-color: #3b5999 !important;
-    color: white !important;
-  }
-  .tw {
-    background-color: #1da1f2 !important;
-    color: white !important;
-  }
-  .gl {
-    background-color: #df4a32 !important;
-    color: white !important;
-  }
-  .sign_social {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 44px;
-    width: calc(33% - 10px);
-    border-radius: 25px !important;
-    color: #fff;
-  }
-  ::placeholder {
-    color: white;
-  }
-
-  .button {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin: 0 15px 15px 20px !important;
-    width: 300px;
-    height: 45px !important;
-    border-radius: 16px !important;
-    background-color: #2f80ed !important;
-    font-size: 16px !important;
-    color: #e0e0e0 !important;
-    text-transform: uppercase !important;
-    font-weight: 500 !important;
-  }
-  span {
-    color: white;
-    margin: 8px 0px 8px 0px;
-  }
-  .sign_text {
-    margin: 18px 0px 5px 0px;
-    font-size: 14px;
-    color: #e0e0e0;
-  }
-  .sign_text a {
-    position: relative;
-    color: #2f80ed;
-    margin-left: 5px;
-  }
-
-  @media (min-width: 576px) {
-    .sign_form {
-      padding: 30px 42px;
-    }
-  }
+}
 </style>

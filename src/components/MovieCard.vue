@@ -14,7 +14,7 @@
     </div>
 
     <div class="d-flex flex-column ml-4 text card-text">
-      <span
+      <span @click="goToDetails(movie.id, movie.type)"
         class="
           movieTitle
           d-flex
@@ -47,76 +47,76 @@
   </div>
 </template>
 <script>
-  import movieCardActions from "./movieCardActions";
-  export default {
-    name: "MovieCard",
-    props: {
-      movie: Object,
-    },
-    components: {
-      movieCardActions,
-    },
+import movieCardActions from "./movieCardActions";
+export default {
+  name: "MovieCard",
+  props: {
+    movie: Object,
+  },
+  components: {
+    movieCardActions,
+  },
 
-    methods: {
-      goToDetails(id, type) {
-        this.$router.push(`/${type}/${id}`);
-      },
+  methods: {
+    goToDetails(id, type) {
+      this.$router.push(`/${type}/${id}`);
     },
-  };
+  },
+};
 </script>
 <style scoped>
-  .card-hover:hover > .card-text .movieTitle {
-    color: #2f80ed !important;
-  }
-  .card-container {
-    max-width: 100%;
-    height: 100%;
-    background-color: #151f30 !important;
-    color: white;
-  }
-  .card-img {
-    min-width: 180px;
-    max-width: 200px;
-    height: 100%;
-    display: flex;
-    position: relative;
-  }
+.card-hover:hover > .card-text .movieTitle {
+  color: #2f80ed !important;
+}
+.card-container {
+  max-width: 100%;
+  height: 100%;
+  background-color: #151f30 !important;
+  color: white;
+}
+.card-img {
+  min-width: 180px;
+  max-width: 200px;
+  height: 100%;
+  display: flex;
+  position: relative;
+}
 
-  .card-img img {
-    max-height: 100%;
-    max-width: 100%;
-  }
-  .card-img .actions {
-    opacity: 0;
-  }
-  .card-img:hover img {
-    opacity: 0.1;
-    transition: opacity 0.5s;
-  }
-  .card-img:hover .actions {
-    transition: opacity 0.9s;
-    opacity: 1;
-  }
+.card-img img {
+  max-height: 100%;
+  max-width: 100%;
+}
+.card-img .actions {
+  opacity: 0;
+}
+.card-img:hover img {
+  opacity: 0.1;
+  transition: opacity 0.5s;
+}
+.card-img:hover .actions {
+  transition: opacity 0.9s;
+  opacity: 1;
+}
 
-  .card-text {
-    width: 250px;
-  }
-  .card-text .movieTitle {
-    width: 90%;
-    white-space: normal !important;
-  }
-  .card-img,
-  .movieTitle {
-    cursor: pointer;
-  }
-  .card-text .movieOverview {
-    line-height: 1.5em;
-    height: 3em;
-    width: 90%;
-    overflow: hidden;
-    text-overflow: ellipsis !important;
-  }
-  .dots {
-    cursor: pointer;
-  }
+.card-text {
+  width: 250px;
+}
+.card-text .movieTitle {
+  width: 90%;
+  white-space: normal !important;
+}
+.card-img,
+.movieTitle {
+  cursor: pointer;
+}
+.card-text .movieOverview {
+  line-height: 1.5em;
+  height: 3em;
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis !important;
+}
+.dots {
+  cursor: pointer;
+}
 </style>
