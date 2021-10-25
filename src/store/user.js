@@ -7,7 +7,6 @@ export const user = {
       userId: "",
       userInfo: "",
     },
-    
   },
   getters: {
     userId(state) {
@@ -46,6 +45,8 @@ export const user = {
     },
 
     async createNewUser({ dispatch, rootGetters }, user) {
+      user.avatar =
+        "https://i.ibb.co/7S1s3xZ/4043260-avatar-male-man-portrait-113269.png";
       const docref = await addDoc(
         collection(rootGetters["system/getFirestore"], "users"),
         user
@@ -69,6 +70,23 @@ export const user = {
       );
 
       commit("SET_USER_INFO", updatedUserInfo);
+    },
+
+    async verifyIfMailExists({ rootGetters, dispatch }, mail) {
+      const querySnapshot = await getDocs(
+        collection(rootGetters["system/getFirestore"], "users")
+      );
+      let mailExists = false;
+      querySnapshot.forEach((doc) => {
+        if (doc.data().mail == mail) {
+          console.log(`El mail ${mail}, ya se encuentra registrado`);
+          mailExists = true;
+        }
+      });
+      mailExists
+        ? await dispatch("setUserInfo", mail)
+        : await dispatch("createNewUser", { mail: mail });
+      return;
     },
   },
 };

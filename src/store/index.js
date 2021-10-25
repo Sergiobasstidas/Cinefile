@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
-import VuexPersistence from "vuex-persist";
+// import VuexPersistence from "vuex-persist";
 
 import { user } from "./user.js";
 import { comments } from "./comments.js";
@@ -235,9 +235,9 @@ export default new Vuex.Store({
       }
     },
   },
-  plugins: [
-    new VuexPersistence({
-      storage: window.localStorage,
-    }).plugin,
-  ],
+  // plugins: [
+  //   new VuexPersistence({
+  //     storage: window.localStorage,
+  //   }).plugin,
+  // ],
 });
