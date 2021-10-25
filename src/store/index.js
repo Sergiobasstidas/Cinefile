@@ -44,6 +44,7 @@ export default new Vuex.Store({
     listedSeries: [], // Series que seran mostradas en la seccion Series
 
     infoMovie: {},
+    infoSimilar: {},
 
     API_KEY: "21b858443ab2bbdbb90fa7c26e40b421",
     BASE_URL: "https://api.themoviedb.org/3",
@@ -59,7 +60,11 @@ export default new Vuex.Store({
 
     system,
   },
-  getters: {},
+  getters: {
+    getInfoMovieSimilar(state){
+      return state.infoSimilar
+    }
+  },
 
   mutations: {
     SET_GENRES_LIST(state, genres) {
@@ -76,6 +81,9 @@ export default new Vuex.Store({
     },
     SET_INFOMOVIE(state, movie) {
       state.infoMovie = movie;
+    },
+    SET_INFO_SIMILAR(state, array) {
+      state.infoSimilar = array;
     },
   },
 
@@ -230,6 +238,25 @@ export default new Vuex.Store({
         const trailer = await dispatch("getTrailer", { id: id, type: type });
         const detailedMovie = { ...movie, cast, trailer };
         commit("SET_INFOMOVIE", detailedMovie);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async getDetailedMovieSimilar({ commit, dispatch }, { id, type }) {
+      try {
+        const similar = await dispatch("getMovieSimilar", { id: id, type: type });
+        const detailedInfoMovie = { ...similar };
+        commit("SET_INFO_SIMILAR", detailedInfoMovie);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async getMovieSimilar({ state }, { id, type }) {
+      try {
+        const infoSimilar = await axios.get(`${state.BASE_URL}/${type}/${id}/similar?api_key=${state.API_KEY}&language=en-US&page=1`);
+        return [infoSimilar.data.results[0], infoSimilar.data.results[1], infoSimilar.data.results[2]];
       } catch (e) {
         console.log(e);
       }

@@ -68,15 +68,20 @@
       </div>
       <AddComments v-if="isLogged"></AddComments>
     </v-col>
+    <v-col cols="12" lg="4" order-lg="2" order="1">
+      <SimilarMovies></SimilarMovies>
+    </v-col>
   </v-row>
 </template>
 
 <script>
 import AddComments from "@/components/AddComments";
+import SimilarMovies from "@/components/SimilarMovies"
 export default {
   name: "Comentarios",
   components: {
     AddComments,
+    SimilarMovies
   },
   props: {
     isLogged: Boolean,

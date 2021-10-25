@@ -40,6 +40,10 @@ const routes = [
         type: to.params.type,
       });
       await Store.dispatch("comments/traerComentarios")
+      await Store.dispatch("getDetailedMovieSimilar", {
+        id: to.params.id,
+        type: to.params.type,
+      });
       next();
     },
   },
