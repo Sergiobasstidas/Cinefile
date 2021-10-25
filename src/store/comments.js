@@ -2,27 +2,7 @@ import { collection, getDocs, getDoc, setDoc, doc } from "firebase/firestore";
 export const comments = {
     namespaced: true,
     state: {
-        commentSnapshot: [
-            // {
-            //     id: 1,
-            //     name: "Matías Morales",
-            //     avatar: "../avatar.png",
-            //     date: "24-09-2021, 22:30",
-            //     comment: "En la línea solipsista del Christopher Nolan de Dunkerque (2017) o del Zack Snyder de Watchmen (2009), pero cada uno, claro, fiel a su estilo único e intransferible. Hay muy pocos directores capaces de hacerse cargo de un proyecto de presupuesto desorbitado y cargado de estrellas de primer nivel -Dune parece un all-stars: Timothée Chalamet, Zendaya, Rebecca Ferguson, Oscar Isaac, Jason Momoa, Dave Bautista, Stellan Skarsgård, Javier Bardem, Josh Brolin, Charlotte Rampling, etc- y tener la valentía de hacer con él una película tan tremendamente personal, ajena a cualquier moda imperante y que, con ello, siga resultando un espectáculo inabarcable de primer nivel. Porque esa era la sensación que me abrasaba mientras veía la película: el del espectáculo totémico que sólo puedes mirar con la boca abierta y los ojos en spinning continuo. Las imágenes que construye Villeneuve, son majestuosa...",
-            //     likes: 12,
-            //     dislikes: 7,
-            // },
-            // {
-            //     id: 2,
-            //     name: "Sergio Bastidas",
-            //     avatar: "../avatar.png",
-            //     date: "24-09-2021, 22:30",
-            //     comment: "Es tal el aparataje audiovisual que uno está con el botón de fascinación en modo ON todo el rato. Cada mundo nuevo que aparece, cada castillo, cada nave, cada objeto -que fetichismo le aplica Villeneuve a los objetos sobre los que hace pivotar el relato continuamente, ya sea una cornamenta de toro, ya sea el cuchillo que acaba empuñando Paul Atreides-, están pensados hasta el último detalle, magníficamente diseñados y construidos para que sirvan al mismo tiempo de decorado y de explicación de los propios personajes. Y desde Lawrence de Arabia (1962) nadie había captado tan bien la esencia del desierto. ",
-            //     likes: 5,
-            //     dislikes: 1,
-
-            // },
-        ],
+        commentSnapshot: [],
         usuario: {},
         movieActive: "",
         allUsers: [],
@@ -34,8 +14,8 @@ export const comments = {
         getLengthComments(state) {
             return state.commentSnapshot.length
         },
-        getUsers(state) {
-            return state.comment
+        getUserActive(state) {
+            return state.usuario.id
         },
     },
     mutations: {
@@ -133,56 +113,56 @@ export const comments = {
             });
             commit("SET_ALL_USERS", consultarUsuarios)
         },
-        async agregarLike({ commit, state, dispatch, rootGetters }, arrayLike) {
-            let consultarLike = state.commentSnapshot[arrayLike.idComment].likes.filter(like => like == arrayLike.idUser)
-            let consultarDislike = state.commentSnapshot[arrayLike.idComment].dislikes.filter(dislike => dislike == arrayLike.idUser)
-            if (consultarLike.length > 0) {
+        async agregarLike({ commit, state, dispatch, rootGetters }, idLike) {
+            let consultarLike = state.commentSnapshot[idLike].likes.findIndex(like => like == state.usuario.id)
+            let consultarDislike = state.commentSnapshot[idLike].dislikes.findIndex(dislike => dislike == state.usuario.id)
+            if (consultarLike >= 0) {
                 console.log("Ya existe un Like de este usuario. Por lo que se eliminará el Like.")
-                dispatch("eliminarLike", arrayLike)
-            } else if (consultarDislike.length > 0) {
+                dispatch("eliminarLike", idLike)
+            } else if (consultarDislike >= 0) {
                 console.log("Existe un Dislike de este usuario. Por lo que se eliminará el Dislike para agregar el Like.")
-                dispatch("eliminarDislike", arrayLike)
-                commit("ADD_LIKE_TO_COMMENT", arrayLike)
+                dispatch("eliminarDislike", idLike)
+                commit("ADD_LIKE_TO_COMMENT", {idComment: idLike, idUser: state.usuario.id})
                 let nuevaColeccionComentarios = { comentarios: state.commentSnapshot }
                 await setDoc(doc(collection(rootGetters["system/getFirestore"], "comments"), state.movieActive), nuevaColeccionComentarios);
                 dispatch("traerComentarios")
             } else {
-                commit("ADD_LIKE_TO_COMMENT", arrayLike)
+                commit("ADD_LIKE_TO_COMMENT", {idComment: idLike, idUser: state.usuario.id})
                 let nuevaColeccionComentarios = { comentarios: state.commentSnapshot }
                 await setDoc(doc(collection(rootGetters["system/getFirestore"], "comments"), state.movieActive), nuevaColeccionComentarios);
                 dispatch("traerComentarios")
             }
         },
-        async agregarDislike({ commit, state, dispatch, rootGetters }, arrayDislike) {
-            let consultarLike = state.commentSnapshot[arrayDislike.idComment].likes.filter(like => like == arrayDislike.idUser)
-            let consultarDislike = state.commentSnapshot[arrayDislike.idComment].dislikes.filter(dislike => dislike == arrayDislike.idUser)
+        async agregarDislike({ commit, state, dispatch, rootGetters }, idDislike) {
+            let consultarLike = state.commentSnapshot[idDislike].likes.filter(like => like == state.usuario.id)
+            let consultarDislike = state.commentSnapshot[idDislike].dislikes.filter(dislike => dislike == state.usuario.id)
             if (consultarDislike.length > 0) {
                 console.log("Ya existe un Like de este usuario. Por lo que se eliminará el Dislike.")
-                dispatch("eliminarDislike", arrayDislike)
+                dispatch("eliminarDislike", idDislike)
             } else if (consultarLike.length > 0) {
                 console.log("Existe un Like de este usuario. Por lo que se eliminará el Like para agregar el Dislike.")
-                dispatch("eliminarLike", arrayDislike)
-                commit("ADD_DISLIKE_TO_COMMENT", arrayDislike)
+                dispatch("eliminarLike", idDislike)
+                commit("ADD_DISLIKE_TO_COMMENT", {idComment: idDislike, idUser: state.usuario.id})
                 let nuevaColeccionComentarios = { comentarios: state.commentSnapshot }
                 await setDoc(doc(collection(rootGetters["system/getFirestore"], "comments"), state.movieActive), nuevaColeccionComentarios);
                 dispatch("traerComentarios")
             } else {
-                commit("ADD_DISLIKE_TO_COMMENT", arrayDislike)
+                commit("ADD_DISLIKE_TO_COMMENT", {idComment: idDislike, idUser: state.usuario.id})
                 let nuevaColeccionComentarios = { comentarios: state.commentSnapshot }
                 await setDoc(doc(collection(rootGetters["system/getFirestore"], "comments"), state.movieActive), nuevaColeccionComentarios);
                 dispatch("traerComentarios")
             }
         },
-        async eliminarLike({ commit, dispatch, state, rootGetters }, arrayLike) {
-            let likeEncontrado = state.commentSnapshot[arrayLike.idComment].likes.findIndex(like => like == arrayLike.idUser)
-            commit("REMOVE_LIKE", { idComment: arrayLike.idComment, index: likeEncontrado })
+        async eliminarLike({ commit, dispatch, state, rootGetters }, idLike) {
+            let likeEncontrado = state.commentSnapshot[idLike].likes.findIndex(like => like == state.usuario.id)
+            commit("REMOVE_LIKE", { idComment: idLike, index: likeEncontrado })
             let nuevaColeccionComentarios = { comentarios: state.commentSnapshot }
             await setDoc(doc(collection(rootGetters["system/getFirestore"], "comments"), state.movieActive), nuevaColeccionComentarios);
             dispatch("traerComentarios")
         },
-        async eliminarDislike({ commit, dispatch, state, rootGetters }, arrayDislike) {
-            let dislikeEncontrado = state.commentSnapshot[arrayDislike.idComment].likes.findIndex(like => like == arrayDislike.idUser)
-            commit("REMOVE_DISLIKE", { idComment: arrayDislike.idComment, index: dislikeEncontrado })
+        async eliminarDislike({ commit, dispatch, state, rootGetters }, idDislike) {
+            let dislikeEncontrado = state.commentSnapshot[idDislike].likes.findIndex(like => like == state.usuario.id)
+            commit("REMOVE_DISLIKE", { idComment: idDislike, index: dislikeEncontrado })
             let nuevaColeccionComentarios = { comentarios: state.commentSnapshot }
             await setDoc(doc(collection(rootGetters["system/getFirestore"], "comments"), state.movieActive), nuevaColeccionComentarios);
             dispatch("traerComentarios")
