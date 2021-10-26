@@ -11,7 +11,7 @@
       />
       <movieCardActions :movie="movie" class="actions" />
     </div>
-    <div class="text">
+    <div @click="goToDetails(movie.id, movie.type)" class="text">
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <span v-bind="attrs" v-on="on" class="movieTitle">{{
@@ -29,51 +29,57 @@
   </div>
 </template>
 <script>
-  import movieCardActions from "./movieCardActions";
+import movieCardActions from "./movieCardActions";
 
-  export default {
-    data() {
-      return {};
-    },
-    components: {
-      movieCardActions,
-    },
+export default {
+  data() {
+    return {};
+  },
+  components: {
+    movieCardActions,
+  },
 
-    props: {
-      movie: Object,
-      hideGenres: {
-        required: false,
-        default: false,
-      },
+  props: {
+    movie: Object,
+    hideGenres: {
+      required: false,
+      default: false,
     },
-    computed: {
-      genres() {
-        const movieGenreIds = this.movie.genre_ids;
-        const genresListFromStore =
-          this.movie.type == "movie"
-            ? this.$store.state.GENRES[0]
-            : this.$store.state.GENRES[1];
-        const genreNames = [];
-        movieGenreIds.forEach((id) => {
-          let foundGenre = genresListFromStore.find((genre) => {
-            if (genre.id === id) {
-              return genre;
-            }
-          });
-          genreNames.push(foundGenre.name);
+  },
+  methods: {
+    goToDetails(id, type) {
+      this.$router.push(`/${type}/${id}`);
+    },
+  },
+  computed: {
+    genres() {
+      const movieGenreIds = this.movie.genre_ids;
+      const genresListFromStore =
+        this.movie.type == "movie"
+          ? this.$store.state.GENRES[0]
+          : this.$store.state.GENRES[1];
+      const genreNames = [];
+      movieGenreIds.forEach((id) => {
+        let foundGenre = genresListFromStore.find((genre) => {
+          if (genre.id === id) {
+            return genre;
+          }
         });
-        return genreNames;
-      },
+        genreNames.push(foundGenre.name);
+      });
+      return genreNames;
     },
-  };
+  },
+};
 </script>
 <style lang="scss">
-  .card-hover .text:hover > .movieTitle {
-    color: #2f80ed !important;
-  }
-  .cardImg {
-    position: relative;
-  }
+.card-hover .text:hover > .movieTitle {
+  color: #2f80ed !important;
+}
+.cardImg {
+  position: relative;
+}
+
 
   .cardImg img {
     width: 100%;
@@ -92,23 +98,23 @@
     cursor: pointer;
     transition: all 0.3s ease;
 
-    white-space: nowrap;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-  .genres {
-    font-size: 0.8em;
-  }
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.genres {
+  font-size: 0.8em;
+}
 
-  .cardImg:hover img {
-    opacity: 0.1;
-    transition: opacity 0.5s;
-  }
-  .cardImg .actions {
-    opacity: 0;
-  }
-  .cardImg:hover .actions {
-    transition: opacity 0.9s;
-    opacity: 1;
-  }
+.cardImg:hover img {
+  opacity: 0.1;
+  transition: opacity 0.5s;
+}
+.cardImg .actions {
+  opacity: 0;
+}
+.cardImg:hover .actions {
+  transition: opacity 0.9s;
+  opacity: 1;
+}
 </style>

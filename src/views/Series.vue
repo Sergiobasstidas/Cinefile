@@ -16,29 +16,24 @@
         type: "tv",
       };
     },
-    // beforeCreate() {
-    //   this.$store.dispatch("getByCategory", {
-    //     category: "popular",
-    //     type: "tv",
-    //   });
-    // },
   };
+
 </script>
 <style>
-  .grid-container {
-    width: 90%;
-  }
-  .search-bar {
-    margin-bottom: 50px;
-  }
+.grid-container {
+  width: 90%;
+}
+.search-bar {
+  margin-bottom: 50px;
+}
+.title-text {
+  font-weight: 400;
+  font-size: 6em;
+}
+@media (max-width: 600px) {
   .title-text {
     font-weight: 400;
-    font-size: 6em;
+    font-size: 3em;
   }
-  @media (max-width: 600px) {
-    .title-text {
-      font-weight: 400;
-      font-size: 3em;
-    }
-  }
+}
 </style>

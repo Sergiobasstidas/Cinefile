@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
@@ -79,6 +80,17 @@ export const system = {
         return false;
       }
     },
+    async recoveryPassword({commit}, user) {
+      const auth = getAuth();
+      try {
+        await sendPasswordResetEmail(auth, user.mail);
+        commit("SET_USER", null);
+        return true;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
     async logInUser({ commit, dispatch }, logedUser) {
       const auth = getAuth();
       try {

@@ -14,7 +14,8 @@
     </div>
 
     <div class="d-flex flex-column ml-4 text card-text">
-      <span @click="goToDetails(movie.id, movie.type)"
+      <span
+        @click="goToDetails(movie.id, movie.type)"
         class="
           movieTitle
           d-flex
@@ -25,22 +26,17 @@
         "
         >{{ movie.title ? movie.title : movie.name }}</span
       >
-      <span class="d-flex text-caption pt-0 pb-0">
+      <span class="text d-flex text-caption pt-0 pb-0">
         <p class="mr-2">Accion</p>
         <p class="mr-2">Aventura</p>
       </span>
-
-      <span class="d-flex pt-0 text-caption">
-        <p>Lorem ipsum dolor sit.</p>
-      </span>
-
       <span class="d-flex rounded-br-xl mb-3 mt-auto pr-2 pr-lg-1 text-caption">
         <i class="movieOverview"> {{ `"${movie.overview}"` }}... </i>
         <v-tooltip bottom max-width="400px">
           <template v-slot:activator="{ on, attrs }">
-            <span class="dots" v-bind="attrs" v-on="on"> ... </span>
+            <span v-bind="attrs" v-on="on"> ... </span>
           </template>
-          <span>{{ movie.overview }}</span>
+          <span class="">{{ movie.overview }}</span>
         </v-tooltip>
       </span>
     </div>
@@ -65,8 +61,8 @@ export default {
 };
 </script>
 <style scoped>
-.card-hover:hover > .card-text .movieTitle {
-  color: #2f80ed !important;
+.movieTitle {
+  font-size: 19px !important;
 }
 .card-container {
   max-width: 100%;
@@ -109,6 +105,10 @@ export default {
 .movieTitle {
   cursor: pointer;
 }
+.movieOverview:hover {
+  color: #0099ff;
+  transition: linear .2s;
+}
 .card-text .movieOverview {
   line-height: 1.5em;
   height: 3em;
@@ -116,7 +116,13 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis !important;
 }
+.text {
+}
 .dots {
   cursor: pointer;
+}
+.dots:hover {
+  
+  color: #0099ff;
 }
 </style>
