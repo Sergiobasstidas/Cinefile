@@ -1,26 +1,16 @@
 <template>
   <div class="grid-container mx-auto">
     <h1 class="title-text mb-6">Movies</h1>
-    <SearchBar
-      class="search-bar"
-      :type="type"
-      :currentPage="currentPage"
-      @categoryChange="currentPage = 1"
-    />
-    <Grid :movieList="$store.state.listedMovies" />
-    <pageChanger @pageChange="changePage" :currentPage="currentPage" />
+
+    <DisplayMovies :list="$store.state.listedMovies" :type="type" />
   </div>
 </template>
 <script>
-  import Grid from "@/components/Grid";
-  import SearchBar from "@/components/SearchBar";
-  import PageChanger from "@/components/PageChanger";
+  import DisplayMovies from "@/components/DisplayMovies";
 
   export default {
     components: {
-      Grid,
-      SearchBar,
-      PageChanger,
+      DisplayMovies,
     },
     data() {
       return {
@@ -28,9 +18,9 @@
         currentPage: 1,
       };
     },
+
     methods: {
       changePage(page) {
-        console.log("page changed", page);
         this.currentPage = page;
       },
     },
@@ -39,9 +29,6 @@
 <style scoped>
   .grid-container {
     width: 90%;
-  }
-  .search-bar {
-    margin-bottom: 50px;
   }
   .title-text {
     font-weight: 400;

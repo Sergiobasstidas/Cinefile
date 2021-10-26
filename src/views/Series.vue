@@ -1,30 +1,27 @@
 <template>
   <div class="grid-container mx-auto">
     <h1 class="title-text mb-6">Series</h1>
-    <SearchBar class="search-bar" :type="type" />
-    <Grid :movieList="$store.state.listedSeries" />
+    <DisplayMovies :list="$store.state.listedSeries" :type="type" />
   </div>
 </template>
 <script>
-  import Grid from "@/components/Grid";
-  import SearchBar from "@/components/SearchBar";
+  import DisplayMovies from "@/components/DisplayMovies";
 
   export default {
     components: {
-      Grid,
-      SearchBar,
+      DisplayMovies,
     },
     data() {
       return {
         type: "tv",
       };
     },
-    beforeCreate() {
-      this.$store.dispatch("getByCategory", {
-        category: "popular",
-        type: "tv",
-      });
-    },
+    // beforeCreate() {
+    //   this.$store.dispatch("getByCategory", {
+    //     category: "popular",
+    //     type: "tv",
+    //   });
+    // },
   };
 </script>
 <style>

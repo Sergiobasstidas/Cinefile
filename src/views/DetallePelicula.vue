@@ -263,7 +263,7 @@
     background: linear-gradient(
       180deg,
       rgba(19, 23, 32, 0.5) -50%,
-      #131720 50%
+      #131720 35%
     );
     pointer-events: none;
   }

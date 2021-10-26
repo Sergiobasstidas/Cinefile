@@ -80,6 +80,7 @@
     watch: {
       searchText: async function () {
         const searchText = this.searchText;
+        this.$emit("categoryChange");
         if (searchText !== "") {
           this.searchByText(searchText);
         } else {
@@ -87,18 +88,25 @@
         }
       },
       currentPage: function () {
-        this.searchCategory();
+        this.searchText == ""
+          ? this.searchCategory()
+          : this.searchByText(this.searchText);
       },
     },
     methods: {
       changeCategory(categoryPath) {
-        this.activeCategory = categoryPath;
-
         this.$emit("categoryChange");
+        this.activeCategory = categoryPath;
+        this.searchText = "";
+
+        console.log(`Llamando a searchcat con ${this.currentPage}`);
         this.searchCategory();
       },
 
       searchCategory() {
+        console.log(
+          `Busca pagina ${this.currentPage} de la cat ${this.activeCategory}`
+        );
         this.$store.dispatch("getByCategory", {
           category: this.activeCategory,
           type: this.type,
@@ -110,6 +118,7 @@
         this.$store.dispatch("searchByText", {
           text: text,
           type: this.type,
+          page: this.currentPage,
         });
       },
     },

@@ -82,7 +82,7 @@
   }
   .text {
     margin-top: 10px;
-    width: 80%;
+    width: 80% !important;
   }
   .movieTitle {
     display: block;

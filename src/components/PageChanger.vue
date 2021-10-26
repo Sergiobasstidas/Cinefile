@@ -34,7 +34,7 @@
     },
     methods: {
       pageChange(page) {
-        console.log(page);
+        this.$vuetify.goTo(200);
         this.$emit("pageChange", page);
       },
     },

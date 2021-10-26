@@ -3,6 +3,7 @@ import {
   getDocs,
   addDoc,
   updateDoc,
+  deleteDoc,
   doc,
   arrayUnion,
 } from "firebase/firestore";
@@ -28,11 +29,13 @@ export const lists = {
         name: "Favoritos",
         movies: [],
         userId: userId,
+        default: true,
       };
       const verMasTarde = {
         name: "Ver más tarde",
         movies: [],
         userId: userId,
+        default: true,
       };
       const listsCollection = collection(
         rootGetters["system/getFirestore"],
@@ -113,8 +116,6 @@ export const lists = {
         await updateDoc(docRef, { movies: listMovies });
       }
       dispatch("updateUserLists");
-
-      // await updateDoc(listsRef, {});
     },
 
     // Toma el objeto de listas completo y lo vuelve a subir a firestore.
@@ -140,6 +141,19 @@ export const lists = {
       } else {
         throw `La lista ${newListName} ya existe`;
       }
+    },
+
+    async deleteList({ dispatch, rootGetters }, listName) {
+      console.log(listName);
+      const listRef = await dispatch("getListRefByName", listName);
+      const listToDelete = doc(
+        rootGetters["system/getFirestore"],
+        "lists",
+        listRef.id
+      );
+      console.log(listToDelete);
+      await deleteDoc(listToDelete);
+      dispatch("updateUserLists");
     },
   },
 };
