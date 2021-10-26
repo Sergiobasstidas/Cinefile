@@ -152,7 +152,7 @@ export default {
   background-image: url("./../assets/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center center;
 
   min-height: 890px;
 }
@@ -182,7 +182,8 @@ export default {
   flex-wrap: wrap;
   position: relative;
   margin-bottom: 20px;
-  width: 100%;
+  min-width: 95%;
+  max-width: 100%;
 }
 .sign_input {
   background-color: #151f30;
@@ -227,7 +228,7 @@ export default {
   margin-bottom: 10px;
 }
 .gl-button {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 500;
   color: white;
   transition: all 0.4s ease;
@@ -263,9 +264,9 @@ span {
   padding: 0px !important;
 }
 
-@media (min-width: 576px) {
-  .sign_form {
-    padding: 30px 42px;
+@media (max-width: 320px) {
+  .ingresar-button{
+    padding: 8px 70px;
   }
 }
 </style>
