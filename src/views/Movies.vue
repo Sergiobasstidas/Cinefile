@@ -12,45 +12,45 @@
   </div>
 </template>
 <script>
-  import Grid from "@/components/Grid";
-  import SearchBar from "@/components/SearchBar";
-  import PageChanger from "@/components/PageChanger";
+import Grid from "@/components/Grid";
+import SearchBar from "@/components/SearchBar";
+import PageChanger from "@/components/PageChanger";
 
-  export default {
-    components: {
-      Grid,
-      SearchBar,
-      PageChanger,
+export default {
+  components: {
+    Grid,
+    SearchBar,
+    PageChanger,
+  },
+  data() {
+    return {
+      type: "movie",
+      currentPage: 1,
+    };
+  },
+  methods: {
+    changePage(page) {
+      console.log("page changed", page);
+      this.currentPage = page;
     },
-    data() {
-      return {
-        type: "movie",
-        currentPage: 1,
-      };
-    },
-    methods: {
-      changePage(page) {
-        console.log("page changed", page);
-        this.currentPage = page;
-      },
-    },
-  };
+  },
+};
 </script>
 <style scoped>
-  .grid-container {
-    width: 90%;
-  }
-  .search-bar {
-    margin-bottom: 50px;
-  }
+.grid-container {
+  width: 90%;
+}
+.search-bar {
+  margin-bottom: 50px;
+}
+.title-text {
+  font-weight: 400;
+  font-size: 6em;
+}
+@media (max-width: 600px) {
   .title-text {
     font-weight: 400;
-    font-size: 6em;
+    font-size: 3em;
   }
-  @media (max-width: 600px) {
-    .title-text {
-      font-weight: 400;
-      font-size: 3em;
-    }
-  }
+}
 </style>
