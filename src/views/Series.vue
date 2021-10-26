@@ -1,46 +1,23 @@
 <template>
   <div class="grid-container mx-auto">
     <h1 class="title-text mb-6">Series</h1>
-    <SearchBar
-      class="search-bar"
-      :type="type"
-      :currentPage="currentPage"
-      @categoryChange="currentPage = 1"
-    />
-    <Grid :movieList="$store.state.listedSeries" />
-    <pageChanger @pageChange="changePage" :currentPage="currentPage" />
+    <DisplayMovies :list="$store.state.listedSeries" :type="type" />
   </div>
 </template>
 <script>
-import Grid from "@/components/Grid";
-import SearchBar from "@/components/SearchBar";
-import PageChanger from "@/components/PageChanger";
+  import DisplayMovies from "@/components/DisplayMovies";
 
-export default {
-  components: {
-    Grid,
-    SearchBar,
-    PageChanger,
-  },
-  data() {
-    return {
-      type: "tv",
-      currentPage: 1,
-    };
-  },
-  methods: {
-    changePage(page) {
-      console.log("page changed", page);
-      this.currentPage = page;
+  export default {
+    components: {
+      DisplayMovies,
     },
-  },
-  beforeCreate() {
-    this.$store.dispatch("getByCategory", {
-      category: "popular",
-      type: "tv",
-    });
-  },
-};
+    data() {
+      return {
+        type: "tv",
+      };
+    },
+  };
+
 </script>
 <style>
 .grid-container {

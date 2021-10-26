@@ -1,14 +1,14 @@
 <template>
   <v-container class="my-6 profile_container">
     <ProfileInfo class="my-12" />
+    <span class="title_text">Mis Listas</span>
+    <listsPanel class="my-7" />
     <v-container fluid style="margin-top: 100px">
       <CarouselProfile
-        :movieList="$store.state.home.homeMovies[3]"
-        title="Peliculas Gustadas"
+        :movieList="$store.state.listedMovies"
+        title="Descubre nuevas peliculas"
       />
     </v-container>
-    <span class="title_text">Mis Listas</span>
-    <listsPanel class="mt-7" />
   </v-container>
 </template>
 <script>

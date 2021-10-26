@@ -80,22 +80,23 @@ export default {
   position: relative;
 }
 
-.cardImg img {
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-}
-.text {
-  margin-top: 10px;
-  width: 80%;
-}
-.movieTitle {
-  display: block;
-  color: white;
-  font-weight: 500;
-  font-size: 1.1em !important;
-  cursor: pointer;
-  transition: all 0.3s ease;
+
+  .cardImg img {
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .text {
+    margin-top: 10px;
+    width: 80% !important;
+  }
+  .movieTitle {
+    display: block;
+    color: white;
+    font-weight: 500;
+    font-size: 1.1em !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
 
   white-space: nowrap;
   overflow: hidden !important;

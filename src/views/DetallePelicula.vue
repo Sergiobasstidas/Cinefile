@@ -238,6 +238,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .bodyMovie__back {
   position: absolute;
   left: 0;
@@ -258,7 +259,7 @@ export default {
   right: 0;
   display: block;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(19, 23, 32, 0.5) -50%, #131720 50%);
+  background: linear-gradient(180deg, rgba(19, 23, 32, 0.5) -50%, #131720 35%);
   pointer-events: none;
 }
 .bodyMovie__back img {
@@ -340,6 +341,7 @@ export default {
   position: relative;
 }
 @media (max-width: 960px) {
+
   .infografia {
     padding: 0 20px;
   }

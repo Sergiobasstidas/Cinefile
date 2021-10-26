@@ -61,9 +61,9 @@ export default new Vuex.Store({
     system,
   },
   getters: {
-    getInfoMovieSimilar(state){
-      return state.infoSimilar
-    }
+    getInfoMovieSimilar(state) {
+      return state.infoSimilar;
+    },
   },
 
   mutations: {
@@ -84,6 +84,9 @@ export default new Vuex.Store({
     },
     SET_INFO_SIMILAR(state, array) {
       state.infoSimilar = array;
+    },
+    SET_MOVIES_TO_DISCOVER(state, movies) {
+      state.moviesToDiscover = movies;
     },
   },
 
@@ -232,7 +235,6 @@ export default new Vuex.Store({
 
     async getDetailedMovie({ commit, dispatch }, { id, type }) {
       try {
-        console.log("detalle peli");
         const movie = await dispatch("getMovie", { id: id, type: type });
         const cast = await dispatch("getCast", { id: id, type: type });
         const trailer = await dispatch("getTrailer", { id: id, type: type });
@@ -245,7 +247,10 @@ export default new Vuex.Store({
 
     async getDetailedMovieSimilar({ commit, dispatch }, { id, type }) {
       try {
-        const similar = await dispatch("getMovieSimilar", { id: id, type: type });
+        const similar = await dispatch("getMovieSimilar", {
+          id: id,
+          type: type,
+        });
         const detailedInfoMovie = { ...similar };
         commit("SET_INFO_SIMILAR", detailedInfoMovie);
       } catch (e) {
@@ -255,8 +260,14 @@ export default new Vuex.Store({
 
     async getMovieSimilar({ state }, { id, type }) {
       try {
-        const infoSimilar = await axios.get(`${state.BASE_URL}/${type}/${id}/similar?api_key=${state.API_KEY}&language=en-US&page=1`);
-        return [infoSimilar.data.results[0], infoSimilar.data.results[1], infoSimilar.data.results[2]];
+        const infoSimilar = await axios.get(
+          `${state.BASE_URL}/${type}/${id}/similar?api_key=${state.API_KEY}&language=en-US&page=1`
+        );
+        return [
+          infoSimilar.data.results[0],
+          infoSimilar.data.results[1],
+          infoSimilar.data.results[2],
+        ];
       } catch (e) {
         console.log(e);
       }

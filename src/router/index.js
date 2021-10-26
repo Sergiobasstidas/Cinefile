@@ -29,29 +29,40 @@ const routes = [
     },
   },
   {
-    path: "/:type/:id",
-    name: "DetallePelicula",
-    component: () => import("../views/DetallePelicula.vue"),
+    path: "/series",
+    name: "Series",
+    component: () => import("../views/Series.vue"),
     beforeEnter: async (to, from, next) => {
-      await Store.dispatch("comments/setIdMovieActive", to.params.type+'-'+to.params.id);
-      await Store.dispatch("comments/traerTodosUsuarios")
-      await Store.dispatch("getDetailedMovie", {
-        id: to.params.id,
-        type: to.params.type,
-      });
-      await Store.dispatch("comments/traerComentarios")
-      await Store.dispatch("getDetailedMovieSimilar", {
-        id: to.params.id,
-        type: to.params.type,
+      await Store.dispatch("getByCategory", {
+        category: "popular",
+        type: "tv",
       });
       next();
     },
   },
   {
-    path: "/series",
-    name: "Series",
-
-    component: () => import("../views/Series.vue"),
+    path: "/:type/:id",
+    name: "DetallePelicula",
+    component: () => import("../views/DetallePelicula.vue"),
+    beforeEnter: async (to, from, next) => {
+      // Meter todo esto en una funcion////////////////////
+      await Store.dispatch(
+        "comments/setIdMovieActive",
+        to.params.type + "-" + to.params.id
+      );
+      await Store.dispatch("comments/traerTodosUsuarios");
+      await Store.dispatch("getDetailedMovie", {
+        id: to.params.id,
+        type: to.params.type,
+      });
+      await Store.dispatch("comments/traerComentarios");
+      await Store.dispatch("getDetailedMovieSimilar", {
+        id: to.params.id,
+        type: to.params.type,
+      });
+      ////////////////////////////////////////////////
+      next();
+    },
   },
   {
     path: "/login",
@@ -73,6 +84,14 @@ const routes = [
     path: "/profile",
     component: () => import("../views/Profile.vue"),
     meta: { requiresLoged: true },
+    beforeEnter: async (to, from, next) => {
+      await Store.dispatch("getByCategory", {
+        category: "popular",
+        type: "movie",
+        page: Math.random() * (200 - 1) + 1,
+      });
+      next();
+    },
   },
 ];
 

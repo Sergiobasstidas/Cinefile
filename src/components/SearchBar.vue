@@ -89,28 +89,52 @@ export default {
     currentPage: function () {
       this.searchCategory();
     },
-  },
-  methods: {
-    changeCategory(categoryPath) {
-      this.activeCategory = categoryPath;
 
-      this.$emit("categoryChange");
-      this.searchCategory();
+    watch: {
+      searchText: async function () {
+        const searchText = this.searchText;
+        this.$emit("categoryChange");
+        if (searchText !== "") {
+          this.searchByText(searchText);
+        } else {
+          this.changeCategory(this.activeCategory);
+        }
+      },
+      currentPage: function () {
+        this.searchText == ""
+          ? this.searchCategory()
+          : this.searchByText(this.searchText);
+      },
     },
+    methods: {
+      changeCategory(categoryPath) {
+        this.$emit("categoryChange");
+        this.activeCategory = categoryPath;
+        this.searchText = "";
 
-    searchCategory() {
-      this.$store.dispatch("getByCategory", {
-        category: this.activeCategory,
-        type: this.type,
-        page: this.currentPage,
-      });
-    },
+        console.log(`Llamando a searchcat con ${this.currentPage}`);
+        this.searchCategory();
+      },
 
-    searchByText(text) {
-      this.$store.dispatch("searchByText", {
-        text: text,
-        type: this.type,
-      });
+      searchCategory() {
+        console.log(
+          `Busca pagina ${this.currentPage} de la cat ${this.activeCategory}`
+        );
+        this.$store.dispatch("getByCategory", {
+          category: this.activeCategory,
+          type: this.type,
+          page: this.currentPage,
+        });
+      },
+
+      searchByText(text) {
+        this.$store.dispatch("searchByText", {
+          text: text,
+          type: this.type,
+          page: this.currentPage,
+        });
+      },
+
     },
   },
 };

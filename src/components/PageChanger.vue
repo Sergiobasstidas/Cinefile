@@ -37,8 +37,18 @@ export default {
       console.log(page);
       this.$emit("pageChange", page);
     },
-  },
-};
+
+    props: {
+      currentPage: Number,
+    },
+    methods: {
+      pageChange(page) {
+        this.$vuetify.goTo(200);
+        this.$emit("pageChange", page);
+      },
+    },
+  };
+
 </script>
 <style lang="scss" scoped>
 .page-indicator {
