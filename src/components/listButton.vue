@@ -47,7 +47,6 @@
           type: this.movie.type,
           title: this.movie.title ? this.movie.title : this.movie.name,
           poster_path: this.movie.poster_path,
-          genre_ids: this.movie.genre_ids,
         };
         this.loading = true;
         await this.$store.dispatch("lists/addOrRemoveMovieFromList", {
