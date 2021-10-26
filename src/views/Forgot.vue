@@ -1,5 +1,5 @@
 <template>
-  <v-form fluid class="contenedor d-flex">
+  <v-container fluid class="contenedor d-flex">
     <v-row>
       <v-col
         cols="12"
@@ -9,43 +9,87 @@
           <a href="/home">
             <img alt="" src="@/assets/logo.png" class="sign_logo" />
           </a>
-          <div class="sign_group">
-            <input class="sign_input" type="email" placeholder="Email" />
+          <div class="mt-4" v-if="send">
+            <v-alert class="mb-0" outlined dense text type="success">
+              Mail enviado con exito.
+            </v-alert>
           </div>
-
-          <div class="sign_group--checkbox">
-            <input
-              id="remember"
-              name="remember"
-              type="checkbox"
-              checked="checked"
-              required
-              v-validate="'required'"
-            />
-            <label class="ml-2" for="remember"
-              >Estoy de acuerdo con las politicas de privacidad</label
-            >
+          <div v-else>
+            <div class="sign_group">
+              <input
+                class="sign_input"
+                v-model="mail"
+                type="email"
+                placeholder="Email"
+              />
+            </div>
+            <div class="sign_group--checkbox">
+              <input
+                id="remember"
+                name="remember"
+                type="checkbox"
+                checked="checked"
+                required
+              />
+              <label class="ml-2" for="remember"
+                >Estoy de acuerdo con las politicas de privacidad</label
+              >
+            </div>
+            <div>
+              <button class="register-button" v-if="loading" disabled>
+                <v-progress-circular
+                  indeterminate
+                  size="20"
+                  width="3"
+                  color="white"
+                ></v-progress-circular>
+              </button>
+              <button @click="sendPassword" v-else class="register-button">
+                Enviar
+              </button>
+            </div>
+            <span class="sign_text">
+              Te enviaremos un email para restablecer tu contraseña.
+            </span>
           </div>
-          <button type="submit" class="register-button">Enviar</button>
-
-          <span class="sign_text">
-            Te enviaremos una contraseña a tu Email
-          </span>
-          <div></div>
         </v-card>
       </v-col>
     </v-row>
-  </v-form>
+  </v-container>
 </template>
 
 <script>
-import { validationMixin } from "vuelidate";
-import { required, email } from "vuelidate/lib/validators";
 export default {
-  mixins: [validationMixin],
-  validations: {
-    email: { required, email },
-    select: { required },
+  data: () => ({
+    mail: null,
+    logInFailed: false,
+    loading: false,
+    send: false,
+  }),
+  methods: {
+    async sendPassword() {
+      this.loading = true;
+      const passwordSendSuccessfully = await this.$store.dispatch(
+        "system/recoveryPassword",
+        {
+          mail: this.mail,
+        }
+      );
+      if (passwordSendSuccessfully) {
+        this.send = true;
+      } else {
+        this.logInFailed = true;
+        setTimeout(() => {
+          this.logInFailed = false;
+        }, 3000);
+      }
+      setTimeout(() => {
+        this.loading = false;
+        this.mail = "";
+        this.logInFailed = false;
+        this.$router.push("/home");
+      }, 3500);
+    },
   },
 };
 </script>
@@ -97,6 +141,7 @@ export default {
   width: 100%;
   padding: 0 20px;
 }
+
 .sign_group--checkbox {
   width: 100%;
   text-align: center;
