@@ -28,31 +28,31 @@
   </v-container>
 </template>
 <script>
-  import MovieCard from "@/components/MovieCard.vue";
-  import CarouselCard from "@/components/CarouselCard.vue";
+import MovieCard from "@/components/MovieCard.vue";
+import CarouselCard from "@/components/CarouselCard.vue";
 
-  export default {
-    components: {
-      MovieCard,
-      CarouselCard,
-    },
-    props: {
-      movieList: Array,
-    },
-  };
+export default {
+  components: {
+    MovieCard,
+    CarouselCard,
+  },
+  props: {
+    movieList: Array,
+  },
+};
 </script>
 <style scoped>
-  .contenedor {
-    width: 100% !important;
-    padding: 0 !important;
-  }
+.contenedor {
+  width: 100% !important;
+  padding: 0 !important;
+}
 
-  .movieCard-card {
-    margin: 0 auto;
+.movieCard-card {
+  margin: 0 auto;
+}
+@media (max-width: 500px) {
+  .carrouselCard-card {
+    font-size: 12px;
   }
-  @media (max-width: 500px) {
-    .carrouselCard-card {
-      font-size: 12px;
-    }
-  }
+}
 </style>
