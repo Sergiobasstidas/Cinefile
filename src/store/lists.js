@@ -4,6 +4,7 @@ import {
   addDoc,
   updateDoc,
   doc,
+  arrayUnion,
 } from "firebase/firestore";
 
 export const lists = {
@@ -99,9 +100,12 @@ export const lists = {
           `La pelicula ${newMovie.id} de tipo ${newMovie.type} esta siendo agregada a la lista ${listName}`
         );
         listMovies.push(newMovie);
-        await updateDoc(docRef, { movies: listMovies });
+        listMovies.forEach((movie) => {
+          console.log(movie);
+        });
+        // await updateDoc(docRef, { movies: listMovies });
+        await updateDoc(docRef, { movies: arrayUnion(newMovie) });
       } else {
-        console.log(`La pelicula esta en el index ${movieInListIndex}`);
         console.log(
           `La pelicula ${newMovie.id} de tipo ${newMovie.type} se ha eliminada de la lista ${listName}`
         );

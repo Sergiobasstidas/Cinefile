@@ -41,6 +41,7 @@
         required: true,
         type: String,
       },
+      currentPage: Number,
     },
     data() {
       return {
@@ -85,13 +86,23 @@
           this.changeCategory(this.activeCategory);
         }
       },
+      currentPage: function () {
+        this.searchCategory();
+      },
     },
     methods: {
       changeCategory(categoryPath) {
         this.activeCategory = categoryPath;
+
+        this.$emit("categoryChange");
+        this.searchCategory();
+      },
+
+      searchCategory() {
         this.$store.dispatch("getByCategory", {
-          category: categoryPath,
+          category: this.activeCategory,
           type: this.type,
+          page: this.currentPage,
         });
       },
 
