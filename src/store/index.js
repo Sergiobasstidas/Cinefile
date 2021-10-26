@@ -106,7 +106,7 @@ export default new Vuex.Store({
       }
     },
 
-    async initializeHome({ state, commit, dispatch }) {
+    initializeHome({ state, commit, dispatch }) {
       try {
         let homeMovies = [];
         state.home.homeSections.forEach((section) => {
