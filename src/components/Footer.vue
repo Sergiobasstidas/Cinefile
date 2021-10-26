@@ -86,7 +86,7 @@ export default {
   }
   .derechos {
   font-weight: 400;
-  font-size: 10px !important;
+  font-size: 12px !important;
 }
 
 }
