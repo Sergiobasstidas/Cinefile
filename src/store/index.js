@@ -160,6 +160,7 @@ export default new Vuex.Store({
           {
             params: {
               api_key: state.API_KEY,
+              language: "es-ES"
             },
           }
         );
@@ -261,7 +262,7 @@ export default new Vuex.Store({
     async getMovieSimilar({ state }, { id, type }) {
       try {
         const infoSimilar = await axios.get(
-          `${state.BASE_URL}/${type}/${id}/similar?api_key=${state.API_KEY}&language=en-US&page=1`
+          `${state.BASE_URL}/${type}/${id}/similar?api_key=${state.API_KEY}&language=es-Es&page=1`
         );
         return [
           infoSimilar.data.results[0],

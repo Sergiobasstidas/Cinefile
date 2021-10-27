@@ -8,13 +8,13 @@
       </div>
       <div class="infografia">
         <v-container>
-          <v-layout align-center justify-start>
+          <!-- <v-layout align-center justify-start>
             <v-icon class="infografia__trailerIcon" color="#ffffff" size="50px"
               >mdi-play-circle-outline</v-icon
             >
             <h3 class="infografia__trailerText">Tráiler</h3>
-          </v-layout>
-          <h2 class="infografia__title">{{ getTitle }}</h2>
+          </v-layout> -->
+          <h2 class="infografia__title">{{ getTitle }}<br><small>{{ getOriginalTitle }}</small></h2>
           <v-row
             align="center"
             justify="start"
@@ -92,16 +92,11 @@
           </div>
           <div class="infografia__share">
             <h3 class="title_text">Compartir</h3>
-            <v-chip class="mr-12" color="#3B5998" text-color="#fff"
-              ><img src="@/assets/facebook-f-brands.svg" class="img-svg" /><v-icon>mdi-facebook</v-icon>
-              Compartir</v-chip
+            <v-chip class="mr-12 infografia__chip" color="#3B5998" text-color="#fff" :href="`https://www.facebook.com/sharer/sharer.php?u=https%3A//www.cinefile.cl/${this.$route.params.type}/${this.$route.params.id}`" target="_blank"><v-icon>mdi-facebook</v-icon> Compartir</v-chip
             >
-            <v-chip class="mr-12" color="#55ACEE" text-color="#fff"
-              ><img src="@/assets/twitter-brands.svg" class="img-svg" /><v-icon>mdi-twitter</v-icon>
-              Compartir</v-chip
+            <v-chip class="mr-12" color="#55ACEE" text-color="#fff" :href="`https://twitter.com/intent/tweet?text=https%3A//www.cinefile.cl/${this.$route.params.type}/${this.$route.params.id}`" target="_blank"><v-icon>mdi-twitter</v-icon> Compartir</v-chip
             >
-            <v-chip class="mr-12" color="#00BB2D" text-color="#fff"><v-icon>mdi-whatsapp</v-icon>Compartir</v-chip
-            >
+            <v-chip class="mr-12" color="#00BB2D" text-color="#fff" :href="`whatsapp://send?text=https%3A//www.cinefile.cl/${this.$route.params.type}/${this.$route.params.id}`" target="_blank"><v-icon>mdi-whatsapp</v-icon>Compartir</v-chip>
           </div>
         </v-container>
       </div>
@@ -164,6 +159,13 @@ export default {
         return this.$store.state.infoMovie.name;
       } else {
         return this.$store.state.infoMovie.title;
+      }
+    },
+    getOriginalTitle(){
+      if (this.$route.params.type == "tv") {
+        return this.$store.state.infoMovie.original_name;
+      } else {
+        return this.$store.state.infoMovie.original_title;
       }
     },
     getImagen() {
@@ -288,8 +290,14 @@ export default {
   margin-left: 15px;
 }
 .infografia__title {
+  line-height: .8;
   font-weight: 400;
   font-size: 40px;
+  & small {
+    font-size: 60%;
+    font-style: italic;
+    color: rgba(250,250,250,.5);
+  }
 }
 .infografia__listado {
   line-height: 30px;
