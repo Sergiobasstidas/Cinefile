@@ -139,7 +139,19 @@
         },
       ],
     }),
+    watch: {
+      idPelicula: async function () {
+        await this.$store.dispatch("getDetailedMovie", {
+          id: this.$route.params.id,
+          type: this.$route.params.type,
+        });
+        this.$vuetify.goTo(0);
+      },
+    },
     computed: {
+      idPelicula() {
+        return this.$route.params.id;
+      },
       paraComentarios() {
         if (this.$store.state.system.logedUser) {
           let nuevoArrayObjectUser = {

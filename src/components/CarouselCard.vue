@@ -29,57 +29,56 @@
   </div>
 </template>
 <script>
-import movieCardActions from "./movieCardActions";
+  import movieCardActions from "./movieCardActions";
 
-export default {
-  data() {
-    return {};
-  },
-  components: {
-    movieCardActions,
-  },
+  export default {
+    data() {
+      return {};
+    },
+    components: {
+      movieCardActions,
+    },
 
-  props: {
-    movie: Object,
-    hideGenres: {
-      required: false,
-      default: false,
+    props: {
+      movie: Object,
+      hideGenres: {
+        required: false,
+        default: false,
+      },
     },
-  },
-  methods: {
-    goToDetails(id, type) {
-      this.$router.push(`/${type}/${id}`);
+    methods: {
+      goToDetails(id, type) {
+        this.$router.push(`/${type}/${id}`);
+      },
     },
-  },
-  computed: {
-    genres() {
-      const movieGenreIds = this.movie.genre_ids;
-      const genresListFromStore =
-        this.movie.type == "movie"
-          ? this.$store.state.GENRES[0]
-          : this.$store.state.GENRES[1];
-      const genreNames = [];
-      movieGenreIds.forEach((id) => {
-        let foundGenre = genresListFromStore.find((genre) => {
-          if (genre.id === id) {
-            return genre;
-          }
+    computed: {
+      genres() {
+        const movieGenreIds = this.movie.genre_ids;
+        const genresListFromStore =
+          this.movie.type == "movie"
+            ? this.$store.state.GENRES[0]
+            : this.$store.state.GENRES[1];
+        const genreNames = [];
+        movieGenreIds.forEach((id) => {
+          let foundGenre = genresListFromStore.find((genre) => {
+            if (genre.id === id) {
+              return genre;
+            }
+          });
+          genreNames.push(foundGenre.name);
         });
-        genreNames.push(foundGenre.name);
-      });
-      return genreNames;
+        return genreNames;
+      },
     },
-  },
-};
+  };
 </script>
 <style lang="scss">
-.card-hover .text:hover > .movieTitle {
-  color: #2f80ed !important;
-}
-.cardImg {
-  position: relative;
-}
-
+  .card-hover .text:hover > .movieTitle {
+    color: #2f80ed !important;
+  }
+  .cardImg {
+    position: relative;
+  }
 
   .cardImg img {
     width: 100%;
@@ -98,23 +97,32 @@ export default {
     cursor: pointer;
     transition: all 0.3s ease;
 
-  white-space: nowrap;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-}
-.genres {
-  font-size: 0.8em;
-}
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .genres {
+    font-size: 0.8em;
+  }
 
-.cardImg:hover img {
-  opacity: 0.1;
-  transition: opacity 0.5s;
-}
-.cardImg .actions {
-  opacity: 0;
-}
-.cardImg:hover .actions {
-  transition: opacity 0.9s;
-  opacity: 1;
-}
+  .cardImg:hover img {
+    opacity: 0.1;
+    transition: opacity 0.5s;
+  }
+  .cardImg .actions {
+    opacity: 0;
+  }
+  .cardImg:hover .actions {
+    transition: opacity 0.9s;
+    opacity: 1;
+  }
+  @media (max-width: 600px) {
+    .cardImg:hover .actions {
+      display: none;
+    }
+    .cardImg:hover img {
+      opacity: 0.5;
+      transition: opacity 0.5s;
+    }
+  }
 </style>
