@@ -23,43 +23,33 @@
   </div>
 </template>
 <script>
-export default {
-  data() {
-    return {
-      lastPage: false,
-    };
-  },
-  props: {
-    currentPage: Number,
-  },
-  methods: {
-    pageChange(page) {
-      console.log(page);
-      this.$emit("pageChange", page);
+  export default {
+    data() {
+      return {
+        lastPage: false,
+      };
     },
-
     props: {
       currentPage: Number,
     },
     methods: {
       pageChange(page) {
-        this.$vuetify.goTo(200);
+        console.log(page);
         this.$emit("pageChange", page);
       },
     },
   };
-
 </script>
 <style lang="scss" scoped>
-.page-indicator {
-  margin: 0 2px;
-  background-color: black !important;
-  cursor: initial !important;
-}
-.page-btn {
-  cursor: pointer !important;
-}
-.page-btn:hover {
-  color: var(--highlight-color) !important;
-}
+  .page-indicator {
+    margin: 0 2px;
+    background-color: black !important;
+    cursor: initial !important;
+  }
+  .page-btn {
+    cursor: pointer !important;
+  }
+  .page-btn:hover {
+    color: var(--highlight-color) !important;
+  }
 </style>
