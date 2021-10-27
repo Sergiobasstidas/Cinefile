@@ -127,6 +127,7 @@ export default new Vuex.Store({
             type: section.type,
           })
             .then((movieList) => {
+              movieList = { movies: movieList, title: section.title };
               homeMovies.push(movieList);
             })
             .catch(() => {});
@@ -160,7 +161,7 @@ export default new Vuex.Store({
           {
             params: {
               api_key: state.API_KEY,
-              language: "es-ES"
+              language: "es-ES",
             },
           }
         );
@@ -236,6 +237,17 @@ export default new Vuex.Store({
 
     async getDetailedMovie({ commit, dispatch }, { id, type }) {
       try {
+        await dispatch("comments/setIdMovieActive", type + "-" + id, {
+          root: true,
+        });
+        await dispatch("comments/traerTodosUsuarios", null, {
+          root: true,
+        });
+        await dispatch("comments/traerComentarios", null, { root: true });
+        await dispatch("getDetailedMovieSimilar", {
+          id: id,
+          type: type,
+        });
         const movie = await dispatch("getMovie", { id: id, type: type });
         const cast = await dispatch("getCast", { id: id, type: type });
         const trailer = await dispatch("getTrailer", { id: id, type: type });
