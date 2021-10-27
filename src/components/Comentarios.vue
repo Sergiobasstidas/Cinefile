@@ -35,7 +35,7 @@
               <v-col cols="auto" class="reaction">
                 <div :class="getLinkedLike($index)">
                   <div class="like__icon" @click="sumarLike($index)">
-                    <v-icon :color="colorIconLike" dense
+                    <v-icon dense
                       >mdi-thumb-up-outline</v-icon
                     >
                   </div>
@@ -48,7 +48,7 @@
                   @click="sumarDislike($index)"
                 >
                   <div class="dislike__icon">
-                    <v-icon :color="colorIconDislike" dense
+                    <v-icon dense
                       >mdi-thumb-down-outline</v-icon
                     >
                   </div>
@@ -204,6 +204,7 @@
       justify-content: center;
       align-items: center;
       position: relative;
+      & .v-icon {color: #fff !important;}
     }
     &--disliked {
       cursor: pointer;
@@ -211,16 +212,25 @@
       justify-content: center;
       align-items: center;
       position: relative;
+      & .v-icon {color: #fff !important;}
     }
   }
   .reaction__like {
     margin-right: 1.8rem;
     &--click {
       margin-right: 1.8rem;
+      & .v-icon {color: #29b474 !important;}
     }
     &--liked {
       margin-right: 1.8rem;
     }
+    & .v-icon {color: #29b474;}
+  }
+  .reaction__dislike {
+    &--click {
+      & .v-icon {color: #eb5757 !important;}
+    }
+    & .v-icon {color: #eb5757;}
   }
   .reaction__like--liked .like__icon {
     background-color: #29b474;
