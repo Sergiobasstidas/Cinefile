@@ -20,7 +20,13 @@
         ></v-textarea>
       </v-col>
       <v-col cols="auto">
-        <v-btn color="#2F80ED" type="submit" dark v-if="loading == 'finish'">
+        <v-btn
+          class="agregarComentario_btn"
+          color="#2F80ED"
+          type="submit"
+          dark
+          v-if="loading == 'finish'"
+        >
           Comentar
         </v-btn>
         <v-btn color="#2F80ED" type="submit" dark v-else disabled

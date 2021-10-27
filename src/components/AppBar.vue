@@ -35,7 +35,11 @@
           {{ link.title }}
         </v-btn>
 
-        <v-btn class="buttons" plain to="/profile" v-if="userLogedIn"
+        <v-btn
+          class="buttons miPerfil-btn"
+          plain
+          to="/profile"
+          v-if="userLogedIn"
           >Mi perfil</v-btn
         >
 
