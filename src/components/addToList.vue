@@ -2,7 +2,7 @@
   <div>
     <v-dialog v-model="dialog" scrollable max-width="300px">
       <template v-slot:activator="{ on, attrs }">
-        <span v-bind="attrs" v-on="on"
+        <span v-bind="attrs" v-on="on" class="cy-agregar"
           ><v-icon dark x-large size="30"
             >mdi-bookmark-plus-outline</v-icon
           ></span
