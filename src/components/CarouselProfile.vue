@@ -6,8 +6,8 @@
     <carousel
       :perPageCustom="[
         [100, 2],
-        [700, 2],
-        [1024, 3],
+        [700, 3],
+        [1024, 4],
         [1400, 4],
         [1900, 7],
       ]"
@@ -140,5 +140,19 @@
   }
   .profile_carousel .title_text {
     font-size: 2em;
+  }
+  @media (max-width: 600px) {
+    .title_text {
+      font-size: 1.5em !important;
+    }
+    .profile_carousel .movieCard {
+      max-width: 90px;
+      margin: 10px;
+      font-size: 12px;
+    }
+    .carousel {
+      width: 100%;
+      margin: 0 auto;
+    }
   }
 </style>
