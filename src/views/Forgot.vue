@@ -128,7 +128,8 @@ export default {
   flex-wrap: wrap;
   position: relative;
   margin-bottom: 0px;
-  width: 100%;
+  min-width: 95%;
+  max-width: 100%;
 }
 .sign_input {
   background-color: #151f30;
@@ -182,9 +183,9 @@ span {
   width: 70%;
 }
 
-@media (min-width: 576px) {
-  .sign_form {
-    padding: 30px 42px;
+@media (max-width: 320px) {
+  .register-button {
+    padding: 8px 70px;
   }
 }
 </style>

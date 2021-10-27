@@ -38,7 +38,9 @@
         this.$emit("pageChange", page);
       },
     },
+
   };
+
 </script>
 <style lang="scss" scoped>
   .page-indicator {

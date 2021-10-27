@@ -1,5 +1,5 @@
 <template>
-  <v-container app fluid class="contenedor d-flex">
+  <v-container fluid class="contenedor d-flex">
     <v-row>
       <v-col
         cols="12"
