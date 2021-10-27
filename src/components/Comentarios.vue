@@ -60,15 +60,19 @@
       </div>
       <div v-if="!hasComments">
         <p>Esta película no tiene comentarios aún.</p>
-        <p v-if="!isLogged">
+        <p v-if="!isLogged && !hasComments">
           <a href="/login">Ingresa a tu cuenta</a> para ser el primero en
           comentar esta película. Si aún no tienes una cuenta, puedes crearla
           <a href="/register">aquí</a>.
         </p>
       </div>
       <AddComments v-if="isLogged"></AddComments>
+      <p v-if="!isLogged && hasComments">
+          <a href="/login">Ingresa a tu cuenta</a> para comentar esta película. Si aún no tienes una cuenta, puedes crearla
+          <a href="/register">aquí</a>.
+        </p>
     </v-col>
-    <v-col cols="12" lg="4" order-lg="2" order="1">
+    <v-col cols="12" lg="4" order-lg="2" order="1" class="d-none d-lg-block">
       <SimilarMovies></SimilarMovies>
     </v-col>
   </v-row>

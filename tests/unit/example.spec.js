@@ -1,12 +1,12 @@
 import { shallowMount } from "@vue/test-utils";
-import HelloWorld from "@/components/HelloWorld.vue";
+import Comentarios from "@/components/Comentarios.vue";
 
-describe("HelloWorld.vue", () => {
-  it("renders props.msg when passed", () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg },
+describe("Comentarios.vue", () => {
+  it("validate props.isLogged when passed", () => {
+    const isLogged = true;
+    const wrapper = shallowMount(Comentarios, {
+      propsData: { isLogged },
     });
-    expect(wrapper.text()).toMatch(msg);
+    expect(wrapper.text()).toMatch(isLogged);
   });
 });
