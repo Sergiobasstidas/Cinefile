@@ -51,7 +51,6 @@ export const user = {
         collection(rootGetters["system/getFirestore"], "users"),
         user
       );
-      console.log(`Usuario creado con id ${docref.id} y nombre ${user.mail}`);
       dispatch("lists/fillNewUserLists", docref.id, { root: true });
       dispatch("setUserInfo", user.mail);
     },

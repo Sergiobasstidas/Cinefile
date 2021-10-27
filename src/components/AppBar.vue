@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar
-      class="px-12"
+      class="px-12 app_bar"
       app
       hide-on-scroll
       scroll-threshold="200"
@@ -103,70 +103,75 @@
 </template>
 
 <script>
-import UserCard from "@/components/UserCard.vue";
-export default {
-  components: { UserCard },
-  name: "App",
-  data: () => ({
-    drawer: false,
-    group: null,
-    links: [
-      {
-        title: "Home",
-        route: "/home",
-        icon: "mdi-home",
+  import UserCard from "@/components/UserCard.vue";
+  export default {
+    components: { UserCard },
+    name: "App",
+    data: () => ({
+      drawer: false,
+      group: null,
+      links: [
+        {
+          title: "Home",
+          route: "/home",
+          icon: "mdi-home",
+        },
+        {
+          title: "Peliculas",
+          route: "/movies",
+          icon: "mdi-movie-open-outline",
+        },
+        {
+          title: "Series",
+          route: "/series",
+          icon: "mdi-television-classic",
+        },
+      ],
+    }),
+    methods: {
+      setDrawer() {
+        this.$store.dispatch("system/toggleDrawer");
       },
-      {
-        title: "Peliculas",
-        route: "/movies",
-        icon: "mdi-movie-open-outline",
+      async logOut() {
+        await this.$store.dispatch("system/logOut");
+        this.$router.push("Home");
       },
-      {
-        title: "Series",
-        route: "/series",
-        icon: "mdi-television-classic",
+    },
+    computed: {
+      userLogedIn() {
+        return this.$store.state.system.logedUser ? true : false;
       },
-    ],
-  }),
-  methods: {
-    setDrawer() {
-      this.$store.dispatch("system/toggleDrawer");
     },
-    async logOut() {
-      await this.$store.dispatch("system/logOut");
-      this.$router.push("Home");
-    },
-  },
-  computed: {
-    userLogedIn() {
-      return this.$store.state.system.logedUser ? true : false;
-    },
-  },
-};
+  };
 </script>
 
 <style scoped>
-.navbar {
-  font-size: 14px;
-  font-weight: 500;
-}
-.logo {
-  max-width: 70px;
-  min-width: 70px;
-}
-.buttons:active {
-  color: red;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-}
-.buttons:hover {
-  transition: all .5s ease !important;
-  color: #0050b8;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-}
-.navigationDrawer {
-  top: 90px !important;
-  background-color: var(--main-dark-color) !important;
-}
+  .navbar {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .logo {
+    max-width: 70px;
+    min-width: 70px;
+  }
+  .buttons:active {
+    color: red;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+  }
+  .buttons:hover {
+    transition: all 0.5s ease !important;
+    color: #0050b8;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+  }
+  .navigationDrawer {
+    top: 90px !important;
+    background-color: var(--main-dark-color) !important;
+  }
+  @media (max-width: 600px) {
+    .app_bar {
+      padding: 0 15px !important;
+    }
+  }
 </style>

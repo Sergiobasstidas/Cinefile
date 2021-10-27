@@ -5,7 +5,7 @@
     </div>
     <carousel
       :perPageCustom="[
-        [100, 2],
+        [100, 4],
         [800, 3],
         [1124, 4],
         [1400, 5],
@@ -121,6 +121,9 @@
     justify-content: center;
   }
   .castCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width: 220px;
     margin: 20px;
     &:first-child {
@@ -134,5 +137,19 @@
   }
   .cast_carousel_title .title_text {
     font-size: 2em;
+  }
+  @media (max-width: 600px) {
+    .title_text {
+      font-size: 1.5em !important;
+    }
+    .castCard {
+      max-width: 80px;
+      margin: 10px;
+      font-size: 12px;
+    }
+    .carousel {
+      width: 100%;
+      margin: 0 auto;
+    }
   }
 </style>
