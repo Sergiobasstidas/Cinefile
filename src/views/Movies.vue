@@ -1,6 +1,6 @@
 <template>
   <div class="grid-container mx-auto">
-    <h1 class="title-text mb-6">Movies</h1>
+    <h1 class="title-text mb-6">Peliculas</h1>
 
     <DisplayMovies :list="$store.state.listedMovies" :type="type" />
   </div>
@@ -41,4 +41,3 @@
     }
   }
 </style>
-
